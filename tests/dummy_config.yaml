@@ -1,0 +1,16 @@
+env:
+  dtype: bfloat16 # will be converted to th.dtype
+  device: cuda
+  hf_cache_dir: models # resolves to root.parent/hf_cache_dir
+  texts_dir: data/texts
+  tokens_dir: data/tokens
+
+llm:
+  hf_name: allenai/Olmo-3-1025-7B
+  layer_idx: 15
+  batch_size: 100
+
+  sequence_aggregation_method: max # max, sum
+
+data:
+  name: days

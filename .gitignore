@@ -1,3 +1,15 @@
 # UV
 .python_version
 *.lock
+
+# Cursor
+.cursor
+
+# Python
+__pycache__
+*.egg-info
+
+# Data
+data/activations
+data/plots
+data/tokens
