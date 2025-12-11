@@ -8,7 +8,7 @@ env:
   debug: False
 
 llm:
-  hf_name: allenai/Olmo-3-1025-7B
+  hf_name: allenai/Olmo-3-1125-32B
   layer_idx: 15
   batch_size: 100
 
