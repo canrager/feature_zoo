@@ -15,13 +15,10 @@ from transformers import AutoModelForCausalLM
 
 
 def get_submodule(cfg: Config, llm: AutoModelForCausalLM) -> th.nn.Module:
-    if any([
-        name in cfg.llm.hf_name.lower() 
-        for name in ["olmo"]
-    ]):
+    if any([name in cfg.llm.hf_name.lower() for name in ["olmo"]]):
         return llm.model.layers[cfg.llm.layer_idx]
-    elif"gpt2" in cfg.llm.hf_name.lower():
-        return llm.transformer.h[cfg.llm.layer_idx] 
+    elif "gpt2" in cfg.llm.hf_name.lower():
+        return llm.transformer.h[cfg.llm.layer_idx]
     else:
         raise ValueError("Unknown model.")
 
@@ -88,7 +85,7 @@ def aggregate_activations(
     # Expand mask to (B, T, 1) to broadcast across D dimension
     mask_BTD = mask_BT.unsqueeze(-1).bool().to(cfg.env.device)
 
-    match cfg.llm.sequence_aggregation_method:
+    match cfg.exp.sequence_aggregation_method:
         case "max":
             # Mask invalid positions with -inf so they don't affect max
             masked_act = act_BTD.masked_fill(~mask_BTD, -float("inf"))
@@ -105,23 +102,29 @@ def aggregate_activations(
             return masked_act.sum(dim=1)
         case _:
             raise ValueError(
-                "Unknown llm_sequence_aggregation_method declared in the config.yaml!"
+                "Unknown sequence_aggregation_method declared in the config.yaml!"
             )
 
 
 def load_labeled_acts(cfg: Config, force_recompute=False):
 
     # Load texts
-    labels, texts = load_texts(cfg)
+    labels, full_texts = load_texts(cfg)
 
     # Load or compute tokens
     token_path = Path(f"{cfg.env.texts_dir}/{cfg.data.name}.safetensors")
 
-    if token_path.exists():
+    if token_path.exists() and not force_recompute:
         encoded = load_file(str(token_path))
     else:
+        if cfg.env.debug:
+            print(f"Re-tokenizing...")
         tokenizer = load_tokenizer(cfg)
-        encoded = save_tokenized(cfg, texts, tokenizer)
+        encoded = save_tokenized(cfg, full_texts, tokenizer)
+
+    # Get the actual string representations of the tokens, might be truncated versions of full_text
+    tokens_list = [t[m] for t, m in zip(encoded["input_ids"], encoded["attention_mask"].bool())]
+    tokenized_texts = [tokenizer.decode(t) for t in tokens_list] 
 
     # Load or compute activations
     act_path = Path(
@@ -148,7 +151,7 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
 
     act_BD = aggregate_activations(cfg, act_BTD, encoded["attention_mask"])
 
-    return labels, texts, act_BD
+    return labels, tokenized_texts, act_BD
 
 
 if __name__ == "__main__":

@@ -2,20 +2,27 @@
 Utils for loading language models from huggingface
 """
 
+from numpy import True_
 import pandas as pd
 from pathlib import Path
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from datasets import load_dataset, Dataset
 from src.config import Config
 from typing import List, Tuple, Optional
 
 
 def load_llm(cfg: Config) -> AutoModelForCausalLM:
+    kwargs = {}
+
+    if cfg.llm.quantization_bits is not None:
+        kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
+
     llm = AutoModelForCausalLM.from_pretrained(
         cfg.llm.hf_name,
         dtype=cfg.env.dtype,
         device_map=cfg.env.device,
         cache_dir=cfg.env.hf_cache_dir,
+        **kwargs,
     )
     return llm
 

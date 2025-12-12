@@ -1,0 +1,5 @@
+name: olmo3-32b-base
+hf_name: allenai/Olmo-3-1125-32B
+layer_idx: 32
+batch_size: 10
+quantization_bits: 8

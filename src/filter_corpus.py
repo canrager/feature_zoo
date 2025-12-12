@@ -76,11 +76,11 @@ def filter_corpus(cfg: Config, keywords_labels: Optional[List[str]] = None):
                 matched_text = re.sub(r"[\s\W]+$", "", matched_text)
                 # Store both text and label
                 label = keyword_to_label.get(key, key)
-                matches[key].append((matched_text, label))
-
-                # Debug: print every matched sequence
-                # if cfg.env.debug:
-                #     print(f"[DEBUG] Matched '{key}': {matched_text}")
+                # Optionally filter for min number of characters
+                if (cfg.filter.min_char_count is None) or (
+                    len(matched_text) >= cfg.filter.min_char_count
+                ):
+                    matches[key].append((matched_text, label))
 
         # Update progress bar with current status
         completed_keywords = initial_keyword_count - len(keywords)
@@ -103,16 +103,20 @@ def filter_corpus(cfg: Config, keywords_labels: Optional[List[str]] = None):
         f"\nFiltering complete: Found {sum(len(m) for m in matches.values())} total matches across {initial_keyword_count} keywords"
     )
 
-    return matches
+    # Order matches by original keywords_list order
+    ordered_matches = {key: matches[key] for key in keywords_list if key in matches}
+    return ordered_matches
 
 
-def save_filtered_corpus(cfg: Config) -> List[tuple[str, str]]:
+def save_filtered_corpus(
+    cfg: Config, force_rerun: bool = False
+) -> List[tuple[str, str]]:
     # Determine save name, save dir is in cfg.env.texts_dir
     save_dir = Path(cfg.env.texts_dir)
     save_path = save_dir / f"{cfg.filter.regex_file}_filtered.csv"
 
     # If file exists, print warning and exit. Else load keywords
-    if save_path.exists():
+    if (force_rerun == False) and (save_path.exists()):
         print(f"Warning: File {save_path} already exists. Exiting without overwriting.")
         return []
 
@@ -140,4 +144,4 @@ if __name__ == "__main__":
     from src.config import load_config
 
     cfg = load_config()
-    save_filtered_corpus(cfg)
+    save_filtered_corpus(cfg, force_rerun=True)

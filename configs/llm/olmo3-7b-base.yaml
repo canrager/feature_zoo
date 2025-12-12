@@ -1,0 +1,5 @@
+name: olmo3-7b-base
+hf_name: allenai/Olmo-3-1025-7B
+layer_idx: 15
+batch_size: 100
+quantization_bits: # blank for None

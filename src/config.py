@@ -2,6 +2,8 @@ from pathlib import Path
 from omegaconf import OmegaConf
 from dataclasses import dataclass, fields, is_dataclass
 import torch as th
+from hydra import initialize_config_dir, compose
+from hydra.core.global_hydra import GlobalHydra
 
 DTYPE_STR_TO_TH = {"bfloat16": th.bfloat16, "float32": th.float32}
 
@@ -29,24 +31,40 @@ class EnvironmentConfig:
         self.dtype = DTYPE_STR_TO_TH[self.dtype]
         self.hf_cache_dir = get_root_parent_subdir(self.hf_cache_dir)
 
-
-@dataclass
-class LLMConfig:
-    hf_name: str
-    layer_idx: int
-    batch_size: int
-    sequence_aggregation_method: str
-
-
 @dataclass
 class DataConfig:
     name: str
+    fixed_context_length: int | None
+
+
+@dataclass
+class LLMConfig:
+    name: str
+    hf_name: str
+    layer_idx: int
+    batch_size: int
+    quantization_bits: int | None
+
+
+@dataclass
+class SAEConfig:
+    llm_name: str
+    llm_layer_idx: int
+    sae_type: str
+    batch_size: int
+
 
 @dataclass
 class FilterConfig:
     corpus: str
     regex_file: str
     num_occurences: int
+    min_char_count: int | None
+
+
+@dataclass
+class ExperimentConfig:
+    sequence_aggregation_method: str
 
 
 @dataclass
@@ -55,6 +73,7 @@ class Config:
     llm: LLMConfig
     data: DataConfig
     filter: FilterConfig
+    exp: ExperimentConfig
 
     def __repr__(self):
         return pretty_print_dataclass(self)
@@ -80,9 +99,24 @@ def pretty_print_dataclass(obj, indent: int = 0) -> str:
     return "\n".join(lines)
 
 
-def load_config(path: str = "config") -> Config:
-    path = f"configs/{path}.yaml"
-    raw = OmegaConf.load(path)
-    schema = OmegaConf.structured(Config)
-    merged = OmegaConf.merge(schema, raw)
-    return OmegaConf.to_object(merged)  # Returns actual dataclass instance
+def load_config(
+    config_name: str = "config", overrides: list[str] | None = None
+) -> Config:
+    """Load config using Hydra's compose API with defaults composition.
+
+    Args:
+        config_name: Name of the config file (without .yaml extension)
+        overrides: Optional list of Hydra overrides, e.g. ["llm=olmo3-7b-base", "env.device=cpu"]
+
+    Returns:
+        Config dataclass instance with all defaults composed and post-processing applied.
+    """
+    # Clear any previous Hydra state (important for notebooks)
+    GlobalHydra.instance().clear()
+
+    config_dir = str(Path(__file__).parent.parent / "configs")
+
+    with initialize_config_dir(config_dir=config_dir, version_base=None):
+        cfg = compose(config_name=config_name, overrides=overrides or [])
+        merged = OmegaConf.merge(OmegaConf.structured(Config), cfg)
+        return OmegaConf.to_object(merged)

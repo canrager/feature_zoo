@@ -13,3 +13,4 @@ __pycache__
 data/activations
 data/plots
 data/tokens
+data/trained_saes

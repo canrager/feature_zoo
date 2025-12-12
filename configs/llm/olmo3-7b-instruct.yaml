@@ -1,0 +1,5 @@
+name: olmo3-7b-instruct
+hf_name: allenai/Olmo-3-7B-Instruct
+layer_idx: 15
+batch_size: 100
+quantization_bits: # blank for None

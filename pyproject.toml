@@ -18,6 +18,8 @@ dependencies = [
     "datasets>=4.4.1",
     "tqdm>=4.66.0",
     "pandas>=2.0.0",
+    "bitsandbytes>=0.49.0",
+    "temporal-feature-analysis",
 ]
 
 [project.optional-dependencies]
@@ -31,6 +33,9 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 package = true
+
+[tool.uv.sources]
+temporal-feature-analysis = { path = "../TemporalFeatureAnalysis", editable = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]

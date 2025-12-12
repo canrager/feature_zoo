@@ -1,0 +1,4 @@
+llm_name: llama3.1-8b-base
+llm_layer_idx: 15
+sae_type: temporal
+batch_size: 100

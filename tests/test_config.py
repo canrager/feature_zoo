@@ -10,8 +10,8 @@ from src.config import load_config, Config, EnvironmentConfig, LLMConfig
 
 def test_load_config_valid():
     """Test loading a valid config file."""
-    config_path = Path(__file__).parent.parent / "configs" / "config.yaml"
-    result = load_config(str(config_path))
+    # Load test config from configs directory
+    result = load_config("test")
 
     # Verify it returns a MainConfig instance
     assert isinstance(result, Config)
@@ -23,4 +23,4 @@ def test_load_config_valid():
     # Verify values
     assert result.env.dtype == th.bfloat16
     assert result.env.device == "cuda"
-    assert result.llm.hf_name == "allenai/Olmo-3-1025-7B"
+    assert result.llm.hf_name == "openai-community/gpt2"

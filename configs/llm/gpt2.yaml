@@ -1,0 +1,5 @@
+name: gpt2
+hf_name: openai-community/gpt2
+layer_idx: 8
+batch_size: 100
+quantization_bits: # blank for None

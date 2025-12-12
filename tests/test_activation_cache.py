@@ -11,6 +11,7 @@ from src.config import (
     LLMConfig,
     DataConfig,
     FilterConfig,
+    ExperimentConfig,
 )
 from src.activation_cache import (
     get_submodule,
@@ -22,15 +23,15 @@ from src.activation_cache import (
 
 def test_get_submodule():
     """Test getting submodule from model."""
-    # Load dummy config
-    config_path = Path(__file__).parent / "dummy_config.yaml"
-    cfg = load_config(str(config_path))
+    # Load test config from configs directory
+    cfg = load_config("test")
 
-    # Mock LLM model
+    # Mock LLM model (gpt2 structure)
     mock_layer = Mock()
     mock_llm = Mock()
-    mock_llm.model.layers = [Mock() for _ in range(20)]
-    mock_llm.model.layers[cfg.llm.layer_idx] = mock_layer
+    mock_llm.transformer = Mock()
+    mock_llm.transformer.h = [Mock() for _ in range(20)]
+    mock_llm.transformer.h[cfg.llm.layer_idx] = mock_layer
 
     # Call get_submodule
     result = get_submodule(cfg, mock_llm)
@@ -41,9 +42,8 @@ def test_get_submodule():
 
 def test_batch_activation_cache(tmp_path):
     """Test batch activation caching."""
-    # Load dummy config
-    config_path = Path(__file__).parent / "dummy_config.yaml"
-    cfg = load_config(str(config_path))
+    # Load test config from configs directory
+    cfg = load_config("test")
     cfg.env.device = "cpu"  # Use CPU for testing
 
     # Mock submodule
@@ -94,9 +94,8 @@ def test_batch_activation_cache(tmp_path):
 
 def test_save_cached_activations(tmp_path):
     """Test saving cached activations."""
-    # Load dummy config
-    config_path = Path(__file__).parent / "dummy_config.yaml"
-    cfg = load_config(str(config_path))
+    # Load test config from configs directory
+    cfg = load_config("test")
     cfg.env.activations_dir = str(tmp_path)
     cfg.env.device = "cpu"
 
@@ -141,16 +140,21 @@ def test_aggregate_activations_max():
             debug=False,
         ),
         llm=LLMConfig(
+            name="test-model",
             hf_name="test-model",
             layer_idx=15,
             batch_size=100,
+            quantization_bits=None,
+        ),
+        exp=ExperimentConfig(
             sequence_aggregation_method="max",
         ),
-        data=DataConfig(name="test"),
+        data=DataConfig(name="test", fixed_context_length=None),
         filter=FilterConfig(
             corpus="test-corpus",
             regex_file="test-regex",
             num_occurences=1,
+            min_char_count=None,
         ),
     )
 
@@ -212,16 +216,21 @@ def test_aggregate_activations_final():
             debug=False,
         ),
         llm=LLMConfig(
+            name="test-model",
             hf_name="test-model",
             layer_idx=15,
             batch_size=100,
+            quantization_bits=None,
+        ),
+        exp=ExperimentConfig(
             sequence_aggregation_method="final",
         ),
-        data=DataConfig(name="test"),
+        data=DataConfig(name="test", fixed_context_length=None),
         filter=FilterConfig(
             corpus="test-corpus",
             regex_file="test-regex",
             num_occurences=1,
+            min_char_count=None,
         ),
     )
 
@@ -293,16 +302,21 @@ def test_aggregate_activations_sum():
             debug=False,
         ),
         llm=LLMConfig(
+            name="test-model",
             hf_name="test-model",
             layer_idx=15,
             batch_size=100,
+            quantization_bits=None,
+        ),
+        exp=ExperimentConfig(
             sequence_aggregation_method="sum",
         ),
-        data=DataConfig(name="test"),
+        data=DataConfig(name="test", fixed_context_length=None),
         filter=FilterConfig(
             corpus="test-corpus",
             regex_file="test-regex",
             num_occurences=1,
+            min_char_count=None,
         ),
     )
 
@@ -364,16 +378,21 @@ def test_aggregate_activations_unknown_method():
             debug=False,
         ),
         llm=LLMConfig(
+            name="test-model",
             hf_name="test-model",
             layer_idx=15,
             batch_size=100,
+            quantization_bits=None,
+        ),
+        exp=ExperimentConfig(
             sequence_aggregation_method="unknown_method",
         ),
-        data=DataConfig(name="test"),
+        data=DataConfig(name="test", fixed_context_length=None),
         filter=FilterConfig(
             corpus="test-corpus",
             regex_file="test-regex",
             num_occurences=1,
+            min_char_count=None,
         ),
     )
 
@@ -382,5 +401,5 @@ def test_aggregate_activations_unknown_method():
     mask_BT = th.ones(2, 4, dtype=th.bool)
 
     # Call aggregate_activations and expect ValueError
-    with pytest.raises(ValueError, match="Unknown llm_sequence_aggregation_method"):
+    with pytest.raises(ValueError, match="Unknown sequence_aggregation_method"):
         aggregate_activations(cfg, act_BTD, mask_BT)

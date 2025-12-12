@@ -1,0 +1,4 @@
+corpus: HuggingFaceFW/fineweb
+regex_file: days
+num_occurences: 20
+min_char_count: 50

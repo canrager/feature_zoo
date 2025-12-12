@@ -1,3 +1,10 @@
+defaults:
+  - llm: gpt2
+  - data: days
+  - filter: days_fineweb
+  - exp: final
+  - _self_
+
 env:
   dtype: bfloat16 # will be converted to th.dtype
   device: cuda
@@ -7,17 +14,7 @@ env:
   activations_dir: data/activations
   debug: False
 
-llm:
-  hf_name: allenai/Olmo-3-7B-Instruct
-  layer_idx: 15
-  batch_size: 100
-
-  sequence_aggregation_method: final # max, sum, final
-
 data:
   name: days_filtered
+  fixed_context_length: 3
 
-filter:
-  corpus: HuggingFaceFW/fineweb
-  regex_file: days
-  num_occurences: 20
