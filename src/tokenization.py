@@ -14,7 +14,7 @@ from src.config import Config
 from src.loading import load_tokenizer, load_texts
 
 
-def save_tokenized(
+def batch_tokenize(
     cfg: Config, texts: List[str], tokenizer: AutoTokenizer
 ) -> Dict[str, th.Tensor]:
     "Load texts separated by newlines, tokenize and save"
@@ -26,11 +26,33 @@ def save_tokenized(
         return_attention_mask=True,
         padding=True,
         padding_side="right",
+        add_special_tokens=True,
     )
+
+    # For models like GPT-2 that don't add BOS tokens automatically, prepend them
+    if encoded["input_ids"][0, 0].item() != tokenizer.bos_token_id:
+        bos_tokens = th.full(
+            (encoded["input_ids"].shape[0], 1),
+            tokenizer.bos_token_id,
+            dtype=encoded["input_ids"].dtype,
+            device=encoded["input_ids"].device,
+        )
+        ones = th.ones_like(bos_tokens)
+        encoded["input_ids"] = th.cat((bos_tokens, encoded["input_ids"]), dim=-1)
+        encoded["attention_mask"] = th.cat((ones, encoded["attention_mask"]), dim=-1)
 
     # Optionally truncate to final cfg.data.fixed_context_length
     if cfg.data.fixed_context_length is not None:
         ctx_len = cfg.data.fixed_context_length
+
+        # assert that every sequence starts with a BOS token
+        unique_first_tokens = set(encoded["input_ids"][:, 0].tolist())
+        assert unique_first_tokens == {tokenizer.bos_token_id}
+
+        # Remove BOS tokens (to be added back later)
+        encoded["input_ids"] = encoded["input_ids"][:, 1:]
+        encoded["attention_mask"] = encoded["attention_mask"][:, 1:]
+
         seq_lengths = encoded["attention_mask"].sum(dim=-1)  # (B,)
 
         # Check that all sequences are long enough
@@ -55,6 +77,28 @@ def save_tokenized(
                 encoded["attention_mask"], dim=1, index=indices
             ),
         }
+
+        # Add BOS tokens back in
+        bos_tokens_B = th.full(
+            (encoded["input_ids"].shape[0], 1),
+            tokenizer.bos_token_id,
+            dtype=encoded["input_ids"].dtype,
+            device=encoded["input_ids"].device,
+        )
+        ones_B = th.ones_like(bos_tokens_B)
+
+        encoded["input_ids"] = th.cat((bos_tokens_B, encoded["input_ids"]), dim=-1)
+        encoded["attention_mask"] = th.cat((ones_B, encoded["attention_mask"]), dim=-1)
+
+    return encoded
+
+
+def save_tokenized(
+    cfg: Config, texts: List[str], tokenizer: AutoTokenizer
+) -> Dict[str, th.Tensor]:
+    "Load texts separated by newlines, tokenize and save"
+
+    encoded = batch_tokenize(cfg, texts, tokenizer)
 
     # Save as safetensors
     tokens_dir = Path(cfg.env.tokens_dir)

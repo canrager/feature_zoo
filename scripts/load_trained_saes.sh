@@ -2,8 +2,12 @@
 set -e
 
 # Configuration
-REPO_ID="ekdeepslubana/temporalSAEs_llama"
-SUBDIR="layer_16"
+# REPO_ID="ekdeepslubana/temporalSAEs_llama"
+# SUBDIR="layer_16"
+# OUTPUT_DIR="data/trained_saes"
+
+REPO_ID="jbloom/GPT2-Small-SAEs-Reformatted"
+SUBDIR="blocks.7.hook_resid_pre"
 OUTPUT_DIR="data/trained_saes"
 
 # Navigate to project root

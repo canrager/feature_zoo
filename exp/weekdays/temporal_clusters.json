@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "source_file": "sae_multid_feature_discovery/gpt-2_layer_7_clusters_spectral_n1000.pkl",
+    "model": "gpt2-small-res-jb",
+    "layer": 7,
+    "total_sae_neurons": 24576,
+    "clustering_method": "spectral",
+    "num_clusters": 1000,
+    "description": "Multi-dimensional SAE feature clusters for temporal concepts"
+  },
+  "clusters": {
+    "days_of_week": {
+      "cluster_id": 138,
+      "sae_neuron_indices": [
+        2592,
+        4445,
+        4663,
+        4733,
+        6531,
+        8179,
+        9566,
+        20927,
+        24185
+      ],
+      "description": "SAE neurons representing days of the week (circular structure)",
+      "num_neurons": 9
+    },
+    "months": {
+      "cluster_id": 251,
+      "sae_neuron_indices": [
+        3977,
+        4140,
+        5993,
+        7299,
+        9104,
+        9401,
+        10449,
+        11196,
+        12661,
+        14715,
+        17068,
+        17528,
+        19589,
+        21033,
+        22043,
+        23304
+      ],
+      "description": "SAE neurons representing months (circular structure)",
+      "num_neurons": 16
+    },
+    "years": {
+      "cluster_id": 212,
+      "sae_neuron_indices": [
+        1052,
+        2753,
+        4427,
+        6382,
+        8314,
+        9576,
+        9606,
+        13551,
+        19734,
+        20349
+      ],
+      "description": "SAE neurons representing years (spiral structure)",
+      "num_neurons": 10
+    }
+  }
+}

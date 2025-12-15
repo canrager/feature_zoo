@@ -1,6 +1,7 @@
 defaults:
   - llm: gpt2
   - data: days
+  - sae: llama3.1-8b-base_temporal
   - filter: days_fineweb
   - exp: final
   - _self_
@@ -12,6 +13,7 @@ env:
   texts_dir: data/texts
   tokens_dir: data/tokens
   activations_dir: data/activations
+  sae_dir: data/trained_saes
   debug: False
 
 data:

@@ -1,0 +1,5 @@
+llm_name: gpt2
+llm_layer_idx: 6
+arch: relu
+batch_size: 32
+act_scaling_factor: 1

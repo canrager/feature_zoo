@@ -1,5 +1,5 @@
 llm_name: llama3.1-8b-base
 llm_layer_idx: 15
-arch: temporal
+arch: batchtopk
 batch_size: 100
 act_scaling_factor: 0.085

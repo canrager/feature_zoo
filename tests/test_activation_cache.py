@@ -13,7 +13,7 @@ from src.config import (
     FilterConfig,
     ExperimentConfig,
 )
-from src.activation_cache import (
+from src.cache_llm import (
     get_submodule,
     batch_activation_cache,
     save_cached_activations,
@@ -66,7 +66,7 @@ def test_batch_activation_cache(tmp_path):
     mock_submodule.register_forward_hook.return_value = mock_handle
 
     # Mock the forward pass
-    with patch("src.activation_cache.get_submodule", return_value=mock_submodule):
+    with patch("src.cache_llm.get_submodule", return_value=mock_submodule):
         # Create encoded data
         encoded = {
             "input_ids": th.tensor([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]),
@@ -103,9 +103,7 @@ def test_save_cached_activations(tmp_path):
     mock_activations = th.randn(2, 5, 10)
 
     # Mock batch_activation_cache
-    with patch(
-        "src.activation_cache.batch_activation_cache", return_value=mock_activations
-    ):
+    with patch("src.cache_llm.batch_activation_cache", return_value=mock_activations):
         # Mock LLM
         mock_llm = Mock()
         mock_llm.model.layers = [Mock() for _ in range(20)]

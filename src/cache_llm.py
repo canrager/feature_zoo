@@ -8,14 +8,15 @@ from pathlib import Path
 from safetensors.torch import save_file, load_file
 from tqdm import trange
 
+from src.cache_sae import save_sae_cache
 from src.config import Config
-from src.loading import load_llm, load_tokenizer, load_texts
+from src.loading import load_llm, load_tokenizer, load_texts, load_sae
 from src.tokenization import save_tokenized
 from transformers import AutoModelForCausalLM
 
 
 def get_submodule(cfg: Config, llm: AutoModelForCausalLM) -> th.nn.Module:
-    if any([name in cfg.llm.hf_name.lower() for name in ["olmo"]]):
+    if any([name in cfg.llm.hf_name.lower() for name in ["olmo", "llama"]]):
         return llm.model.layers[cfg.llm.layer_idx]
     elif "gpt2" in cfg.llm.hf_name.lower():
         return llm.transformer.h[cfg.llm.layer_idx]
@@ -23,26 +24,31 @@ def get_submodule(cfg: Config, llm: AutoModelForCausalLM) -> th.nn.Module:
         raise ValueError("Unknown model.")
 
 
-def batch_activation_cache(
+def batch_llm_cache(
     cfg: Config, encoded: Dict, llm: AutoModelForCausalLM
 ) -> th.Tensor:
 
     submodule = get_submodule(cfg, llm)
     acts_BTD = []
 
-    def hook(module, input, output):
+    def input_hook(module, input, output):
+        if isinstance(input, tuple):
+            input = input[0]
+        acts_BTD.append(input.detach())
+
+    def output_hook(module, input, output):
         if isinstance(output, tuple):
             output = output[0]
         acts_BTD.append(output.detach())
 
-    handle = submodule.register_forward_hook(hook)
+    handle = submodule.register_forward_hook(output_hook)
 
     input_ids = encoded["input_ids"].to(cfg.env.device)
     attention_mask = encoded["attention_mask"].to(cfg.env.device)
 
     num_samples = input_ids.shape[0]
     for batch_start in trange(
-        0, num_samples, cfg.llm.batch_size, desc="Caching Activations"
+        0, num_samples, cfg.llm.batch_size, desc="LLM Cache"
     ):
         batch_end = min(batch_start + cfg.llm.batch_size, num_samples)
         batch_input_ids = input_ids[batch_start:batch_end]
@@ -64,13 +70,13 @@ def save_cached_activations(
     "Compute activations and save to safetensors"
 
     # Compute activations
-    activations = batch_activation_cache(cfg, encoded, llm)
+    activations = batch_llm_cache(cfg, encoded, llm)
 
     # Save as safetensors
     activations_dir = Path(cfg.env.activations_dir)
     activations_dir.mkdir(parents=True, exist_ok=True)
     output_path = (
-        activations_dir / f"{cfg.data.name}_layer{cfg.llm.layer_idx}.safetensors"
+        activations_dir / f"{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
     )
     activations_dict = {"activations": activations.to("cpu")}
     save_file(activations_dict, output_path)
@@ -82,6 +88,8 @@ def aggregate_activations(
     cfg: Config, act_BTD: th.Tensor, mask_BT: th.Tensor
 ) -> th.Tensor:
 
+    # mask BOS token
+    mask_BT[:, 0] = 0
     # Expand mask to (B, T, 1) to broadcast across D dimension
     mask_BTD = mask_BT.unsqueeze(-1).bool().to(cfg.env.device)
 
@@ -112,6 +120,8 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
     labels, full_texts = load_texts(cfg)
 
     # Load or compute tokens
+    if cfg.env.debug:
+        print(f"Tokenize...")
     token_path = Path(f"{cfg.env.texts_dir}/{cfg.data.name}.safetensors")
 
     if token_path.exists() and not force_recompute:
@@ -123,12 +133,15 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
         encoded = save_tokenized(cfg, full_texts, tokenizer)
 
     # Get the actual string representations of the tokens, might be truncated versions of full_text
-    tokens_list = [t[m] for t, m in zip(encoded["input_ids"], encoded["attention_mask"].bool())]
+    mask_BT = encoded["attention_mask"]
+    tokens_list = [t[m] for t, m in zip(encoded["input_ids"], mask_BT.bool())]
     tokenized_texts = [tokenizer.decode(t) for t in tokens_list] 
 
     # Load or compute activations
+    if cfg.env.debug:
+        print(f"LLM activations...")
     act_path = Path(
-        f"{cfg.env.activations_dir}/{cfg.data.name}_layer{cfg.llm.layer_idx}.safetensors"
+        f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
     )
 
     if act_path.exists() and not force_recompute:
@@ -149,9 +162,64 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
         llm = load_llm(cfg)
         act_BTD = save_cached_activations(cfg, encoded, llm)
 
-    act_BD = aggregate_activations(cfg, act_BTD, encoded["attention_mask"])
+        del llm
+        th.cuda.empty_cache()
 
-    return labels, tokenized_texts, act_BD
+    return_dict = {
+        "labels": labels,
+        "texts": tokenized_texts,
+        "input_ids_BT": encoded["input_ids"],
+        "mask_BT": encoded["attention_mask"], 
+        "llm_BTD": act_BTD,
+        "llm_BD": aggregate_activations(cfg, act_BTD, mask_BT)
+    }
+
+    if cfg.sae is not None:
+        if cfg.env.debug:
+            print(f"SAE activations...")
+
+        sae_path = f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_{cfg.sae.arch}"
+
+        if cfg.sae.arch == "temporal":
+            sae_recons_path = Path(f"{sae_path}_pred.safetensors")
+            sae_pred_path = Path(f"{sae_path}_pred.safetensors")
+            sae_novel_path = Path(f"{sae_path}_novel.safetensors")
+
+            if sae_pred_path.exists() and not force_recompute:
+                recons_BTD = load_file(str(sae_recons_path))["activations"].to(cfg.env.device)
+                pred_codes_BTD = load_file(str(sae_pred_path))["activations"].to(cfg.env.device)
+                novel_codes_BTD = load_file(str(sae_novel_path))["activations"].to(cfg.env.device)
+            else:
+                sae = load_sae(cfg)
+                recons_BTD, pred_codes_BTD, novel_codes_BTD = save_sae_cache(cfg, sae, act_BTD)
+                del sae
+                th.cuda.empty_cache()
+            
+            return_dict["recons_BTD"] = recons_BTD
+            return_dict["recons_BD"] = aggregate_activations(cfg, pred_codes_BTD, mask_BT)
+            return_dict["pred_codes_BTD"] = pred_codes_BTD
+            return_dict["pred_codes_BD"] = aggregate_activations(cfg, pred_codes_BTD, mask_BT)
+            return_dict["novel_codes_BTD"] = novel_codes_BTD
+            return_dict["novel_codes_BD"] = aggregate_activations(cfg, novel_codes_BTD, mask_BT)
+
+        else:
+            sae_recons_path = Path(f"{sae_path}_recons.safetensors")
+            sae_codes_path = Path(f"{sae_path}_codes.safetensors")
+            if sae_recons_path.exists() and not force_recompute:
+                recons_BTD = load_file(sae_recons_path)["activations"].to(cfg.env.device)
+                codes_BTD = load_file(sae_codes_path)["activations"].to(cfg.env.device)
+            else:
+                sae = load_sae(cfg)
+                recons_BTD, codes_BTD = save_sae_cache(cfg, sae, act_BTD)
+                del sae
+                th.cuda.empty_cache()
+
+            return_dict["recons_BTD"] = recons_BTD
+            return_dict["recons_BD"] = aggregate_activations(cfg, recons_BTD, mask_BT)
+            return_dict["codes_BTD"] = codes_BTD
+            return_dict["codes_BD"] = aggregate_activations(cfg, codes_BTD, mask_BT)
+
+    return return_dict
 
 
 if __name__ == "__main__":
@@ -169,5 +237,5 @@ if __name__ == "__main__":
     activations = save_cached_activations(cfg, encoded, llm)
     print(f"Loaded activations with shape: {activations.shape}")
 
-    labels, texts, act_BD = load_labeled_acts(cfg)
-    print(f"Aggregated activations with shape: {act_BD.shape}")
+    results_dict = load_labeled_acts(cfg)
+    print(f"Aggregated activations with shape: {results_dict["llm_BD"].shape}")

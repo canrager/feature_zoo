@@ -25,6 +25,7 @@ class EnvironmentConfig:
     texts_dir: str
     tokens_dir: str
     activations_dir: str
+    sae_dir: str
     debug: bool
 
     def __post_init__(self):
@@ -50,8 +51,9 @@ class LLMConfig:
 class SAEConfig:
     llm_name: str
     llm_layer_idx: int
-    sae_type: str
+    arch: str
     batch_size: int
+    act_scaling_factor: float
 
 
 @dataclass
@@ -65,13 +67,15 @@ class FilterConfig:
 @dataclass
 class ExperimentConfig:
     sequence_aggregation_method: str
+    num_pca_components: int
 
 
 @dataclass
 class Config:
     env: EnvironmentConfig
-    llm: LLMConfig
     data: DataConfig
+    llm: LLMConfig
+    sae: SAEConfig | None
     filter: FilterConfig
     exp: ExperimentConfig
 
