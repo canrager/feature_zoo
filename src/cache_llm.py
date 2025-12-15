@@ -114,7 +114,7 @@ def aggregate_activations(
             )
 
 
-def load_labeled_acts(cfg: Config, force_recompute=False):
+def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=True):
 
     # Load texts
     labels, full_texts = load_texts(cfg)
@@ -126,11 +126,13 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
 
     if token_path.exists() and not force_recompute:
         encoded = load_file(str(token_path))
-    else:
+    elif compute_if_missing:
         if cfg.env.debug:
             print(f"Re-tokenizing...")
         tokenizer = load_tokenizer(cfg)
         encoded = save_tokenized(cfg, full_texts, tokenizer)
+    else:
+        raise FileNotFoundError()
 
     # Get the actual string representations of the tokens, might be truncated versions of full_text
     mask_BT = encoded["attention_mask"]
@@ -158,12 +160,14 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
                 f"This likely means the dataset changed after activations were cached. "
                 f"Set force_recompute=True to recompute activations."
             )
-    else:
+    elif compute_if_missing:
         llm = load_llm(cfg)
         act_BTD = save_cached_activations(cfg, encoded, llm)
 
         del llm
         th.cuda.empty_cache()
+    else:
+        raise FileNotFoundError()
 
     return_dict = {
         "labels": labels,
@@ -189,11 +193,13 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
                 recons_BTD = load_file(str(sae_recons_path))["activations"].to(cfg.env.device)
                 pred_codes_BTD = load_file(str(sae_pred_path))["activations"].to(cfg.env.device)
                 novel_codes_BTD = load_file(str(sae_novel_path))["activations"].to(cfg.env.device)
-            else:
+            elif compute_if_missing:
                 sae = load_sae(cfg)
                 recons_BTD, pred_codes_BTD, novel_codes_BTD = save_sae_cache(cfg, sae, act_BTD)
                 del sae
                 th.cuda.empty_cache()
+            else:
+                raise FileNotFoundError()
             
             return_dict["recons_BTD"] = recons_BTD
             return_dict["recons_BD"] = aggregate_activations(cfg, pred_codes_BTD, mask_BT)
@@ -208,11 +214,13 @@ def load_labeled_acts(cfg: Config, force_recompute=False):
             if sae_recons_path.exists() and not force_recompute:
                 recons_BTD = load_file(sae_recons_path)["activations"].to(cfg.env.device)
                 codes_BTD = load_file(sae_codes_path)["activations"].to(cfg.env.device)
-            else:
+            elif compute_if_missing:
                 sae = load_sae(cfg)
                 recons_BTD, codes_BTD = save_sae_cache(cfg, sae, act_BTD)
                 del sae
                 th.cuda.empty_cache()
+            else:
+                raise FileNotFoundError()
 
             return_dict["recons_BTD"] = recons_BTD
             return_dict["recons_BD"] = aggregate_activations(cfg, recons_BTD, mask_BT)
