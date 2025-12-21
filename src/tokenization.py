@@ -14,7 +14,7 @@ from src.config import Config
 from src.loading import load_tokenizer, load_texts
 
 
-def batch_tokenize(
+def bulk_tokenize(
     cfg: Config, texts: List[str], tokenizer: AutoTokenizer
 ) -> Dict[str, th.Tensor]:
     "Load texts separated by newlines, tokenize and save"
@@ -98,7 +98,7 @@ def save_tokenized(
 ) -> Dict[str, th.Tensor]:
     "Load texts separated by newlines, tokenize and save"
 
-    encoded = batch_tokenize(cfg, texts, tokenizer)
+    encoded = bulk_tokenize(cfg, texts, tokenizer)
 
     # Save as safetensors
     tokens_dir = Path(cfg.env.tokens_dir)

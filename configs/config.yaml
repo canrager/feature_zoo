@@ -1,8 +1,8 @@
 defaults:
-  - data: days
+  - data: days_21k
   - llm: gpt2
   - sae: gpt2_relu
-  - filter: days_fineweb
+  - filter: days_fineweb_big
   - exp: final
   - _self_
 

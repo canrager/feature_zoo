@@ -1,2 +1,2 @@
 name: days_filtered
-fixed_context_length: 
+fixed_context_length: 10

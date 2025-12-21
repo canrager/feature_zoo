@@ -132,9 +132,13 @@ def save_filtered_corpus(
     # Save results
     save_dir.mkdir(parents=True, exist_ok=True)
     with open(save_path, "w", newline="") as f:
-        writer = csv.writer(f)
+        # Use QUOTE_NONNUMERIC to always quote text fields (handles commas properly)
+        writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         writer.writerow(["label", "text"])
         for text, label in matched_entries:
+            # Remove any embedded newlines and normalize whitespace
+            text = re.sub(r'\s+', ' ', text).strip()
+            label = re.sub(r'\s+', ' ', label).strip()
             writer.writerow([label, text])
 
     return matched_entries

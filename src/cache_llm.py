@@ -122,14 +122,15 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
     # Load or compute tokens
     if cfg.env.debug:
         print(f"Tokenize...")
-    token_path = Path(f"{cfg.env.texts_dir}/{cfg.data.name}.safetensors")
+    token_path = Path(f"{cfg.env.tokens_dir}/{cfg.data.name}.safetensors")
 
+    tokenizer = load_tokenizer(cfg)
+    
     if token_path.exists() and not force_recompute:
         encoded = load_file(str(token_path))
     elif compute_if_missing:
         if cfg.env.debug:
             print(f"Re-tokenizing...")
-        tokenizer = load_tokenizer(cfg)
         encoded = save_tokenized(cfg, full_texts, tokenizer)
     else:
         raise FileNotFoundError()

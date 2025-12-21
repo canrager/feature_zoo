@@ -3,6 +3,7 @@ A collection of multidimensional features in the embedding space of language mod
 
 - [ ] Days of the week (Engels et al)
     - Data at `/data/texts/days.txt` # days in uppercase, lowercase, lowercase + s
+    - Filtering for 21k weekday occurences in huggingface fineweb takes about 3h
 
 
 

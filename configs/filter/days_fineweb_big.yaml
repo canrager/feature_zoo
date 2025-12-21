@@ -1,0 +1,4 @@
+corpus: skylion007/openwebtext
+regex_file: days
+num_occurences: 3000
+min_char_count: 50
