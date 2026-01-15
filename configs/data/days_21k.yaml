@@ -1,2 +1,3 @@
 name: days_filtered_21k
+filename: days_filtered_21k.csv
 fixed_context_length: 5

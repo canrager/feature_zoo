@@ -7,15 +7,14 @@ from pathlib import Path
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, GPT2TokenizerFast
 from datasets import load_dataset, Dataset
 from src.config import Config
-from typing import List, Tuple, Optional, Any
+from typing import List, Tuple, Optional, Any, Dict
+import json
 
 from sae import SAEStandard, TemporalSAE
 
 
 def load_tokenizer(cfg: Config) -> AutoTokenizer:
-    tokenizer = AutoTokenizer.from_pretrained(
-        cfg.llm.hf_name, cache_dir=cfg.env.hf_cache_dir
-    )
+    tokenizer = AutoTokenizer.from_pretrained(cfg.llm.hf_name, cache_dir=cfg.env.hf_cache_dir)
     if "gpt2" in cfg.llm.hf_name.lower():
         tokenizer = GPT2TokenizerFast.from_pretrained(
             cfg.llm.hf_name, cache_dir=cfg.env.hf_cache_dir
@@ -46,21 +45,17 @@ def load_sae(cfg: Config) -> Any:
     if cfg.sae is None:
         raise ValueError("No SAE assigned in config.")
 
-    weights_path = f"{cfg.env.sae_dir}/{cfg.sae.llm_name}/layer_{cfg.sae.llm_layer_idx}/{cfg.sae.arch}"
+    weights_path = (
+        f"{cfg.env.sae_dir}/{cfg.sae.llm_name}/layer_{cfg.sae.llm_layer_idx}/{cfg.sae.arch}"
+    )
     if cfg.sae.arch == "temporal":
-        sae = TemporalSAE.from_pretrained(
-            weights_path, dtype=cfg.env.dtype, device=cfg.env.device
-        )
+        sae = TemporalSAE.from_pretrained(weights_path, dtype=cfg.env.dtype, device=cfg.env.device)
     else:
-        sae = SAEStandard.from_pretrained(
-            weights_path, dtype=cfg.env.dtype, device=cfg.env.device
-        )
+        sae = SAEStandard.from_pretrained(weights_path, dtype=cfg.env.dtype, device=cfg.env.device)
     return sae
 
 
-def load_texts(
-    cfg: Config, filename: str | None = None
-) -> Tuple[List[str], Optional[List[str]]]:
+def load_texts(cfg: Config, filename: str | None = None) -> Tuple[List[str], Optional[List[str]]]:
     """
     Load texts from CSV file with 'label' and 'text' columns.
 
@@ -69,9 +64,9 @@ def load_texts(
         If 'label' column is missing or empty, labels will be None.
     """
     if filename is None:
-        filename = cfg.data.name
+        filename = cfg.data.filename
 
-    csv_path = Path(cfg.env.texts_dir) / f"{filename}.csv"
+    csv_path = Path(cfg.env.texts_dir) / filename
 
     if not csv_path.exists():
         raise FileNotFoundError(f"CSV file {csv_path} does not exist")
@@ -82,6 +77,21 @@ def load_texts(
     texts = df["text"].astype(str).tolist()
 
     return labels, texts
+
+
+def load_trajectory_texts(cfg: Config) -> Dict:
+    path = Path(cfg.env.texts_dir) / cfg.data.filename
+    with open(path, "r") as f:
+        traj_dict = json.load(f)
+
+    labels, texts, indices = [], [], []
+    for key in traj_dict:
+        for step in traj_dict[key]:
+            indices.append(step[0])
+            labels.append(step[1])
+            texts.append(step[2])
+
+    return labels, texts, indices
 
 
 def load_corpus(cfg: Config) -> Dataset:

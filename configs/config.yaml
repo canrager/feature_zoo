@@ -1,5 +1,5 @@
 defaults:
-  - data: days_21k
+  - data: days_trajectories
   - llm: gpt2
   - sae: gpt2_relu
   - filter: days_fineweb_big

@@ -32,9 +32,11 @@ class EnvironmentConfig:
         self.dtype = DTYPE_STR_TO_TH[self.dtype]
         self.hf_cache_dir = get_root_parent_subdir(self.hf_cache_dir)
 
+
 @dataclass
 class DataConfig:
     name: str
+    filename: str
     fixed_context_length: int | None
 
 
@@ -103,9 +105,7 @@ def pretty_print_dataclass(obj, indent: int = 0) -> str:
     return "\n".join(lines)
 
 
-def load_config(
-    config_name: str = "config", overrides: list[str] | None = None
-) -> Config:
+def load_config(config_name: str = "config", overrides: list[str] | None = None) -> Config:
     """Load config using Hydra's compose API with defaults composition.
 
     Args:

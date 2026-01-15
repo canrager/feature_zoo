@@ -1,2 +1,3 @@
-name: days_filtered_21k
-fixed_context_length: 5
+name: days_trajectories
+filename: days_trajectories_weekday_only.json
+fixed_context_length: 

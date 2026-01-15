@@ -1,24 +1,23 @@
-import csv
 import json
 from itertools import product
 from pathlib import Path
 
 
 def generate_dataset(
-    template_csv_path: str,
+    template_txt_path: str,
     output_json_path: str,
     categories: dict[str, list[str] | None],
     placeholder: str = "{temporal}",
     output_order: list[str] | None = None,
 ) -> None:
     """
-    Generate a dataset from template CSV with placeholder substitution.
+    Generate a dataset from template text file with placeholder substitution.
 
     This version uses a single placeholder in the template and concatenates
     multiple category values to fill it.
 
     Args:
-        template_csv_path: Path to the template CSV file
+        template_txt_path: Path to the template text file
         output_json_path: Path for the output JSON file
         categories: Ordered dict of category names to lists of values
                    The order determines hierarchy (last changes fastest)
@@ -29,12 +28,19 @@ def generate_dataset(
                      (e.g., ['adverb', 'weekday', 'time'] for "early Monday morning")
                      If None, uses the order from categories dict.
     """
-    # Read templates from CSV
+    # Read templates from text file
     templates = []
-    with open(template_csv_path, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            templates.append(row["template"])
+    with open(template_txt_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            # Split by → separator if present (numbered format), otherwise use the whole line
+            if "→" in line:
+                template = line.split("→", 1)[1]
+            else:
+                template = line
+            templates.append(template)
 
     # Filter out None values from categories
     active_categories = {k: v for k, v in categories.items() if v is not None}
@@ -71,9 +77,6 @@ def generate_dataset(
 
             # Fill in the template
             filled = template.replace(placeholder, temporal_value)
-
-            # Clean up any multiple spaces
-            filled = " ".join(filled.split())
 
             # Store as [idx, placeholder_value, filled_string]
             filled_strings.append([idx, temporal_value, filled])
@@ -119,8 +122,8 @@ if __name__ == "__main__":
     output_order = ["adverb", "weekday", "time"]
 
     # Set paths
-    template_path = "/home/can/feature_zoo/data/texts/days_templates_100_single_placeholder.csv"
-    output_path = "/home/can/feature_zoo/data/texts/days_dataset_weekday_only.json"
+    template_path = "/home/can/feature_zoo/data/texts/days_templates_123_single_placeholder.txt"
+    output_path = "/home/can/feature_zoo/data/texts/days_trajectories_weekday_only.json"
 
     # Generate the dataset
     generate_dataset(template_path, output_path, categories, output_order=output_order)

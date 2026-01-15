@@ -7,11 +7,12 @@ from typing import Dict
 from pathlib import Path
 from safetensors.torch import save_file, load_file
 from tqdm import trange
+import einops
 
 from src.cache_sae import save_sae_cache
 from src.config import Config
-from src.loading import load_llm, load_tokenizer, load_texts, load_sae
-from src.tokenization import save_tokenized
+from src.loading import load_llm, load_tokenizer, load_texts, load_sae, load_trajectory_texts
+from src.tokenization import save_tokenized, get_tokenized_texts
 from transformers import AutoModelForCausalLM
 
 
@@ -24,9 +25,7 @@ def get_submodule(cfg: Config, llm: AutoModelForCausalLM) -> th.nn.Module:
         raise ValueError("Unknown model.")
 
 
-def batch_llm_cache(
-    cfg: Config, encoded: Dict, llm: AutoModelForCausalLM
-) -> th.Tensor:
+def batch_llm_cache(cfg: Config, encoded: Dict, llm: AutoModelForCausalLM) -> th.Tensor:
 
     submodule = get_submodule(cfg, llm)
     acts_BTD = []
@@ -47,9 +46,7 @@ def batch_llm_cache(
     attention_mask = encoded["attention_mask"].to(cfg.env.device)
 
     num_samples = input_ids.shape[0]
-    for batch_start in trange(
-        0, num_samples, cfg.llm.batch_size, desc="LLM Cache"
-    ):
+    for batch_start in trange(0, num_samples, cfg.llm.batch_size, desc="LLM Cache"):
         batch_end = min(batch_start + cfg.llm.batch_size, num_samples)
         batch_input_ids = input_ids[batch_start:batch_end]
         batch_encoded = {"input_ids": batch_input_ids}
@@ -64,9 +61,7 @@ def batch_llm_cache(
     return th.cat(acts_BTD, dim=0)
 
 
-def save_cached_activations(
-    cfg: Config, encoded: Dict, llm: AutoModelForCausalLM
-) -> th.Tensor:
+def save_cached_activations(cfg: Config, encoded: Dict, llm: AutoModelForCausalLM) -> th.Tensor:
     "Compute activations and save to safetensors"
 
     # Compute activations
@@ -84,17 +79,15 @@ def save_cached_activations(
     return activations
 
 
-def aggregate_activations(
-    cfg: Config, act_BTD: th.Tensor, mask_BT: th.Tensor
-) -> th.Tensor:
+def aggregate_activations(cfg: Config, act_BTD: th.Tensor, mask_BT: th.Tensor) -> th.Tensor:
 
-    # mask BOS token
-    mask_BT[:, 0] = 0
     # Expand mask to (B, T, 1) to broadcast across D dimension
     mask_BTD = mask_BT.unsqueeze(-1).bool().to(cfg.env.device)
 
     match cfg.exp.sequence_aggregation_method:
         case "max":
+            # mask BOS token
+            mask_BT[:, 0] = 0
             # Mask invalid positions with -inf so they don't affect max
             masked_act = act_BTD.masked_fill(~mask_BTD, -float("inf"))
             return masked_act.max(dim=1).values
@@ -105,13 +98,13 @@ def aggregate_activations(
             batch_indices = th.arange(act_BTD.shape[0], device=act_BTD.device)
             return act_BTD[batch_indices, seq_lengths, :]
         case "sum":
+            # mask BOS token
+            mask_BT[:, 0] = 0
             # Mask invalid positions with 0 so they don't affect sum
             masked_act = act_BTD.masked_fill(~mask_BTD, 0.0)
             return masked_act.sum(dim=1)
         case _:
-            raise ValueError(
-                "Unknown sequence_aggregation_method declared in the config.yaml!"
-            )
+            raise ValueError("Unknown sequence_aggregation_method declared in the config.yaml!")
 
 
 def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=True):
@@ -125,7 +118,7 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
     token_path = Path(f"{cfg.env.tokens_dir}/{cfg.data.name}.safetensors")
 
     tokenizer = load_tokenizer(cfg)
-    
+
     if token_path.exists() and not force_recompute:
         encoded = load_file(str(token_path))
     elif compute_if_missing:
@@ -136,9 +129,7 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
         raise FileNotFoundError()
 
     # Get the actual string representations of the tokens, might be truncated versions of full_text
-    mask_BT = encoded["attention_mask"]
-    tokens_list = [t[m] for t, m in zip(encoded["input_ids"], mask_BT.bool())]
-    tokenized_texts = [tokenizer.decode(t) for t in tokens_list] 
+    tokenized_texts = get_tokenized_texts(encoded)
 
     # Load or compute activations
     if cfg.env.debug:
@@ -174,9 +165,9 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
         "labels": labels,
         "texts": tokenized_texts,
         "input_ids_BT": encoded["input_ids"],
-        "mask_BT": encoded["attention_mask"], 
+        "mask_BT": encoded["attention_mask"],
         "llm_BTD": act_BTD,
-        "llm_BD": aggregate_activations(cfg, act_BTD, mask_BT)
+        "llm_BD": aggregate_activations(cfg, act_BTD, encoded["attention_mask"]),
     }
 
     if cfg.sae is not None:
@@ -201,13 +192,13 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
                 th.cuda.empty_cache()
             else:
                 raise FileNotFoundError()
-            
+
             return_dict["recons_BTD"] = recons_BTD
-            return_dict["recons_BD"] = aggregate_activations(cfg, pred_codes_BTD, mask_BT)
+            return_dict["recons_BD"] = aggregate_activations(cfg, pred_codes_BTD, encoded["attention_mask"])
             return_dict["pred_codes_BTD"] = pred_codes_BTD
-            return_dict["pred_codes_BD"] = aggregate_activations(cfg, pred_codes_BTD, mask_BT)
+            return_dict["pred_codes_BD"] = aggregate_activations(cfg, pred_codes_BTD, encoded["attention_mask"])
             return_dict["novel_codes_BTD"] = novel_codes_BTD
-            return_dict["novel_codes_BD"] = aggregate_activations(cfg, novel_codes_BTD, mask_BT)
+            return_dict["novel_codes_BD"] = aggregate_activations(cfg, novel_codes_BTD, encoded["attention_mask"])
 
         else:
             sae_recons_path = Path(f"{sae_path}_recons.safetensors")
@@ -224,11 +215,82 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
                 raise FileNotFoundError()
 
             return_dict["recons_BTD"] = recons_BTD
-            return_dict["recons_BD"] = aggregate_activations(cfg, recons_BTD, mask_BT)
+            return_dict["recons_BD"] = aggregate_activations(cfg, recons_BTD, encoded["attention_mask"])
             return_dict["codes_BTD"] = codes_BTD
-            return_dict["codes_BD"] = aggregate_activations(cfg, codes_BTD, mask_BT)
+            return_dict["codes_BD"] = aggregate_activations(cfg, codes_BTD, encoded["attention_mask"])
 
     return return_dict
+
+
+def load_short_trajectory_acts(
+    cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
+) -> Dict:
+
+    # Load data
+    labels, texts, indices = load_trajectory_texts(cfg)
+
+    # Load or compute tokens
+    if cfg.env.debug:
+        print(f"Tokenize...")
+    token_path = Path(f"{cfg.env.tokens_dir}/{cfg.data.name}.safetensors")
+
+    tokenizer = load_tokenizer(cfg)
+
+    if token_path.exists() and not force_recompute:
+        encoded = load_file(str(token_path))
+    elif compute_if_missing:
+        if cfg.env.debug:
+            print(f"Re-tokenizing...")
+        encoded = save_tokenized(cfg, texts, tokenizer)
+    else:
+        raise FileNotFoundError()
+
+    # Get the actual string representations of the tokens
+    tokenized_texts = get_tokenized_texts(encoded, tokenizer)
+
+    # Load or compute activations
+    if cfg.env.debug:
+        print(f"LLM activations...")
+    act_path = Path(
+        f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
+    )
+
+    if act_path.exists() and not force_recompute:
+        activation_dict = load_file(str(act_path))
+        acts_BTD = activation_dict["activations"].to(cfg.env.device)
+
+        # Validate batch size matches between activations and tokens
+        act_batch_size = acts_BTD.shape[0]
+        token_batch_size = encoded["attention_mask"].shape[0]
+        if act_batch_size != token_batch_size:
+            raise ValueError(
+                f"Batch size mismatch: activations have {act_batch_size} samples, "
+                f"but tokens have {token_batch_size} samples. "
+                f"This likely means the dataset changed after activations were cached. "
+                f"Set force_recompute=True to recompute activations."
+            )
+    elif compute_if_missing:
+        llm = load_llm(cfg)
+        acts_BTD = save_cached_activations(cfg, encoded, llm)
+
+        del llm
+        th.cuda.empty_cache()
+    else:
+        raise FileNotFoundError()
+
+    acts_aggregated_BD = aggregate_activations(cfg, acts_BTD, encoded["attention_mask"])
+    
+    acts_BWTD = einops.rearrange(acts_BTD, "(B W) T D -> B W T D", W=max(indices) + 1)
+    acts_aggregated_BWD = einops.rearrange(acts_aggregated_BD, "(B W) D -> B W D", W=max(indices) + 1)
+
+    return {
+        "labels": labels,
+        "texts": tokenized_texts,
+        "input_ids_BT": encoded["input_ids"],
+        "mask_BT": encoded["attention_mask"],
+        "llm_BWTD": acts_BWTD,
+        "llm_BWD": acts_aggregated_BWD,
+    }
 
 
 if __name__ == "__main__":
