@@ -1,0 +1,606 @@
+fresh green
+nasty green
+warm purple
+yellowish tan
+dark grass green
+pinkish tan
+strong blue
+toxic green
+windows blue
+blue blue
+blue with a hint of purple
+bright sea green
+dark green blue
+deep turquoise
+green teal
+strong pink
+lavender pink
+light moss green
+olive yellow
+pig pink
+desert
+purply
+candy pink
+kiwi green
+light grey green
+orange pink
+very light brown
+eggplant purple
+liliac
+custard
+darkish pink
+deep brown
+greenish beige
+manilla
+browny green
+kelley green
+sickly yellow
+sunny yellow
+azul
+darkgreen
+green/yellow
+pale gold
+sun yellow
+burple
+butterscotch
+indian red
+poison green
+bright yellow green
+squash
+cinnamon
+radioactive green
+raw sienna
+baby purple
+orangeish
+rust brown
+sand brown
+tealish green
+burnt siena
+dusk blue
+pale light green
+rosy pink
+light bluish green
+light bright green
+tiffany blue
+browny orange
+nice blue
+orangey yellow
+straw
+very dark brown
+terracota
+clear blue
+foam green
+light gold
+seafoam blue
+violet pink
+wintergreen
+yellow tan
+dark fuchsia
+indigo blue
+light yellowish green
+pale magenta
+rich purple
+sunflower yellow
+green/blue
+leather
+racing green
+vivid purple
+muted pink
+canary
+darkish purple
+true green
+dark slate blue
+flat blue
+rich blue
+greenblue
+icky green
+light khaki
+warm blue
+deep sea blue
+carmine
+dark yellow green
+plum purple
+golden rod
+old pink
+blood orange
+sand yellow
+clay brown
+dark blue grey
+light green blue
+warm pink
+dodger blue
+gross green
+sap green
+highlighter green
+raw umber
+vivid blue
+light greenish blue
+mud green
+pinky
+darkblue
+rosa
+lipstick
+claret
+dandelion
+orangered
+ruby
+greenish turquoise
+pastel red
+piss yellow
+bright cyan
+algae green
+darkish red
+reddy brown
+blush pink
+camouflage green
+lawn green
+vibrant blue
+purple/blue
+saffron
+warm brown
+bubble gum pink
+greenish cyan
+butter
+dusty orange
+off yellow
+pale olive green
+orangish
+leaf
+dried blood
+lightish purple
+rusty red
+lavender blue
+light grass green
+sunflower
+brick orange
+lightish red
+pure blue
+twilight blue
+violet red
+yellowy brown
+carnation
+muddy yellow
+dark seafoam green
+deep rose
+dusty red
+lemon lime
+purple/pink
+brown yellow
+banana yellow
+lipstick red
+water blue
+vibrant purple
+baby green
+sandy yellow
+cool green
+purpley
+light mustard
+turtle green
+bright olive
+greeny brown
+lemon green
+seaweed green
+sunshine yellow
+medium pink
+viridian
+bile
+faded yellow
+vibrant green
+bright lime
+light sage
+yellowgreen
+dark seafoam
+deep teal
+rust orange
+bright lilac
+weird green
+avocado green
+faded orange
+grape purple
+lime yellow
+mango
+shamrock
+bubblegum
+key lime
+tomato red
+lightgreen
+night blue
+purpleish pink
+yellow/green
+cool blue
+leafy green
+mustard brown
+frog green
+vivid green
+bright light green
+fluro green
+kiwi
+seaweed
+navy green
+ultramarine blue
+pastel orange
+yellowish orange
+perrywinkle
+tealish
+dark plum
+pinkish orange
+midnight purple
+light urple
+dark mint
+greenish tan
+light burgundy
+turquoise blue
+sandy
+mid green
+banana
+carnation pink
+tomato
+sea
+muddy brown
+turquoise green
+fawn
+muted blue
+dark mint green
+amethyst
+blue/green
+chestnut
+sick green
+rusty orange
+rose red
+deep orange
+earth
+mossy green
+grassy green
+pale lime green
+purple red
+pale lime
+greenish teal
+caramel
+deep magenta
+milk chocolate
+ocher
+purply pink
+lightblue
+golden
+butter yellow
+french blue
+greeny yellow
+orangish red
+shamrock green
+orangish brown
+tree green
+deep violet
+blue/purple
+cherry
+sandy brown
+dark indigo
+midnight
+bluey green
+blood
+brown red
+purpley pink
+light salmon
+light yellow green
+dark navy blue
+rouge
+purplish red
+slime green
+pink/purple
+dark navy
+greeny blue
+rust red
+orangey red
+primary blue
+kermit green
+murky green
+wheat
+very dark purple
+bottle green
+deep sky blue
+fire engine red
+yellow ochre
+pumpkin orange
+pale olive
+lightish green
+carolina blue
+shocking pink
+auburn
+bright lime green
+bright sky blue
+celery
+dark lime
+copper
+medium brown
+robin's egg
+bright lavender
+light navy
+pink red
+olive brown
+mustard green
+ocean green
+very dark blue
+light navy blue
+minty green
+bright light blue
+light lime
+orange yellow
+ocre
+maize
+faded pink
+british racing green
+sandstone
+mud brown
+light sea green
+robin egg blue
+dark sea green
+orangey brown
+cherry red
+burnt yellow
+camel
+marine
+pastel yellow
+bluey purple
+canary yellow
+faded red
+sepia
+bright magenta
+darkish green
+brown orange
+sickly green
+purply blue
+purpleish blue
+hospital green
+mid blue
+amber
+soft blue
+cerulean blue
+golden brown
+bright turquoise
+red pink
+red purple
+vermillion
+russet
+lighter purple
+bright violet
+prussian blue
+dark blue green
+yellowy green
+dark gold
+bluish
+darkish blue
+dull red
+pinky red
+bronze
+pale teal
+barbie pink
+bubblegum pink
+dark mustard
+medium purple
+very dark green
+dusky pink
+red violet
+lemon yellow
+pistachio
+dull yellow
+dark lime green
+denim blue
+teal blue
+lightish blue
+purpley blue
+light indigo
+swamp green
+brown green
+dark maroon
+dark forest green
+light lime green
+yellowish
+light blue green
+ocean
+marigold
+dull orange
+fluorescent green
+yellowish brown
+blush
+soft green
+bright orange
+lemon
+acid green
+violet blue
+burnt red
+khaki green
+cerise
+apricot
+dark olive green
+true blue
+periwinkle blue
+blurple
+green brown
+bluegreen
+bright teal
+brownish yellow
+forest
+ultramarine
+dark periwinkle
+reddish
+terra cotta
+avocado
+marine blue
+teal green
+lighter green
+golden yellow
+bright yellow
+umber
+jungle green
+denim
+yellow brown
+chocolate brown
+dark sky blue
+evergreen
+dull pink
+aubergine
+mahogany
+reddish orange
+deep green
+purple pink
+dusty pink
+camo green
+pinky purple
+pink purple
+brownish red
+dark rose
+mud
+emerald green
+burnt umber
+medium green
+clay
+light olive green
+brownish orange
+purplish pink
+dark salmon
+emerald
+pale red
+light magenta
+sky
+yellow orange
+reddish purple
+reddish pink
+orchid
+orange red
+deep red
+orange brown
+cobalt blue
+rose pink
+salmon pink
+tangerine
+brownish green
+red brown
+greenish brown
+pumpkin
+pine green
+blue violet
+chocolate
+scarlet
+green yellow
+dark olive
+sienna
+terracotta
+blood red
+deep pink
+grass
+bluish green
+green blue
+dark tan
+greenish blue
+pale orange
+forrest green
+dark violet
+purple blue
+dark cyan
+olive drab
+pinkish
+cobalt
+light turquoise
+dark turquoise
+blue purple
+azure
+bright red
+pinkish red
+light olive
+purplish blue
+yellowish green
+greenish yellow
+medium blue
+midnight blue
+bluish purple
+red orange
+dark magenta
+greenish
+ocean blue
+reddish brown
+burnt sienna
+brick
+robin's egg blue
+moss green
+eggplant
+light yellow
+leaf green
+pinkish purple
+sea blue
+pale purple
+hunter green
+fuchsia
+crimson
+pale yellow
+ochre
+mustard yellow
+light red
+cerulean
+deep blue
+rust
+light teal
+goldenrod
+dark yellow
+army green
+seafoam
+spring green
+dark orange
+sand
+light orange
+bright pink
+chartreuse
+deep purple
+dark brown
+kelly green
+seafoam green
+blue green
+burgundy
+dark teal
+brick red
+plum
+mint green
+gold
+yellow green
+bright purple
+dark red
+grass green
+navy
+burnt orange
+bright blue
+rose
+mustard
+indigo
+lime
+sea green
+periwinkle
+dark pink
+olive green
+navy blue
+beige
+salmon
+olive
+maroon
+bright green
+dark purple
+forest green
+cyan
+tan
+dark blue
+lavender
+turquoise
+dark green
+violet
+light purple
+lime green
+sky blue
+yellow
+magenta
+light green
+orange
+teal
+light blue
+red
+brown
+pink
+blue
+green
+purple

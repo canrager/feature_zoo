@@ -3,8 +3,8 @@ import tempfile
 import json
 from pathlib import Path
 
-from src.generate_days_dataset import generate_dataset as generate_dataset_v1
-from src.generate_days_dataset import generate_dataset as generate_dataset_v2
+from src.generate_dataset import generate_dataset as generate_dataset_v1
+from src.generate_dataset import generate_dataset as generate_dataset_v2
 
 
 @pytest.fixture

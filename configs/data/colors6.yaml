@@ -1,0 +1,5 @@
+name: colors6_trajectories
+trajectories_filename: colors6_trajectories.json
+elements_filename: colors6.txt
+fixed_context_length: 
+num_elements: 6

@@ -64,9 +64,9 @@ def load_texts(cfg: Config, filename: str | None = None) -> Tuple[List[str], Opt
         If 'label' column is missing or empty, labels will be None.
     """
     if filename is None:
-        filename = cfg.data.filename
+        filename = cfg.data.elements_filename
 
-    csv_path = Path(cfg.env.texts_dir) / filename
+    csv_path = Path(cfg.env.texts_dir) / f"{filename}.csv"
 
     if not csv_path.exists():
         raise FileNotFoundError(f"CSV file {csv_path} does not exist")
@@ -79,8 +79,8 @@ def load_texts(cfg: Config, filename: str | None = None) -> Tuple[List[str], Opt
     return labels, texts
 
 
-def load_trajectory_texts(cfg: Config) -> Dict:
-    path = Path(cfg.env.texts_dir) / cfg.data.filename
+def load_trajectory_texts(cfg: Config) -> Tuple:
+    path = Path(cfg.env.texts_dir) / cfg.data.trajectories_filename
     with open(path, "r") as f:
         traj_dict = json.load(f)
 
@@ -92,6 +92,12 @@ def load_trajectory_texts(cfg: Config) -> Dict:
             texts.append(step[2])
 
     return labels, texts, indices
+
+def load_elements(cfg: Config) -> List:
+    path = Path(cfg.env.texts_dir) / cfg.data.trajectories_filename
+    with open(path, "r") as f:
+        elements = f.readlines()
+    return elements
 
 
 def load_corpus(cfg: Config) -> Dataset:

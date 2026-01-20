@@ -36,7 +36,9 @@ class EnvironmentConfig:
 @dataclass
 class DataConfig:
     name: str
-    filename: str
+    num_elements: int
+    elements_filename: str
+    trajectories_filename: str
     fixed_context_length: int | None
 
 

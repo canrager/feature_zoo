@@ -1,8 +1,8 @@
 defaults:
-  - data: days_trajectories
+  - data: colors6
   - llm: gpt2
   - sae: gpt2_relu
-  - filter: days_fineweb_big
+  - filter: colors6
   - exp: final
   - _self_
 

@@ -1,0 +1,5 @@
+name: days7
+trajectories_filename: days7_trajectories.json
+elements_filename: days7.txt
+fixed_context_length: 
+num_elements: 7

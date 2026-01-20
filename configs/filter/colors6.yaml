@@ -1,0 +1,4 @@
+corpus: none
+regex_file: colors6
+num_occurences: 200
+min_char_count: 50

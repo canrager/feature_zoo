@@ -11,7 +11,7 @@ import einops
 
 from src.cache_sae import save_sae_cache
 from src.config import Config
-from src.loading import load_llm, load_tokenizer, load_texts, load_sae, load_trajectory_texts
+from src.loading import load_llm, load_tokenizer, load_texts, load_sae, load_trajectory_texts, load_elements
 from src.tokenization import save_tokenized, get_tokenized_texts
 from transformers import AutoModelForCausalLM
 
@@ -229,6 +229,8 @@ def load_short_trajectory_acts(
     # Load data
     labels, texts, indices = load_trajectory_texts(cfg)
 
+    elements = load_elements(cfg)
+
     # Load or compute tokens
     if cfg.env.debug:
         print(f"Tokenize...")
@@ -280,16 +282,17 @@ def load_short_trajectory_acts(
 
     acts_aggregated_BD = aggregate_activations(cfg, acts_BTD, encoded["attention_mask"])
     
-    acts_BWTD = einops.rearrange(acts_BTD, "(B W) T D -> B W T D", W=max(indices) + 1)
-    acts_aggregated_BWD = einops.rearrange(acts_aggregated_BD, "(B W) D -> B W D", W=max(indices) + 1)
+    acts_BCTD = einops.rearrange(acts_BTD, "(B C) T D -> B C T D", C=max(indices) + 1)
+    acts_aggregated_BCD = einops.rearrange(acts_aggregated_BD, "(B C) D -> B C D", C=max(indices) + 1)
 
     return {
-        "labels": labels,
-        "texts": tokenized_texts,
+        "elements_C": elements,
+        "labels_B": labels,
+        "texts_B": tokenized_texts,
         "input_ids_BT": encoded["input_ids"],
         "mask_BT": encoded["attention_mask"],
-        "llm_BWTD": acts_BWTD,
-        "llm_BWD": acts_aggregated_BWD,
+        "llm_BCTD": acts_BCTD,
+        "llm_BCD": acts_aggregated_BCD,
     }
 
 

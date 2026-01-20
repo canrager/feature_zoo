@@ -1,0 +1,6 @@
+green
+yellow 
+red 
+pink 
+darkblue
+cyan
