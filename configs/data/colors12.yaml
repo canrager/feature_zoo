@@ -1,0 +1,5 @@
+name: colors12
+trajectories_filename: colors12_trajectories.json
+elements_filename: colors12.txt
+fixed_context_length: 
+num_elements: 12

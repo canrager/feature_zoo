@@ -94,9 +94,9 @@ def load_trajectory_texts(cfg: Config) -> Tuple:
     return labels, texts, indices
 
 def load_elements(cfg: Config) -> List:
-    path = Path(cfg.env.texts_dir) / cfg.data.trajectories_filename
+    path = Path(cfg.env.texts_dir) / cfg.data.elements_filename
     with open(path, "r") as f:
-        elements = f.readlines()
+        elements = [line.strip() for line in f.readlines()]
     return elements
 
 

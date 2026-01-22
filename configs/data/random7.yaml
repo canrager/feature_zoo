@@ -1,0 +1,5 @@
+name: random7
+trajectories_filename: random7_trajectories.json
+elements_filename: random7.txt
+fixed_context_length: 
+num_elements: 7

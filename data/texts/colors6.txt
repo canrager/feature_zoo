@@ -1,6 +1,6 @@
 green
-yellow 
-red 
-pink 
+yellow
+red
+pink
 darkblue
 cyan

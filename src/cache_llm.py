@@ -63,18 +63,31 @@ def batch_llm_cache(cfg: Config, encoded: Dict, llm: AutoModelForCausalLM) -> th
 
 def save_cached_activations(cfg: Config, encoded: Dict, llm: AutoModelForCausalLM) -> th.Tensor:
     "Compute activations and save to safetensors"
+    from src.artifact_utils import (
+        get_llm_activation_artifact_path,
+        get_artifact_metadata,
+        save_artifact_metadata
+    )
 
     # Compute activations
     activations = batch_llm_cache(cfg, encoded, llm)
 
+    # Get hash-based paths
+    output_path, metadata_path = get_llm_activation_artifact_path(cfg)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
     # Save as safetensors
-    activations_dir = Path(cfg.env.activations_dir)
-    activations_dir.mkdir(parents=True, exist_ok=True)
-    output_path = (
-        activations_dir / f"{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
-    )
     activations_dict = {"activations": activations.to("cpu")}
     save_file(activations_dict, output_path)
+
+    # Save metadata
+    metadata = get_artifact_metadata(cfg, "llm_activations")
+    metadata["activation_shape"] = list(activations.shape)
+    save_artifact_metadata(metadata, metadata_path)
+
+    if cfg.env.debug:
+        print(f"Saved LLM activations to {output_path}")
+        print(f"Saved metadata to {metadata_path}")
 
     return activations
 
@@ -108,6 +121,10 @@ def aggregate_activations(cfg: Config, act_BTD: th.Tensor, mask_BT: th.Tensor) -
 
 
 def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=True):
+    from src.artifact_utils import (
+        get_token_artifact_path,
+        validate_artifact_metadata
+    )
 
     # Load texts
     labels, full_texts = load_texts(cfg)
@@ -115,30 +132,38 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
     # Load or compute tokens
     if cfg.env.debug:
         print(f"Tokenize...")
-    token_path = Path(f"{cfg.env.tokens_dir}/{cfg.data.name}.safetensors")
 
+    token_path, token_metadata_path = get_token_artifact_path(cfg)
     tokenizer = load_tokenizer(cfg)
 
     if token_path.exists() and not force_recompute:
+        # Validate metadata before loading
+        validate_artifact_metadata(cfg, "tokens", token_metadata_path, strict=True)
         encoded = load_file(str(token_path))
+        if cfg.env.debug:
+            print(f"Loaded tokens from {token_path}")
     elif compute_if_missing:
         if cfg.env.debug:
             print(f"Re-tokenizing...")
         encoded = save_tokenized(cfg, full_texts, tokenizer)
     else:
-        raise FileNotFoundError()
+        raise FileNotFoundError(f"Token artifact not found: {token_path}")
 
     # Get the actual string representations of the tokens, might be truncated versions of full_text
-    tokenized_texts = get_tokenized_texts(encoded)
+    tokenized_texts = get_tokenized_texts(encoded, tokenizer)
 
     # Load or compute activations
     if cfg.env.debug:
         print(f"LLM activations...")
-    act_path = Path(
-        f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
+
+    from src.artifact_utils import (
+        get_llm_activation_artifact_path,
     )
+    act_path, act_metadata_path = get_llm_activation_artifact_path(cfg)
 
     if act_path.exists() and not force_recompute:
+        # Validate metadata before loading
+        validate_artifact_metadata(cfg, "llm_activations", act_metadata_path, strict=True)
         activation_dict = load_file(str(act_path))
         act_BTD = activation_dict["activations"].to(cfg.env.device)
 
@@ -152,6 +177,9 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
                 f"This likely means the dataset changed after activations were cached. "
                 f"Set force_recompute=True to recompute activations."
             )
+
+        if cfg.env.debug:
+            print(f"Loaded LLM activations from {act_path}")
     elif compute_if_missing:
         llm = load_llm(cfg)
         act_BTD = save_cached_activations(cfg, encoded, llm)
@@ -159,7 +187,7 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
         del llm
         th.cuda.empty_cache()
     else:
-        raise FileNotFoundError()
+        raise FileNotFoundError(f"LLM activation artifact not found: {act_path}")
 
     return_dict = {
         "labels": labels,
@@ -174,24 +202,33 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
         if cfg.env.debug:
             print(f"SAE activations...")
 
-        sae_path = f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_{cfg.sae.arch}"
+        from src.artifact_utils import get_sae_activation_artifact_paths
+        sae_paths = get_sae_activation_artifact_paths(cfg)
 
         if cfg.sae.arch == "temporal":
-            sae_recons_path = Path(f"{sae_path}_pred.safetensors")
-            sae_pred_path = Path(f"{sae_path}_pred.safetensors")
-            sae_novel_path = Path(f"{sae_path}_novel.safetensors")
+            sae_recons_path, sae_recons_metadata = sae_paths["recons"]
+            sae_pred_path, sae_pred_metadata = sae_paths["pred"]
+            sae_novel_path, sae_novel_metadata = sae_paths["novel"]
 
             if sae_pred_path.exists() and not force_recompute:
+                # Validate all metadata
+                validate_artifact_metadata(cfg, "sae_activations", sae_recons_metadata, strict=True)
+                validate_artifact_metadata(cfg, "sae_activations", sae_pred_metadata, strict=True)
+                validate_artifact_metadata(cfg, "sae_activations", sae_novel_metadata, strict=True)
+
                 recons_BTD = load_file(str(sae_recons_path))["activations"].to(cfg.env.device)
                 pred_codes_BTD = load_file(str(sae_pred_path))["activations"].to(cfg.env.device)
                 novel_codes_BTD = load_file(str(sae_novel_path))["activations"].to(cfg.env.device)
+
+                if cfg.env.debug:
+                    print(f"Loaded SAE activations from {sae_recons_path.parent}")
             elif compute_if_missing:
                 sae = load_sae(cfg)
                 recons_BTD, pred_codes_BTD, novel_codes_BTD = save_sae_cache(cfg, sae, act_BTD)
                 del sae
                 th.cuda.empty_cache()
             else:
-                raise FileNotFoundError()
+                raise FileNotFoundError(f"SAE activation artifacts not found: {sae_pred_path}")
 
             return_dict["recons_BTD"] = recons_BTD
             return_dict["recons_BD"] = aggregate_activations(cfg, pred_codes_BTD, encoded["attention_mask"])
@@ -201,18 +238,26 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
             return_dict["novel_codes_BD"] = aggregate_activations(cfg, novel_codes_BTD, encoded["attention_mask"])
 
         else:
-            sae_recons_path = Path(f"{sae_path}_recons.safetensors")
-            sae_codes_path = Path(f"{sae_path}_codes.safetensors")
+            sae_recons_path, sae_recons_metadata = sae_paths["recons"]
+            sae_codes_path, sae_codes_metadata = sae_paths["codes"]
+
             if sae_recons_path.exists() and not force_recompute:
-                recons_BTD = load_file(sae_recons_path)["activations"].to(cfg.env.device)
-                codes_BTD = load_file(sae_codes_path)["activations"].to(cfg.env.device)
+                # Validate metadata
+                validate_artifact_metadata(cfg, "sae_activations", sae_recons_metadata, strict=True)
+                validate_artifact_metadata(cfg, "sae_activations", sae_codes_metadata, strict=True)
+
+                recons_BTD = load_file(str(sae_recons_path))["activations"].to(cfg.env.device)
+                codes_BTD = load_file(str(sae_codes_path))["activations"].to(cfg.env.device)
+
+                if cfg.env.debug:
+                    print(f"Loaded SAE activations from {sae_recons_path.parent}")
             elif compute_if_missing:
                 sae = load_sae(cfg)
                 recons_BTD, codes_BTD = save_sae_cache(cfg, sae, act_BTD)
                 del sae
                 th.cuda.empty_cache()
             else:
-                raise FileNotFoundError()
+                raise FileNotFoundError(f"SAE activation artifacts not found: {sae_recons_path}")
 
             return_dict["recons_BTD"] = recons_BTD
             return_dict["recons_BD"] = aggregate_activations(cfg, recons_BTD, encoded["attention_mask"])
@@ -225,6 +270,11 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
 def load_short_trajectory_acts(
     cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
 ) -> Dict:
+    from src.artifact_utils import (
+        get_token_artifact_path,
+        get_llm_activation_artifact_path,
+        validate_artifact_metadata
+    )
 
     # Load data
     labels, texts, indices = load_trajectory_texts(cfg)
@@ -234,18 +284,22 @@ def load_short_trajectory_acts(
     # Load or compute tokens
     if cfg.env.debug:
         print(f"Tokenize...")
-    token_path = Path(f"{cfg.env.tokens_dir}/{cfg.data.name}.safetensors")
 
+    token_path, token_metadata_path = get_token_artifact_path(cfg)
     tokenizer = load_tokenizer(cfg)
 
     if token_path.exists() and not force_recompute:
+        # Validate metadata before loading
+        validate_artifact_metadata(cfg, "tokens", token_metadata_path, strict=True)
         encoded = load_file(str(token_path))
+        if cfg.env.debug:
+            print(f"Loaded tokens from {token_path}")
     elif compute_if_missing:
         if cfg.env.debug:
             print(f"Re-tokenizing...")
         encoded = save_tokenized(cfg, texts, tokenizer)
     else:
-        raise FileNotFoundError()
+        raise FileNotFoundError(f"Token artifact not found: {token_path}")
 
     # Get the actual string representations of the tokens
     tokenized_texts = get_tokenized_texts(encoded, tokenizer)
@@ -253,11 +307,12 @@ def load_short_trajectory_acts(
     # Load or compute activations
     if cfg.env.debug:
         print(f"LLM activations...")
-    act_path = Path(
-        f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_llm.safetensors"
-    )
+
+    act_path, act_metadata_path = get_llm_activation_artifact_path(cfg)
 
     if act_path.exists() and not force_recompute:
+        # Validate metadata before loading
+        validate_artifact_metadata(cfg, "llm_activations", act_metadata_path, strict=True)
         activation_dict = load_file(str(act_path))
         acts_BTD = activation_dict["activations"].to(cfg.env.device)
 
@@ -271,6 +326,9 @@ def load_short_trajectory_acts(
                 f"This likely means the dataset changed after activations were cached. "
                 f"Set force_recompute=True to recompute activations."
             )
+
+        if cfg.env.debug:
+            print(f"Loaded LLM activations from {act_path}")
     elif compute_if_missing:
         llm = load_llm(cfg)
         acts_BTD = save_cached_activations(cfg, encoded, llm)
@@ -278,7 +336,7 @@ def load_short_trajectory_acts(
         del llm
         th.cuda.empty_cache()
     else:
-        raise FileNotFoundError()
+        raise FileNotFoundError(f"LLM activation artifact not found: {act_path}")
 
     acts_aggregated_BD = aggregate_activations(cfg, acts_BTD, encoded["attention_mask"])
     

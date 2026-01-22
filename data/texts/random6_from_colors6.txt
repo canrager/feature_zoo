@@ -1,0 +1,6 @@
+apple
+house
+dog
+river
+guitar
+library

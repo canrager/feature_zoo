@@ -57,16 +57,49 @@ def batch_sae_cache(cfg: Config, sae: Any, act_BTD: th.Tensor) -> th.tensor:
 
 
 def save_sae_cache(cfg: Config, sae: Any, act_BTD: th.Tensor) -> None:
-    fname = f"{cfg.env.activations_dir}/{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_{cfg.sae.arch}"
+    from src.artifact_utils import (
+        get_sae_activation_artifact_paths,
+        get_artifact_metadata,
+        save_artifact_metadata
+    )
+
+    # Get hash-based paths
+    paths = get_sae_activation_artifact_paths(cfg)
 
     if cfg.sae.arch == "temporal":
         recons, pred_codes, novel_codes = batch_sae_temporal_cache(cfg, sae, act_BTD)
-        save_file({"activations": recons}, f"{fname}_recons.safetensors")
-        save_file({"activations": pred_codes}, f"{fname}_pred.safetensors")
-        save_file({"activations": novel_codes}, f"{fname}_novel.safetensors")
+
+        # Save artifacts and metadata
+        save_file({"activations": recons.to("cpu")}, paths["recons"][0])
+        save_file({"activations": pred_codes.to("cpu")}, paths["pred"][0])
+        save_file({"activations": novel_codes.to("cpu")}, paths["novel"][0])
+
+        # Save metadata for each artifact
+        for name in ["recons", "pred", "novel"]:
+            metadata = get_artifact_metadata(cfg, "sae_activations")
+            metadata["sae_output_type"] = name
+            metadata["activation_shape"] = list(locals()[name if name == "recons" else f"{name}_codes"].shape)
+            save_artifact_metadata(metadata, paths[name][1])
+
+        if cfg.env.debug:
+            print(f"Saved SAE activations to {paths['recons'][0].parent}")
+
         return recons, pred_codes, novel_codes
     else:
         recons, codes = batch_sae_standard_cache(cfg, sae, act_BTD)
-        save_file({"activations": recons}, f"{fname}_recons.safetensors")
-        save_file({"activations": codes}, f"{fname}_codes.safetensors")
+
+        # Save artifacts and metadata
+        save_file({"activations": recons.to("cpu")}, paths["recons"][0])
+        save_file({"activations": codes.to("cpu")}, paths["codes"][0])
+
+        # Save metadata for each artifact
+        for name in ["recons", "codes"]:
+            metadata = get_artifact_metadata(cfg, "sae_activations")
+            metadata["sae_output_type"] = name
+            metadata["activation_shape"] = list(locals()[name].shape)
+            save_artifact_metadata(metadata, paths[name][1])
+
+        if cfg.env.debug:
+            print(f"Saved SAE activations to {paths['recons'][0].parent}")
+
         return recons, codes

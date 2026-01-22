@@ -1,5 +1,5 @@
 defaults:
-  - data: colors6
+  - data: days7
   - llm: gpt2
   - sae: gpt2_relu
   - filter: colors6

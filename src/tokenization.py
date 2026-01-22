@@ -92,22 +92,34 @@ def bulk_tokenize(cfg: Config, texts: List[str], tokenizer: AutoTokenizer) -> Di
 
 def save_tokenized(cfg: Config, texts: List[str], tokenizer: AutoTokenizer) -> Dict[str, th.Tensor]:
     "Load texts separated by newlines, tokenize and save"
+    from src.artifact_utils import (
+        get_token_artifact_path,
+        get_artifact_metadata,
+        save_artifact_metadata
+    )
 
     encoded = bulk_tokenize(cfg, texts, tokenizer)
 
-    # Save as safetensors
-    tokens_dir = Path(cfg.env.tokens_dir)
-    tokens_dir.mkdir(parents=True, exist_ok=True)
-    output_path = tokens_dir / f"{cfg.data.name}.safetensors"
+    # Get hash-based paths
+    output_path, metadata_path = get_token_artifact_path(cfg)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Prepare tensors for saving
-    # input_ids = th.cat(input_ids_list, dim=0)
-    # attention_mask = th.cat(attention_mask_list, dim=0)
     token_dict = {
         "input_ids": encoded["input_ids"],
         "attention_mask": encoded["attention_mask"],
     }
     save_file(token_dict, output_path)
+
+    # Save metadata
+    metadata = get_artifact_metadata(cfg, "tokens")
+    metadata["num_samples"] = encoded["input_ids"].shape[0]
+    metadata["max_seq_length"] = encoded["input_ids"].shape[1]
+    save_artifact_metadata(metadata, metadata_path)
+
+    if cfg.env.debug:
+        print(f"Saved tokens to {output_path}")
+        print(f"Saved metadata to {metadata_path}")
 
     return token_dict
 

@@ -1,0 +1,12 @@
+green
+lime
+yellow
+orange
+red
+magenta
+pink
+purple
+darkblue
+blue
+cyan
+teal

@@ -1,0 +1,5396 @@
+{
+  "The artist finally decided to paint the bedroom walls {placeholder}": [
+    [
+      0,
+      "green",
+      "The artist finally decided to paint the bedroom walls green"
+    ],
+    [
+      1,
+      "lime",
+      "The artist finally decided to paint the bedroom walls lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The artist finally decided to paint the bedroom walls yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The artist finally decided to paint the bedroom walls orange"
+    ],
+    [
+      4,
+      "red",
+      "The artist finally decided to paint the bedroom walls red"
+    ],
+    [
+      5,
+      "magenta",
+      "The artist finally decided to paint the bedroom walls magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The artist finally decided to paint the bedroom walls pink"
+    ],
+    [
+      7,
+      "purple",
+      "The artist finally decided to paint the bedroom walls purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The artist finally decided to paint the bedroom walls darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The artist finally decided to paint the bedroom walls blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The artist finally decided to paint the bedroom walls cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The artist finally decided to paint the bedroom walls teal"
+    ]
+  ],
+  "According to the manufacturer, the limited edition model will only be available in {placeholder}": [
+    [
+      0,
+      "green",
+      "According to the manufacturer, the limited edition model will only be available in green"
+    ],
+    [
+      1,
+      "lime",
+      "According to the manufacturer, the limited edition model will only be available in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "According to the manufacturer, the limited edition model will only be available in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "According to the manufacturer, the limited edition model will only be available in orange"
+    ],
+    [
+      4,
+      "red",
+      "According to the manufacturer, the limited edition model will only be available in red"
+    ],
+    [
+      5,
+      "magenta",
+      "According to the manufacturer, the limited edition model will only be available in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "According to the manufacturer, the limited edition model will only be available in pink"
+    ],
+    [
+      7,
+      "purple",
+      "According to the manufacturer, the limited edition model will only be available in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "According to the manufacturer, the limited edition model will only be available in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "According to the manufacturer, the limited edition model will only be available in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "According to the manufacturer, the limited edition model will only be available in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "According to the manufacturer, the limited edition model will only be available in teal"
+    ]
+  ],
+  "She couldn't decide between the two dresses, but eventually chose the one in {placeholder}": [
+    [
+      0,
+      "green",
+      "She couldn't decide between the two dresses, but eventually chose the one in green"
+    ],
+    [
+      1,
+      "lime",
+      "She couldn't decide between the two dresses, but eventually chose the one in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "She couldn't decide between the two dresses, but eventually chose the one in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "She couldn't decide between the two dresses, but eventually chose the one in orange"
+    ],
+    [
+      4,
+      "red",
+      "She couldn't decide between the two dresses, but eventually chose the one in red"
+    ],
+    [
+      5,
+      "magenta",
+      "She couldn't decide between the two dresses, but eventually chose the one in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "She couldn't decide between the two dresses, but eventually chose the one in pink"
+    ],
+    [
+      7,
+      "purple",
+      "She couldn't decide between the two dresses, but eventually chose the one in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "She couldn't decide between the two dresses, but eventually chose the one in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "She couldn't decide between the two dresses, but eventually chose the one in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "She couldn't decide between the two dresses, but eventually chose the one in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "She couldn't decide between the two dresses, but eventually chose the one in teal"
+    ]
+  ],
+  "The committee voted to change the official team jersey to {placeholder}": [
+    [
+      0,
+      "green",
+      "The committee voted to change the official team jersey to green"
+    ],
+    [
+      1,
+      "lime",
+      "The committee voted to change the official team jersey to lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The committee voted to change the official team jersey to yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The committee voted to change the official team jersey to orange"
+    ],
+    [
+      4,
+      "red",
+      "The committee voted to change the official team jersey to red"
+    ],
+    [
+      5,
+      "magenta",
+      "The committee voted to change the official team jersey to magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The committee voted to change the official team jersey to pink"
+    ],
+    [
+      7,
+      "purple",
+      "The committee voted to change the official team jersey to purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The committee voted to change the official team jersey to darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The committee voted to change the official team jersey to blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The committee voted to change the official team jersey to cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The committee voted to change the official team jersey to teal"
+    ]
+  ],
+  "After much deliberation, they repainted the front door {placeholder}": [
+    [
+      0,
+      "green",
+      "After much deliberation, they repainted the front door green"
+    ],
+    [
+      1,
+      "lime",
+      "After much deliberation, they repainted the front door lime"
+    ],
+    [
+      2,
+      "yellow",
+      "After much deliberation, they repainted the front door yellow"
+    ],
+    [
+      3,
+      "orange",
+      "After much deliberation, they repainted the front door orange"
+    ],
+    [
+      4,
+      "red",
+      "After much deliberation, they repainted the front door red"
+    ],
+    [
+      5,
+      "magenta",
+      "After much deliberation, they repainted the front door magenta"
+    ],
+    [
+      6,
+      "pink",
+      "After much deliberation, they repainted the front door pink"
+    ],
+    [
+      7,
+      "purple",
+      "After much deliberation, they repainted the front door purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "After much deliberation, they repainted the front door darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "After much deliberation, they repainted the front door blue"
+    ],
+    [
+      10,
+      "cyan",
+      "After much deliberation, they repainted the front door cyan"
+    ],
+    [
+      11,
+      "teal",
+      "After much deliberation, they repainted the front door teal"
+    ]
+  ],
+  "The witness described the suspect's jacket as {placeholder}": [
+    [
+      0,
+      "green",
+      "The witness described the suspect's jacket as green"
+    ],
+    [
+      1,
+      "lime",
+      "The witness described the suspect's jacket as lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The witness described the suspect's jacket as yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The witness described the suspect's jacket as orange"
+    ],
+    [
+      4,
+      "red",
+      "The witness described the suspect's jacket as red"
+    ],
+    [
+      5,
+      "magenta",
+      "The witness described the suspect's jacket as magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The witness described the suspect's jacket as pink"
+    ],
+    [
+      7,
+      "purple",
+      "The witness described the suspect's jacket as purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The witness described the suspect's jacket as darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The witness described the suspect's jacket as blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The witness described the suspect's jacket as cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The witness described the suspect's jacket as teal"
+    ]
+  ],
+  "For the spring collection, the designer is emphasizing {placeholder}": [
+    [
+      0,
+      "green",
+      "For the spring collection, the designer is emphasizing green"
+    ],
+    [
+      1,
+      "lime",
+      "For the spring collection, the designer is emphasizing lime"
+    ],
+    [
+      2,
+      "yellow",
+      "For the spring collection, the designer is emphasizing yellow"
+    ],
+    [
+      3,
+      "orange",
+      "For the spring collection, the designer is emphasizing orange"
+    ],
+    [
+      4,
+      "red",
+      "For the spring collection, the designer is emphasizing red"
+    ],
+    [
+      5,
+      "magenta",
+      "For the spring collection, the designer is emphasizing magenta"
+    ],
+    [
+      6,
+      "pink",
+      "For the spring collection, the designer is emphasizing pink"
+    ],
+    [
+      7,
+      "purple",
+      "For the spring collection, the designer is emphasizing purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "For the spring collection, the designer is emphasizing darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "For the spring collection, the designer is emphasizing blue"
+    ],
+    [
+      10,
+      "cyan",
+      "For the spring collection, the designer is emphasizing cyan"
+    ],
+    [
+      11,
+      "teal",
+      "For the spring collection, the designer is emphasizing teal"
+    ]
+  ],
+  "The homeowner's association approved exterior paint colors including {placeholder}": [
+    [
+      0,
+      "green",
+      "The homeowner's association approved exterior paint colors including green"
+    ],
+    [
+      1,
+      "lime",
+      "The homeowner's association approved exterior paint colors including lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The homeowner's association approved exterior paint colors including yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The homeowner's association approved exterior paint colors including orange"
+    ],
+    [
+      4,
+      "red",
+      "The homeowner's association approved exterior paint colors including red"
+    ],
+    [
+      5,
+      "magenta",
+      "The homeowner's association approved exterior paint colors including magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The homeowner's association approved exterior paint colors including pink"
+    ],
+    [
+      7,
+      "purple",
+      "The homeowner's association approved exterior paint colors including purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The homeowner's association approved exterior paint colors including darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The homeowner's association approved exterior paint colors including blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The homeowner's association approved exterior paint colors including cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The homeowner's association approved exterior paint colors including teal"
+    ]
+  ],
+  "When asked about her favorite color, she immediately said {placeholder}": [
+    [
+      0,
+      "green",
+      "When asked about her favorite color, she immediately said green"
+    ],
+    [
+      1,
+      "lime",
+      "When asked about her favorite color, she immediately said lime"
+    ],
+    [
+      2,
+      "yellow",
+      "When asked about her favorite color, she immediately said yellow"
+    ],
+    [
+      3,
+      "orange",
+      "When asked about her favorite color, she immediately said orange"
+    ],
+    [
+      4,
+      "red",
+      "When asked about her favorite color, she immediately said red"
+    ],
+    [
+      5,
+      "magenta",
+      "When asked about her favorite color, she immediately said magenta"
+    ],
+    [
+      6,
+      "pink",
+      "When asked about her favorite color, she immediately said pink"
+    ],
+    [
+      7,
+      "purple",
+      "When asked about her favorite color, she immediately said purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "When asked about her favorite color, she immediately said darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "When asked about her favorite color, she immediately said blue"
+    ],
+    [
+      10,
+      "cyan",
+      "When asked about her favorite color, she immediately said cyan"
+    ],
+    [
+      11,
+      "teal",
+      "When asked about her favorite color, she immediately said teal"
+    ]
+  ],
+  "The car that fled the scene was described as {placeholder}": [
+    [
+      0,
+      "green",
+      "The car that fled the scene was described as green"
+    ],
+    [
+      1,
+      "lime",
+      "The car that fled the scene was described as lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The car that fled the scene was described as yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The car that fled the scene was described as orange"
+    ],
+    [
+      4,
+      "red",
+      "The car that fled the scene was described as red"
+    ],
+    [
+      5,
+      "magenta",
+      "The car that fled the scene was described as magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The car that fled the scene was described as pink"
+    ],
+    [
+      7,
+      "purple",
+      "The car that fled the scene was described as purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The car that fled the scene was described as darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The car that fled the scene was described as blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The car that fled the scene was described as cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The car that fled the scene was described as teal"
+    ]
+  ],
+  "My grandmother always insisted that her kitchen appliances be {placeholder}": [
+    [
+      0,
+      "green",
+      "My grandmother always insisted that her kitchen appliances be green"
+    ],
+    [
+      1,
+      "lime",
+      "My grandmother always insisted that her kitchen appliances be lime"
+    ],
+    [
+      2,
+      "yellow",
+      "My grandmother always insisted that her kitchen appliances be yellow"
+    ],
+    [
+      3,
+      "orange",
+      "My grandmother always insisted that her kitchen appliances be orange"
+    ],
+    [
+      4,
+      "red",
+      "My grandmother always insisted that her kitchen appliances be red"
+    ],
+    [
+      5,
+      "magenta",
+      "My grandmother always insisted that her kitchen appliances be magenta"
+    ],
+    [
+      6,
+      "pink",
+      "My grandmother always insisted that her kitchen appliances be pink"
+    ],
+    [
+      7,
+      "purple",
+      "My grandmother always insisted that her kitchen appliances be purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "My grandmother always insisted that her kitchen appliances be darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "My grandmother always insisted that her kitchen appliances be blue"
+    ],
+    [
+      10,
+      "cyan",
+      "My grandmother always insisted that her kitchen appliances be cyan"
+    ],
+    [
+      11,
+      "teal",
+      "My grandmother always insisted that her kitchen appliances be teal"
+    ]
+  ],
+  "The bridesmaids will be wearing dresses in {placeholder}": [
+    [
+      0,
+      "green",
+      "The bridesmaids will be wearing dresses in green"
+    ],
+    [
+      1,
+      "lime",
+      "The bridesmaids will be wearing dresses in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The bridesmaids will be wearing dresses in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The bridesmaids will be wearing dresses in orange"
+    ],
+    [
+      4,
+      "red",
+      "The bridesmaids will be wearing dresses in red"
+    ],
+    [
+      5,
+      "magenta",
+      "The bridesmaids will be wearing dresses in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The bridesmaids will be wearing dresses in pink"
+    ],
+    [
+      7,
+      "purple",
+      "The bridesmaids will be wearing dresses in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The bridesmaids will be wearing dresses in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The bridesmaids will be wearing dresses in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The bridesmaids will be wearing dresses in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The bridesmaids will be wearing dresses in teal"
+    ]
+  ],
+  "The company logo underwent a redesign and is now {placeholder}": [
+    [
+      0,
+      "green",
+      "The company logo underwent a redesign and is now green"
+    ],
+    [
+      1,
+      "lime",
+      "The company logo underwent a redesign and is now lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The company logo underwent a redesign and is now yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The company logo underwent a redesign and is now orange"
+    ],
+    [
+      4,
+      "red",
+      "The company logo underwent a redesign and is now red"
+    ],
+    [
+      5,
+      "magenta",
+      "The company logo underwent a redesign and is now magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The company logo underwent a redesign and is now pink"
+    ],
+    [
+      7,
+      "purple",
+      "The company logo underwent a redesign and is now purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The company logo underwent a redesign and is now darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The company logo underwent a redesign and is now blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The company logo underwent a redesign and is now cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The company logo underwent a redesign and is now teal"
+    ]
+  ],
+  "Police are searching for a pickup truck painted {placeholder}": [
+    [
+      0,
+      "green",
+      "Police are searching for a pickup truck painted green"
+    ],
+    [
+      1,
+      "lime",
+      "Police are searching for a pickup truck painted lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Police are searching for a pickup truck painted yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Police are searching for a pickup truck painted orange"
+    ],
+    [
+      4,
+      "red",
+      "Police are searching for a pickup truck painted red"
+    ],
+    [
+      5,
+      "magenta",
+      "Police are searching for a pickup truck painted magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Police are searching for a pickup truck painted pink"
+    ],
+    [
+      7,
+      "purple",
+      "Police are searching for a pickup truck painted purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Police are searching for a pickup truck painted darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Police are searching for a pickup truck painted blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Police are searching for a pickup truck painted cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Police are searching for a pickup truck painted teal"
+    ]
+  ],
+  "The decorator suggested we paint the room with {placeholder}": [
+    [
+      0,
+      "green",
+      "The decorator suggested we paint the room with green"
+    ],
+    [
+      1,
+      "lime",
+      "The decorator suggested we paint the room with lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The decorator suggested we paint the room with yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The decorator suggested we paint the room with orange"
+    ],
+    [
+      4,
+      "red",
+      "The decorator suggested we paint the room with red"
+    ],
+    [
+      5,
+      "magenta",
+      "The decorator suggested we paint the room with magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The decorator suggested we paint the room with pink"
+    ],
+    [
+      7,
+      "purple",
+      "The decorator suggested we paint the room with purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The decorator suggested we paint the room with darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The decorator suggested we paint the room with blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The decorator suggested we paint the room with cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The decorator suggested we paint the room with teal"
+    ]
+  ],
+  "In the catalog, the item is available in {placeholder}": [
+    [
+      0,
+      "green",
+      "In the catalog, the item is available in green"
+    ],
+    [
+      1,
+      "lime",
+      "In the catalog, the item is available in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "In the catalog, the item is available in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "In the catalog, the item is available in orange"
+    ],
+    [
+      4,
+      "red",
+      "In the catalog, the item is available in red"
+    ],
+    [
+      5,
+      "magenta",
+      "In the catalog, the item is available in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "In the catalog, the item is available in pink"
+    ],
+    [
+      7,
+      "purple",
+      "In the catalog, the item is available in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "In the catalog, the item is available in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "In the catalog, the item is available in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "In the catalog, the item is available in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "In the catalog, the item is available in teal"
+    ]
+  ],
+  "The new document covers will be issued in {placeholder}": [
+    [
+      0,
+      "green",
+      "The new document covers will be issued in green"
+    ],
+    [
+      1,
+      "lime",
+      "The new document covers will be issued in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The new document covers will be issued in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The new document covers will be issued in orange"
+    ],
+    [
+      4,
+      "red",
+      "The new document covers will be issued in red"
+    ],
+    [
+      5,
+      "magenta",
+      "The new document covers will be issued in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The new document covers will be issued in pink"
+    ],
+    [
+      7,
+      "purple",
+      "The new document covers will be issued in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The new document covers will be issued in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The new document covers will be issued in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The new document covers will be issued in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The new document covers will be issued in teal"
+    ]
+  ],
+  "For the object, we're thinking of going with {placeholder}": [
+    [
+      0,
+      "green",
+      "For the object, we're thinking of going with green"
+    ],
+    [
+      1,
+      "lime",
+      "For the object, we're thinking of going with lime"
+    ],
+    [
+      2,
+      "yellow",
+      "For the object, we're thinking of going with yellow"
+    ],
+    [
+      3,
+      "orange",
+      "For the object, we're thinking of going with orange"
+    ],
+    [
+      4,
+      "red",
+      "For the object, we're thinking of going with red"
+    ],
+    [
+      5,
+      "magenta",
+      "For the object, we're thinking of going with magenta"
+    ],
+    [
+      6,
+      "pink",
+      "For the object, we're thinking of going with pink"
+    ],
+    [
+      7,
+      "purple",
+      "For the object, we're thinking of going with purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "For the object, we're thinking of going with darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "For the object, we're thinking of going with blue"
+    ],
+    [
+      10,
+      "cyan",
+      "For the object, we're thinking of going with cyan"
+    ],
+    [
+      11,
+      "teal",
+      "For the object, we're thinking of going with teal"
+    ]
+  ],
+  "The contractor showed us tile samples and we picked {placeholder}": [
+    [
+      0,
+      "green",
+      "The contractor showed us tile samples and we picked green"
+    ],
+    [
+      1,
+      "lime",
+      "The contractor showed us tile samples and we picked lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The contractor showed us tile samples and we picked yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The contractor showed us tile samples and we picked orange"
+    ],
+    [
+      4,
+      "red",
+      "The contractor showed us tile samples and we picked red"
+    ],
+    [
+      5,
+      "magenta",
+      "The contractor showed us tile samples and we picked magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The contractor showed us tile samples and we picked pink"
+    ],
+    [
+      7,
+      "purple",
+      "The contractor showed us tile samples and we picked purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The contractor showed us tile samples and we picked darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The contractor showed us tile samples and we picked blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The contractor showed us tile samples and we picked cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The contractor showed us tile samples and we picked teal"
+    ]
+  ],
+  "The notebook she bought for the semester was {placeholder}": [
+    [
+      0,
+      "green",
+      "The notebook she bought for the semester was green"
+    ],
+    [
+      1,
+      "lime",
+      "The notebook she bought for the semester was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The notebook she bought for the semester was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The notebook she bought for the semester was orange"
+    ],
+    [
+      4,
+      "red",
+      "The notebook she bought for the semester was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The notebook she bought for the semester was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The notebook she bought for the semester was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The notebook she bought for the semester was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The notebook she bought for the semester was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The notebook she bought for the semester was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The notebook she bought for the semester was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The notebook she bought for the semester was teal"
+    ]
+  ],
+  "The winning design featured a background of {placeholder}": [
+    [
+      0,
+      "green",
+      "The winning design featured a background of green"
+    ],
+    [
+      1,
+      "lime",
+      "The winning design featured a background of lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The winning design featured a background of yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The winning design featured a background of orange"
+    ],
+    [
+      4,
+      "red",
+      "The winning design featured a background of red"
+    ],
+    [
+      5,
+      "magenta",
+      "The winning design featured a background of magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The winning design featured a background of pink"
+    ],
+    [
+      7,
+      "purple",
+      "The winning design featured a background of purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The winning design featured a background of darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The winning design featured a background of blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The winning design featured a background of cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The winning design featured a background of teal"
+    ]
+  ],
+  "The suspect was last seen wearing a hoodie that was {placeholder}": [
+    [
+      0,
+      "green",
+      "The suspect was last seen wearing a hoodie that was green"
+    ],
+    [
+      1,
+      "lime",
+      "The suspect was last seen wearing a hoodie that was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The suspect was last seen wearing a hoodie that was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The suspect was last seen wearing a hoodie that was orange"
+    ],
+    [
+      4,
+      "red",
+      "The suspect was last seen wearing a hoodie that was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The suspect was last seen wearing a hoodie that was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The suspect was last seen wearing a hoodie that was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The suspect was last seen wearing a hoodie that was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The suspect was last seen wearing a hoodie that was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The suspect was last seen wearing a hoodie that was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The suspect was last seen wearing a hoodie that was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The suspect was last seen wearing a hoodie that was teal"
+    ]
+  ],
+  "Marketing research indicated consumers preferred the packaging in {placeholder}": [
+    [
+      0,
+      "green",
+      "Marketing research indicated consumers preferred the packaging in green"
+    ],
+    [
+      1,
+      "lime",
+      "Marketing research indicated consumers preferred the packaging in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Marketing research indicated consumers preferred the packaging in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Marketing research indicated consumers preferred the packaging in orange"
+    ],
+    [
+      4,
+      "red",
+      "Marketing research indicated consumers preferred the packaging in red"
+    ],
+    [
+      5,
+      "magenta",
+      "Marketing research indicated consumers preferred the packaging in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Marketing research indicated consumers preferred the packaging in pink"
+    ],
+    [
+      7,
+      "purple",
+      "Marketing research indicated consumers preferred the packaging in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Marketing research indicated consumers preferred the packaging in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Marketing research indicated consumers preferred the packaging in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Marketing research indicated consumers preferred the packaging in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Marketing research indicated consumers preferred the packaging in teal"
+    ]
+  ],
+  "The ribbon she tied around the gift was {placeholder}": [
+    [
+      0,
+      "green",
+      "The ribbon she tied around the gift was green"
+    ],
+    [
+      1,
+      "lime",
+      "The ribbon she tied around the gift was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The ribbon she tied around the gift was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The ribbon she tied around the gift was orange"
+    ],
+    [
+      4,
+      "red",
+      "The ribbon she tied around the gift was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The ribbon she tied around the gift was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The ribbon she tied around the gift was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The ribbon she tied around the gift was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The ribbon she tied around the gift was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The ribbon she tied around the gift was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The ribbon she tied around the gift was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The ribbon she tied around the gift was teal"
+    ]
+  ],
+  "Our school mascot costume is being reupholstered in {placeholder}": [
+    [
+      0,
+      "green",
+      "Our school mascot costume is being reupholstered in green"
+    ],
+    [
+      1,
+      "lime",
+      "Our school mascot costume is being reupholstered in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Our school mascot costume is being reupholstered in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Our school mascot costume is being reupholstered in orange"
+    ],
+    [
+      4,
+      "red",
+      "Our school mascot costume is being reupholstered in red"
+    ],
+    [
+      5,
+      "magenta",
+      "Our school mascot costume is being reupholstered in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Our school mascot costume is being reupholstered in pink"
+    ],
+    [
+      7,
+      "purple",
+      "Our school mascot costume is being reupholstered in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Our school mascot costume is being reupholstered in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Our school mascot costume is being reupholstered in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Our school mascot costume is being reupholstered in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Our school mascot costume is being reupholstered in teal"
+    ]
+  ],
+  "The sample item he brought to the meeting was {placeholder}": [
+    [
+      0,
+      "green",
+      "The sample item he brought to the meeting was green"
+    ],
+    [
+      1,
+      "lime",
+      "The sample item he brought to the meeting was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The sample item he brought to the meeting was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The sample item he brought to the meeting was orange"
+    ],
+    [
+      4,
+      "red",
+      "The sample item he brought to the meeting was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The sample item he brought to the meeting was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The sample item he brought to the meeting was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The sample item he brought to the meeting was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The sample item he brought to the meeting was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The sample item he brought to the meeting was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The sample item he brought to the meeting was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The sample item he brought to the meeting was teal"
+    ]
+  ],
+  "The gemstone set in the ring was {placeholder}": [
+    [
+      0,
+      "green",
+      "The gemstone set in the ring was green"
+    ],
+    [
+      1,
+      "lime",
+      "The gemstone set in the ring was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The gemstone set in the ring was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The gemstone set in the ring was orange"
+    ],
+    [
+      4,
+      "red",
+      "The gemstone set in the ring was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The gemstone set in the ring was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The gemstone set in the ring was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The gemstone set in the ring was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The gemstone set in the ring was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The gemstone set in the ring was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The gemstone set in the ring was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The gemstone set in the ring was teal"
+    ]
+  ],
+  "The plastic bins we use for cleaning are {placeholder}": [
+    [
+      0,
+      "green",
+      "The plastic bins we use for cleaning are green"
+    ],
+    [
+      1,
+      "lime",
+      "The plastic bins we use for cleaning are lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The plastic bins we use for cleaning are yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The plastic bins we use for cleaning are orange"
+    ],
+    [
+      4,
+      "red",
+      "The plastic bins we use for cleaning are red"
+    ],
+    [
+      5,
+      "magenta",
+      "The plastic bins we use for cleaning are magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The plastic bins we use for cleaning are pink"
+    ],
+    [
+      7,
+      "purple",
+      "The plastic bins we use for cleaning are purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The plastic bins we use for cleaning are darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The plastic bins we use for cleaning are blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The plastic bins we use for cleaning are cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The plastic bins we use for cleaning are teal"
+    ]
+  ],
+  "The flowers she carried down the aisle were {placeholder}": [
+    [
+      0,
+      "green",
+      "The flowers she carried down the aisle were green"
+    ],
+    [
+      1,
+      "lime",
+      "The flowers she carried down the aisle were lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The flowers she carried down the aisle were yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The flowers she carried down the aisle were orange"
+    ],
+    [
+      4,
+      "red",
+      "The flowers she carried down the aisle were red"
+    ],
+    [
+      5,
+      "magenta",
+      "The flowers she carried down the aisle were magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The flowers she carried down the aisle were pink"
+    ],
+    [
+      7,
+      "purple",
+      "The flowers she carried down the aisle were purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The flowers she carried down the aisle were darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The flowers she carried down the aisle were blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The flowers she carried down the aisle were cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The flowers she carried down the aisle were teal"
+    ]
+  ],
+  "Her signature nail polish color has always been {placeholder}": [
+    [
+      0,
+      "green",
+      "Her signature nail polish color has always been green"
+    ],
+    [
+      1,
+      "lime",
+      "Her signature nail polish color has always been lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Her signature nail polish color has always been yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Her signature nail polish color has always been orange"
+    ],
+    [
+      4,
+      "red",
+      "Her signature nail polish color has always been red"
+    ],
+    [
+      5,
+      "magenta",
+      "Her signature nail polish color has always been magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Her signature nail polish color has always been pink"
+    ],
+    [
+      7,
+      "purple",
+      "Her signature nail polish color has always been purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Her signature nail polish color has always been darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Her signature nail polish color has always been blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Her signature nail polish color has always been cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Her signature nail polish color has always been teal"
+    ]
+  ],
+  "The parrot at the pet store was mostly {placeholder}": [
+    [
+      0,
+      "green",
+      "The parrot at the pet store was mostly green"
+    ],
+    [
+      1,
+      "lime",
+      "The parrot at the pet store was mostly lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The parrot at the pet store was mostly yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The parrot at the pet store was mostly orange"
+    ],
+    [
+      4,
+      "red",
+      "The parrot at the pet store was mostly red"
+    ],
+    [
+      5,
+      "magenta",
+      "The parrot at the pet store was mostly magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The parrot at the pet store was mostly pink"
+    ],
+    [
+      7,
+      "purple",
+      "The parrot at the pet store was mostly purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The parrot at the pet store was mostly darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The parrot at the pet store was mostly blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The parrot at the pet store was mostly cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The parrot at the pet store was mostly teal"
+    ]
+  ],
+  "The curtains in the hotel room were a faded {placeholder}": [
+    [
+      0,
+      "green",
+      "The curtains in the hotel room were a faded green"
+    ],
+    [
+      1,
+      "lime",
+      "The curtains in the hotel room were a faded lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The curtains in the hotel room were a faded yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The curtains in the hotel room were a faded orange"
+    ],
+    [
+      4,
+      "red",
+      "The curtains in the hotel room were a faded red"
+    ],
+    [
+      5,
+      "magenta",
+      "The curtains in the hotel room were a faded magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The curtains in the hotel room were a faded pink"
+    ],
+    [
+      7,
+      "purple",
+      "The curtains in the hotel room were a faded purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The curtains in the hotel room were a faded darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The curtains in the hotel room were a faded blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The curtains in the hotel room were a faded cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The curtains in the hotel room were a faded teal"
+    ]
+  ],
+  "The company decided to make all employee badges {placeholder}": [
+    [
+      0,
+      "green",
+      "The company decided to make all employee badges green"
+    ],
+    [
+      1,
+      "lime",
+      "The company decided to make all employee badges lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The company decided to make all employee badges yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The company decided to make all employee badges orange"
+    ],
+    [
+      4,
+      "red",
+      "The company decided to make all employee badges red"
+    ],
+    [
+      5,
+      "magenta",
+      "The company decided to make all employee badges magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The company decided to make all employee badges pink"
+    ],
+    [
+      7,
+      "purple",
+      "The company decided to make all employee badges purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The company decided to make all employee badges darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The company decided to make all employee badges blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The company decided to make all employee badges cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The company decided to make all employee badges teal"
+    ]
+  ],
+  "His tie, she remembered distinctly, was {placeholder}": [
+    [
+      0,
+      "green",
+      "His tie, she remembered distinctly, was green"
+    ],
+    [
+      1,
+      "lime",
+      "His tie, she remembered distinctly, was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "His tie, she remembered distinctly, was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "His tie, she remembered distinctly, was orange"
+    ],
+    [
+      4,
+      "red",
+      "His tie, she remembered distinctly, was red"
+    ],
+    [
+      5,
+      "magenta",
+      "His tie, she remembered distinctly, was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "His tie, she remembered distinctly, was pink"
+    ],
+    [
+      7,
+      "purple",
+      "His tie, she remembered distinctly, was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "His tie, she remembered distinctly, was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "His tie, she remembered distinctly, was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "His tie, she remembered distinctly, was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "His tie, she remembered distinctly, was teal"
+    ]
+  ],
+  "The marker she used to label the boxes was {placeholder}": [
+    [
+      0,
+      "green",
+      "The marker she used to label the boxes was green"
+    ],
+    [
+      1,
+      "lime",
+      "The marker she used to label the boxes was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The marker she used to label the boxes was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The marker she used to label the boxes was orange"
+    ],
+    [
+      4,
+      "red",
+      "The marker she used to label the boxes was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The marker she used to label the boxes was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The marker she used to label the boxes was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The marker she used to label the boxes was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The marker she used to label the boxes was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The marker she used to label the boxes was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The marker she used to label the boxes was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The marker she used to label the boxes was teal"
+    ]
+  ],
+  "The carpet they selected for the office was {placeholder}": [
+    [
+      0,
+      "green",
+      "The carpet they selected for the office was green"
+    ],
+    [
+      1,
+      "lime",
+      "The carpet they selected for the office was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The carpet they selected for the office was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The carpet they selected for the office was orange"
+    ],
+    [
+      4,
+      "red",
+      "The carpet they selected for the office was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The carpet they selected for the office was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The carpet they selected for the office was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The carpet they selected for the office was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The carpet they selected for the office was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The carpet they selected for the office was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The carpet they selected for the office was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The carpet they selected for the office was teal"
+    ]
+  ],
+  "Her umbrella, left behind at the restaurant, was {placeholder}": [
+    [
+      0,
+      "green",
+      "Her umbrella, left behind at the restaurant, was green"
+    ],
+    [
+      1,
+      "lime",
+      "Her umbrella, left behind at the restaurant, was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Her umbrella, left behind at the restaurant, was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Her umbrella, left behind at the restaurant, was orange"
+    ],
+    [
+      4,
+      "red",
+      "Her umbrella, left behind at the restaurant, was red"
+    ],
+    [
+      5,
+      "magenta",
+      "Her umbrella, left behind at the restaurant, was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Her umbrella, left behind at the restaurant, was pink"
+    ],
+    [
+      7,
+      "purple",
+      "Her umbrella, left behind at the restaurant, was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Her umbrella, left behind at the restaurant, was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Her umbrella, left behind at the restaurant, was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Her umbrella, left behind at the restaurant, was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Her umbrella, left behind at the restaurant, was teal"
+    ]
+  ],
+  "The scarf she knitted for winter was {placeholder}": [
+    [
+      0,
+      "green",
+      "The scarf she knitted for winter was green"
+    ],
+    [
+      1,
+      "lime",
+      "The scarf she knitted for winter was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The scarf she knitted for winter was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The scarf she knitted for winter was orange"
+    ],
+    [
+      4,
+      "red",
+      "The scarf she knitted for winter was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The scarf she knitted for winter was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The scarf she knitted for winter was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The scarf she knitted for winter was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The scarf she knitted for winter was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The scarf she knitted for winter was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The scarf she knitted for winter was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The scarf she knitted for winter was teal"
+    ]
+  ],
+  "The banner hanging over Main Street was {placeholder}": [
+    [
+      0,
+      "green",
+      "The banner hanging over Main Street was green"
+    ],
+    [
+      1,
+      "lime",
+      "The banner hanging over Main Street was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The banner hanging over Main Street was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The banner hanging over Main Street was orange"
+    ],
+    [
+      4,
+      "red",
+      "The banner hanging over Main Street was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The banner hanging over Main Street was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The banner hanging over Main Street was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The banner hanging over Main Street was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The banner hanging over Main Street was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The banner hanging over Main Street was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The banner hanging over Main Street was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The banner hanging over Main Street was teal"
+    ]
+  ],
+  "The toothbrush the dentist recommended came in {placeholder}": [
+    [
+      0,
+      "green",
+      "The toothbrush the dentist recommended came in green"
+    ],
+    [
+      1,
+      "lime",
+      "The toothbrush the dentist recommended came in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The toothbrush the dentist recommended came in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The toothbrush the dentist recommended came in orange"
+    ],
+    [
+      4,
+      "red",
+      "The toothbrush the dentist recommended came in red"
+    ],
+    [
+      5,
+      "magenta",
+      "The toothbrush the dentist recommended came in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The toothbrush the dentist recommended came in pink"
+    ],
+    [
+      7,
+      "purple",
+      "The toothbrush the dentist recommended came in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The toothbrush the dentist recommended came in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The toothbrush the dentist recommended came in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The toothbrush the dentist recommended came in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The toothbrush the dentist recommended came in teal"
+    ]
+  ],
+  "The kayak we rented for the afternoon was {placeholder}": [
+    [
+      0,
+      "green",
+      "The kayak we rented for the afternoon was green"
+    ],
+    [
+      1,
+      "lime",
+      "The kayak we rented for the afternoon was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The kayak we rented for the afternoon was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The kayak we rented for the afternoon was orange"
+    ],
+    [
+      4,
+      "red",
+      "The kayak we rented for the afternoon was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The kayak we rented for the afternoon was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The kayak we rented for the afternoon was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The kayak we rented for the afternoon was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The kayak we rented for the afternoon was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The kayak we rented for the afternoon was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The kayak we rented for the afternoon was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The kayak we rented for the afternoon was teal"
+    ]
+  ],
+  "The cast on his broken arm was {placeholder}": [
+    [
+      0,
+      "green",
+      "The cast on his broken arm was green"
+    ],
+    [
+      1,
+      "lime",
+      "The cast on his broken arm was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The cast on his broken arm was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The cast on his broken arm was orange"
+    ],
+    [
+      4,
+      "red",
+      "The cast on his broken arm was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The cast on his broken arm was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The cast on his broken arm was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The cast on his broken arm was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The cast on his broken arm was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The cast on his broken arm was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The cast on his broken arm was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The cast on his broken arm was teal"
+    ]
+  ],
+  "The glazed pottery she made in class was {placeholder}": [
+    [
+      0,
+      "green",
+      "The glazed pottery she made in class was green"
+    ],
+    [
+      1,
+      "lime",
+      "The glazed pottery she made in class was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The glazed pottery she made in class was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The glazed pottery she made in class was orange"
+    ],
+    [
+      4,
+      "red",
+      "The glazed pottery she made in class was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The glazed pottery she made in class was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The glazed pottery she made in class was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The glazed pottery she made in class was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The glazed pottery she made in class was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The glazed pottery she made in class was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The glazed pottery she made in class was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The glazed pottery she made in class was teal"
+    ]
+  ],
+  "According to witnesses, the getaway vehicle was {placeholder}": [
+    [
+      0,
+      "green",
+      "According to witnesses, the getaway vehicle was green"
+    ],
+    [
+      1,
+      "lime",
+      "According to witnesses, the getaway vehicle was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "According to witnesses, the getaway vehicle was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "According to witnesses, the getaway vehicle was orange"
+    ],
+    [
+      4,
+      "red",
+      "According to witnesses, the getaway vehicle was red"
+    ],
+    [
+      5,
+      "magenta",
+      "According to witnesses, the getaway vehicle was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "According to witnesses, the getaway vehicle was pink"
+    ],
+    [
+      7,
+      "purple",
+      "According to witnesses, the getaway vehicle was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "According to witnesses, the getaway vehicle was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "According to witnesses, the getaway vehicle was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "According to witnesses, the getaway vehicle was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "According to witnesses, the getaway vehicle was teal"
+    ]
+  ],
+  "The suitcase that went missing at the airport was {placeholder}": [
+    [
+      0,
+      "green",
+      "The suitcase that went missing at the airport was green"
+    ],
+    [
+      1,
+      "lime",
+      "The suitcase that went missing at the airport was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The suitcase that went missing at the airport was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The suitcase that went missing at the airport was orange"
+    ],
+    [
+      4,
+      "red",
+      "The suitcase that went missing at the airport was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The suitcase that went missing at the airport was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The suitcase that went missing at the airport was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The suitcase that went missing at the airport was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The suitcase that went missing at the airport was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The suitcase that went missing at the airport was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The suitcase that went missing at the airport was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The suitcase that went missing at the airport was teal"
+    ]
+  ],
+  "The balloon he let go of at the fair was {placeholder}": [
+    [
+      0,
+      "green",
+      "The balloon he let go of at the fair was green"
+    ],
+    [
+      1,
+      "lime",
+      "The balloon he let go of at the fair was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The balloon he let go of at the fair was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The balloon he let go of at the fair was orange"
+    ],
+    [
+      4,
+      "red",
+      "The balloon he let go of at the fair was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The balloon he let go of at the fair was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The balloon he let go of at the fair was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The balloon he let go of at the fair was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The balloon he let go of at the fair was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The balloon he let go of at the fair was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The balloon he let go of at the fair was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The balloon he let go of at the fair was teal"
+    ]
+  ],
+  "The frames she chose for her new glasses were {placeholder}": [
+    [
+      0,
+      "green",
+      "The frames she chose for her new glasses were green"
+    ],
+    [
+      1,
+      "lime",
+      "The frames she chose for her new glasses were lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The frames she chose for her new glasses were yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The frames she chose for her new glasses were orange"
+    ],
+    [
+      4,
+      "red",
+      "The frames she chose for her new glasses were red"
+    ],
+    [
+      5,
+      "magenta",
+      "The frames she chose for her new glasses were magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The frames she chose for her new glasses were pink"
+    ],
+    [
+      7,
+      "purple",
+      "The frames she chose for her new glasses were purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The frames she chose for her new glasses were darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The frames she chose for her new glasses were blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The frames she chose for her new glasses were cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The frames she chose for her new glasses were teal"
+    ]
+  ],
+  "The tent we bought for camping trips is {placeholder}": [
+    [
+      0,
+      "green",
+      "The tent we bought for camping trips is green"
+    ],
+    [
+      1,
+      "lime",
+      "The tent we bought for camping trips is lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The tent we bought for camping trips is yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The tent we bought for camping trips is orange"
+    ],
+    [
+      4,
+      "red",
+      "The tent we bought for camping trips is red"
+    ],
+    [
+      5,
+      "magenta",
+      "The tent we bought for camping trips is magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The tent we bought for camping trips is pink"
+    ],
+    [
+      7,
+      "purple",
+      "The tent we bought for camping trips is purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The tent we bought for camping trips is darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The tent we bought for camping trips is blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The tent we bought for camping trips is cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The tent we bought for camping trips is teal"
+    ]
+  ],
+  "The highlighter he always uses is {placeholder}": [
+    [
+      0,
+      "green",
+      "The highlighter he always uses is green"
+    ],
+    [
+      1,
+      "lime",
+      "The highlighter he always uses is lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The highlighter he always uses is yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The highlighter he always uses is orange"
+    ],
+    [
+      4,
+      "red",
+      "The highlighter he always uses is red"
+    ],
+    [
+      5,
+      "magenta",
+      "The highlighter he always uses is magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The highlighter he always uses is pink"
+    ],
+    [
+      7,
+      "purple",
+      "The highlighter he always uses is purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The highlighter he always uses is darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The highlighter he always uses is blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The highlighter he always uses is cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The highlighter he always uses is teal"
+    ]
+  ],
+  "NTSB investigators noted the aircraft's fuselage was painted {placeholder}": [
+    [
+      0,
+      "green",
+      "NTSB investigators noted the aircraft's fuselage was painted green"
+    ],
+    [
+      1,
+      "lime",
+      "NTSB investigators noted the aircraft's fuselage was painted lime"
+    ],
+    [
+      2,
+      "yellow",
+      "NTSB investigators noted the aircraft's fuselage was painted yellow"
+    ],
+    [
+      3,
+      "orange",
+      "NTSB investigators noted the aircraft's fuselage was painted orange"
+    ],
+    [
+      4,
+      "red",
+      "NTSB investigators noted the aircraft's fuselage was painted red"
+    ],
+    [
+      5,
+      "magenta",
+      "NTSB investigators noted the aircraft's fuselage was painted magenta"
+    ],
+    [
+      6,
+      "pink",
+      "NTSB investigators noted the aircraft's fuselage was painted pink"
+    ],
+    [
+      7,
+      "purple",
+      "NTSB investigators noted the aircraft's fuselage was painted purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "NTSB investigators noted the aircraft's fuselage was painted darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "NTSB investigators noted the aircraft's fuselage was painted blue"
+    ],
+    [
+      10,
+      "cyan",
+      "NTSB investigators noted the aircraft's fuselage was painted cyan"
+    ],
+    [
+      11,
+      "teal",
+      "NTSB investigators noted the aircraft's fuselage was painted teal"
+    ]
+  ],
+  "The residue left on the laboratory slide appeared {placeholder}": [
+    [
+      0,
+      "green",
+      "The residue left on the laboratory slide appeared green"
+    ],
+    [
+      1,
+      "lime",
+      "The residue left on the laboratory slide appeared lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The residue left on the laboratory slide appeared yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The residue left on the laboratory slide appeared orange"
+    ],
+    [
+      4,
+      "red",
+      "The residue left on the laboratory slide appeared red"
+    ],
+    [
+      5,
+      "magenta",
+      "The residue left on the laboratory slide appeared magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The residue left on the laboratory slide appeared pink"
+    ],
+    [
+      7,
+      "purple",
+      "The residue left on the laboratory slide appeared purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The residue left on the laboratory slide appeared darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The residue left on the laboratory slide appeared blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The residue left on the laboratory slide appeared cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The residue left on the laboratory slide appeared teal"
+    ]
+  ],
+  "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is {placeholder}": [
+    [
+      0,
+      "green",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is green"
+    ],
+    [
+      1,
+      "lime",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is lime"
+    ],
+    [
+      2,
+      "yellow",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is yellow"
+    ],
+    [
+      3,
+      "orange",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is orange"
+    ],
+    [
+      4,
+      "red",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is red"
+    ],
+    [
+      5,
+      "magenta",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is magenta"
+    ],
+    [
+      6,
+      "pink",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is pink"
+    ],
+    [
+      7,
+      "purple",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is blue"
+    ],
+    [
+      10,
+      "cyan",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is cyan"
+    ],
+    [
+      11,
+      "teal",
+      "@inkmaster_dave gave me exactly what I wanted, the shading on the dragon is teal"
+    ]
+  ],
+  "At the third turn we noticed the painted markers were {placeholder}": [
+    [
+      0,
+      "green",
+      "At the third turn we noticed the painted markers were green"
+    ],
+    [
+      1,
+      "lime",
+      "At the third turn we noticed the painted markers were lime"
+    ],
+    [
+      2,
+      "yellow",
+      "At the third turn we noticed the painted markers were yellow"
+    ],
+    [
+      3,
+      "orange",
+      "At the third turn we noticed the painted markers were orange"
+    ],
+    [
+      4,
+      "red",
+      "At the third turn we noticed the painted markers were red"
+    ],
+    [
+      5,
+      "magenta",
+      "At the third turn we noticed the painted markers were magenta"
+    ],
+    [
+      6,
+      "pink",
+      "At the third turn we noticed the painted markers were pink"
+    ],
+    [
+      7,
+      "purple",
+      "At the third turn we noticed the painted markers were purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "At the third turn we noticed the painted markers were darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "At the third turn we noticed the painted markers were blue"
+    ],
+    [
+      10,
+      "cyan",
+      "At the third turn we noticed the painted markers were cyan"
+    ],
+    [
+      11,
+      "teal",
+      "At the third turn we noticed the painted markers were teal"
+    ]
+  ],
+  "The protective coating on this sample measured 4nm and appeared {placeholder}": [
+    [
+      0,
+      "green",
+      "The protective coating on this sample measured 4nm and appeared green"
+    ],
+    [
+      1,
+      "lime",
+      "The protective coating on this sample measured 4nm and appeared lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The protective coating on this sample measured 4nm and appeared yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The protective coating on this sample measured 4nm and appeared orange"
+    ],
+    [
+      4,
+      "red",
+      "The protective coating on this sample measured 4nm and appeared red"
+    ],
+    [
+      5,
+      "magenta",
+      "The protective coating on this sample measured 4nm and appeared magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The protective coating on this sample measured 4nm and appeared pink"
+    ],
+    [
+      7,
+      "purple",
+      "The protective coating on this sample measured 4nm and appeared purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The protective coating on this sample measured 4nm and appeared darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The protective coating on this sample measured 4nm and appeared blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The protective coating on this sample measured 4nm and appeared cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The protective coating on this sample measured 4nm and appeared teal"
+    ]
+  ],
+  "Technical challenge for today's bake-off: a mirror glaze that's {placeholder}": [
+    [
+      0,
+      "green",
+      "Technical challenge for today's bake-off: a mirror glaze that's green"
+    ],
+    [
+      1,
+      "lime",
+      "Technical challenge for today's bake-off: a mirror glaze that's lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Technical challenge for today's bake-off: a mirror glaze that's yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Technical challenge for today's bake-off: a mirror glaze that's orange"
+    ],
+    [
+      4,
+      "red",
+      "Technical challenge for today's bake-off: a mirror glaze that's red"
+    ],
+    [
+      5,
+      "magenta",
+      "Technical challenge for today's bake-off: a mirror glaze that's magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Technical challenge for today's bake-off: a mirror glaze that's pink"
+    ],
+    [
+      7,
+      "purple",
+      "Technical challenge for today's bake-off: a mirror glaze that's purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Technical challenge for today's bake-off: a mirror glaze that's darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Technical challenge for today's bake-off: a mirror glaze that's blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Technical challenge for today's bake-off: a mirror glaze that's cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Technical challenge for today's bake-off: a mirror glaze that's teal"
+    ]
+  ],
+  "The client wants the mounted trophy with the base painted {placeholder}": [
+    [
+      0,
+      "green",
+      "The client wants the mounted trophy with the base painted green"
+    ],
+    [
+      1,
+      "lime",
+      "The client wants the mounted trophy with the base painted lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The client wants the mounted trophy with the base painted yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The client wants the mounted trophy with the base painted orange"
+    ],
+    [
+      4,
+      "red",
+      "The client wants the mounted trophy with the base painted red"
+    ],
+    [
+      5,
+      "magenta",
+      "The client wants the mounted trophy with the base painted magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The client wants the mounted trophy with the base painted pink"
+    ],
+    [
+      7,
+      "purple",
+      "The client wants the mounted trophy with the base painted purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The client wants the mounted trophy with the base painted darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The client wants the mounted trophy with the base painted blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The client wants the mounted trophy with the base painted cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The client wants the mounted trophy with the base painted teal"
+    ]
+  ],
+  "He wrote in his letter that the clothes were surprisingly {placeholder}": [
+    [
+      0,
+      "green",
+      "He wrote in his letter that the clothes were surprisingly green"
+    ],
+    [
+      1,
+      "lime",
+      "He wrote in his letter that the clothes were surprisingly lime"
+    ],
+    [
+      2,
+      "yellow",
+      "He wrote in his letter that the clothes were surprisingly yellow"
+    ],
+    [
+      3,
+      "orange",
+      "He wrote in his letter that the clothes were surprisingly orange"
+    ],
+    [
+      4,
+      "red",
+      "He wrote in his letter that the clothes were surprisingly red"
+    ],
+    [
+      5,
+      "magenta",
+      "He wrote in his letter that the clothes were surprisingly magenta"
+    ],
+    [
+      6,
+      "pink",
+      "He wrote in his letter that the clothes were surprisingly pink"
+    ],
+    [
+      7,
+      "purple",
+      "He wrote in his letter that the clothes were surprisingly purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "He wrote in his letter that the clothes were surprisingly darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "He wrote in his letter that the clothes were surprisingly blue"
+    ],
+    [
+      10,
+      "cyan",
+      "He wrote in his letter that the clothes were surprisingly cyan"
+    ],
+    [
+      11,
+      "teal",
+      "He wrote in his letter that the clothes were surprisingly teal"
+    ]
+  ],
+  "The grand housing has been restored to its original {placeholder}": [
+    [
+      0,
+      "green",
+      "The grand housing has been restored to its original green"
+    ],
+    [
+      1,
+      "lime",
+      "The grand housing has been restored to its original lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The grand housing has been restored to its original yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The grand housing has been restored to its original orange"
+    ],
+    [
+      4,
+      "red",
+      "The grand housing has been restored to its original red"
+    ],
+    [
+      5,
+      "magenta",
+      "The grand housing has been restored to its original magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The grand housing has been restored to its original pink"
+    ],
+    [
+      7,
+      "purple",
+      "The grand housing has been restored to its original purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The grand housing has been restored to its original darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The grand housing has been restored to its original blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The grand housing has been restored to its original cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The grand housing has been restored to its original teal"
+    ]
+  ],
+  "The carnival ride canopy they're auctioning off is a {placeholder}": [
+    [
+      0,
+      "green",
+      "The carnival ride canopy they're auctioning off is a green"
+    ],
+    [
+      1,
+      "lime",
+      "The carnival ride canopy they're auctioning off is a lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The carnival ride canopy they're auctioning off is a yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The carnival ride canopy they're auctioning off is a orange"
+    ],
+    [
+      4,
+      "red",
+      "The carnival ride canopy they're auctioning off is a red"
+    ],
+    [
+      5,
+      "magenta",
+      "The carnival ride canopy they're auctioning off is a magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The carnival ride canopy they're auctioning off is a pink"
+    ],
+    [
+      7,
+      "purple",
+      "The carnival ride canopy they're auctioning off is a purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The carnival ride canopy they're auctioning off is a darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The carnival ride canopy they're auctioning off is a blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The carnival ride canopy they're auctioning off is a cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The carnival ride canopy they're auctioning off is a teal"
+    ]
+  ],
+  "Best in Show went to the animal with a stunning {placeholder}": [
+    [
+      0,
+      "green",
+      "Best in Show went to the animal with a stunning green"
+    ],
+    [
+      1,
+      "lime",
+      "Best in Show went to the animal with a stunning lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Best in Show went to the animal with a stunning yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Best in Show went to the animal with a stunning orange"
+    ],
+    [
+      4,
+      "red",
+      "Best in Show went to the animal with a stunning red"
+    ],
+    [
+      5,
+      "magenta",
+      "Best in Show went to the animal with a stunning magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Best in Show went to the animal with a stunning pink"
+    ],
+    [
+      7,
+      "purple",
+      "Best in Show went to the animal with a stunning purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Best in Show went to the animal with a stunning darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Best in Show went to the animal with a stunning blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Best in Show went to the animal with a stunning cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Best in Show went to the animal with a stunning teal"
+    ]
+  ],
+  "The FAA citation mentioned the fabric was {placeholder}": [
+    [
+      0,
+      "green",
+      "The FAA citation mentioned the fabric was green"
+    ],
+    [
+      1,
+      "lime",
+      "The FAA citation mentioned the fabric was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The FAA citation mentioned the fabric was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The FAA citation mentioned the fabric was orange"
+    ],
+    [
+      4,
+      "red",
+      "The FAA citation mentioned the fabric was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The FAA citation mentioned the fabric was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The FAA citation mentioned the fabric was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The FAA citation mentioned the fabric was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The FAA citation mentioned the fabric was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The FAA citation mentioned the fabric was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The FAA citation mentioned the fabric was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The FAA citation mentioned the fabric was teal"
+    ]
+  ],
+  "This decoration thrives at daytime and shows {placeholder}": [
+    [
+      0,
+      "green",
+      "This decoration thrives at daytime and shows green"
+    ],
+    [
+      1,
+      "lime",
+      "This decoration thrives at daytime and shows lime"
+    ],
+    [
+      2,
+      "yellow",
+      "This decoration thrives at daytime and shows yellow"
+    ],
+    [
+      3,
+      "orange",
+      "This decoration thrives at daytime and shows orange"
+    ],
+    [
+      4,
+      "red",
+      "This decoration thrives at daytime and shows red"
+    ],
+    [
+      5,
+      "magenta",
+      "This decoration thrives at daytime and shows magenta"
+    ],
+    [
+      6,
+      "pink",
+      "This decoration thrives at daytime and shows pink"
+    ],
+    [
+      7,
+      "purple",
+      "This decoration thrives at daytime and shows purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "This decoration thrives at daytime and shows darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "This decoration thrives at daytime and shows blue"
+    ],
+    [
+      10,
+      "cyan",
+      "This decoration thrives at daytime and shows cyan"
+    ],
+    [
+      11,
+      "teal",
+      "This decoration thrives at daytime and shows teal"
+    ]
+  ],
+  "The antique pouch carried in the collection was made from {placeholder}": [
+    [
+      0,
+      "green",
+      "The antique pouch carried in the collection was made from green"
+    ],
+    [
+      1,
+      "lime",
+      "The antique pouch carried in the collection was made from lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The antique pouch carried in the collection was made from yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The antique pouch carried in the collection was made from orange"
+    ],
+    [
+      4,
+      "red",
+      "The antique pouch carried in the collection was made from red"
+    ],
+    [
+      5,
+      "magenta",
+      "The antique pouch carried in the collection was made from magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The antique pouch carried in the collection was made from pink"
+    ],
+    [
+      7,
+      "purple",
+      "The antique pouch carried in the collection was made from purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The antique pouch carried in the collection was made from darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The antique pouch carried in the collection was made from blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The antique pouch carried in the collection was made from cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The antique pouch carried in the collection was made from teal"
+    ]
+  ],
+  "Cutting into the sample, the interior was {placeholder}": [
+    [
+      0,
+      "green",
+      "Cutting into the sample, the interior was green"
+    ],
+    [
+      1,
+      "lime",
+      "Cutting into the sample, the interior was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Cutting into the sample, the interior was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Cutting into the sample, the interior was orange"
+    ],
+    [
+      4,
+      "red",
+      "Cutting into the sample, the interior was red"
+    ],
+    [
+      5,
+      "magenta",
+      "Cutting into the sample, the interior was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Cutting into the sample, the interior was pink"
+    ],
+    [
+      7,
+      "purple",
+      "Cutting into the sample, the interior was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Cutting into the sample, the interior was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Cutting into the sample, the interior was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Cutting into the sample, the interior was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Cutting into the sample, the interior was teal"
+    ]
+  ],
+  "Her portfolio review at the convention featured backgrounds in {placeholder}": [
+    [
+      0,
+      "green",
+      "Her portfolio review at the convention featured backgrounds in green"
+    ],
+    [
+      1,
+      "lime",
+      "Her portfolio review at the convention featured backgrounds in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Her portfolio review at the convention featured backgrounds in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Her portfolio review at the convention featured backgrounds in orange"
+    ],
+    [
+      4,
+      "red",
+      "Her portfolio review at the convention featured backgrounds in red"
+    ],
+    [
+      5,
+      "magenta",
+      "Her portfolio review at the convention featured backgrounds in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Her portfolio review at the convention featured backgrounds in pink"
+    ],
+    [
+      7,
+      "purple",
+      "Her portfolio review at the convention featured backgrounds in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Her portfolio review at the convention featured backgrounds in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Her portfolio review at the convention featured backgrounds in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Her portfolio review at the convention featured backgrounds in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Her portfolio review at the convention featured backgrounds in teal"
+    ]
+  ],
+  "This television's screen still shows an image with {placeholder}": [
+    [
+      0,
+      "green",
+      "This television's screen still shows an image with green"
+    ],
+    [
+      1,
+      "lime",
+      "This television's screen still shows an image with lime"
+    ],
+    [
+      2,
+      "yellow",
+      "This television's screen still shows an image with yellow"
+    ],
+    [
+      3,
+      "orange",
+      "This television's screen still shows an image with orange"
+    ],
+    [
+      4,
+      "red",
+      "This television's screen still shows an image with red"
+    ],
+    [
+      5,
+      "magenta",
+      "This television's screen still shows an image with magenta"
+    ],
+    [
+      6,
+      "pink",
+      "This television's screen still shows an image with pink"
+    ],
+    [
+      7,
+      "purple",
+      "This television's screen still shows an image with purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "This television's screen still shows an image with darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "This television's screen still shows an image with blue"
+    ],
+    [
+      10,
+      "cyan",
+      "This television's screen still shows an image with cyan"
+    ],
+    [
+      11,
+      "teal",
+      "This television's screen still shows an image with teal"
+    ]
+  ],
+  "The mineral deposits in the cave's lower chamber were predominantly {placeholder}": [
+    [
+      0,
+      "green",
+      "The mineral deposits in the cave's lower chamber were predominantly green"
+    ],
+    [
+      1,
+      "lime",
+      "The mineral deposits in the cave's lower chamber were predominantly lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The mineral deposits in the cave's lower chamber were predominantly yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The mineral deposits in the cave's lower chamber were predominantly orange"
+    ],
+    [
+      4,
+      "red",
+      "The mineral deposits in the cave's lower chamber were predominantly red"
+    ],
+    [
+      5,
+      "magenta",
+      "The mineral deposits in the cave's lower chamber were predominantly magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The mineral deposits in the cave's lower chamber were predominantly pink"
+    ],
+    [
+      7,
+      "purple",
+      "The mineral deposits in the cave's lower chamber were predominantly purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The mineral deposits in the cave's lower chamber were predominantly darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The mineral deposits in the cave's lower chamber were predominantly blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The mineral deposits in the cave's lower chamber were predominantly cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The mineral deposits in the cave's lower chamber were predominantly teal"
+    ]
+  ],
+  "Under analysis, the surface recovered from the site appeared {placeholder}": [
+    [
+      0,
+      "green",
+      "Under analysis, the surface recovered from the site appeared green"
+    ],
+    [
+      1,
+      "lime",
+      "Under analysis, the surface recovered from the site appeared lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Under analysis, the surface recovered from the site appeared yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Under analysis, the surface recovered from the site appeared orange"
+    ],
+    [
+      4,
+      "red",
+      "Under analysis, the surface recovered from the site appeared red"
+    ],
+    [
+      5,
+      "magenta",
+      "Under analysis, the surface recovered from the site appeared magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Under analysis, the surface recovered from the site appeared pink"
+    ],
+    [
+      7,
+      "purple",
+      "Under analysis, the surface recovered from the site appeared purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Under analysis, the surface recovered from the site appeared darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Under analysis, the surface recovered from the site appeared blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Under analysis, the surface recovered from the site appeared cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Under analysis, the surface recovered from the site appeared teal"
+    ]
+  ],
+  "The tiled floor in the room above was {placeholder}": [
+    [
+      0,
+      "green",
+      "The tiled floor in the room above was green"
+    ],
+    [
+      1,
+      "lime",
+      "The tiled floor in the room above was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The tiled floor in the room above was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The tiled floor in the room above was orange"
+    ],
+    [
+      4,
+      "red",
+      "The tiled floor in the room above was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The tiled floor in the room above was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The tiled floor in the room above was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The tiled floor in the room above was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The tiled floor in the room above was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The tiled floor in the room above was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The tiled floor in the room above was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The tiled floor in the room above was teal"
+    ]
+  ],
+  "The judge noted the liquid should be spread until it becomes {placeholder}": [
+    [
+      0,
+      "green",
+      "The judge noted the liquid should be spread until it becomes green"
+    ],
+    [
+      1,
+      "lime",
+      "The judge noted the liquid should be spread until it becomes lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The judge noted the liquid should be spread until it becomes yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The judge noted the liquid should be spread until it becomes orange"
+    ],
+    [
+      4,
+      "red",
+      "The judge noted the liquid should be spread until it becomes red"
+    ],
+    [
+      5,
+      "magenta",
+      "The judge noted the liquid should be spread until it becomes magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The judge noted the liquid should be spread until it becomes pink"
+    ],
+    [
+      7,
+      "purple",
+      "The judge noted the liquid should be spread until it becomes purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The judge noted the liquid should be spread until it becomes darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The judge noted the liquid should be spread until it becomes blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The judge noted the liquid should be spread until it becomes cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The judge noted the liquid should be spread until it becomes teal"
+    ]
+  ],
+  "Suddently all of her favorite items turned {placeholder}": [
+    [
+      0,
+      "green",
+      "Suddently all of her favorite items turned green"
+    ],
+    [
+      1,
+      "lime",
+      "Suddently all of her favorite items turned lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Suddently all of her favorite items turned yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Suddently all of her favorite items turned orange"
+    ],
+    [
+      4,
+      "red",
+      "Suddently all of her favorite items turned red"
+    ],
+    [
+      5,
+      "magenta",
+      "Suddently all of her favorite items turned magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Suddently all of her favorite items turned pink"
+    ],
+    [
+      7,
+      "purple",
+      "Suddently all of her favorite items turned purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Suddently all of her favorite items turned darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Suddently all of her favorite items turned blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Suddently all of her favorite items turned cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Suddently all of her favorite items turned teal"
+    ]
+  ],
+  "The objects near the horizon had a base that looked {placeholder}": [
+    [
+      0,
+      "green",
+      "The objects near the horizon had a base that looked green"
+    ],
+    [
+      1,
+      "lime",
+      "The objects near the horizon had a base that looked lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The objects near the horizon had a base that looked yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The objects near the horizon had a base that looked orange"
+    ],
+    [
+      4,
+      "red",
+      "The objects near the horizon had a base that looked red"
+    ],
+    [
+      5,
+      "magenta",
+      "The objects near the horizon had a base that looked magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The objects near the horizon had a base that looked pink"
+    ],
+    [
+      7,
+      "purple",
+      "The objects near the horizon had a base that looked purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The objects near the horizon had a base that looked darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The objects near the horizon had a base that looked blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The objects near the horizon had a base that looked cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The objects near the horizon had a base that looked teal"
+    ]
+  ],
+  "The glass eyes we stock for craft projects come in amber and {placeholder}": [
+    [
+      0,
+      "green",
+      "The glass eyes we stock for craft projects come in amber and green"
+    ],
+    [
+      1,
+      "lime",
+      "The glass eyes we stock for craft projects come in amber and lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The glass eyes we stock for craft projects come in amber and yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The glass eyes we stock for craft projects come in amber and orange"
+    ],
+    [
+      4,
+      "red",
+      "The glass eyes we stock for craft projects come in amber and red"
+    ],
+    [
+      5,
+      "magenta",
+      "The glass eyes we stock for craft projects come in amber and magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The glass eyes we stock for craft projects come in amber and pink"
+    ],
+    [
+      7,
+      "purple",
+      "The glass eyes we stock for craft projects come in amber and purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The glass eyes we stock for craft projects come in amber and darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The glass eyes we stock for craft projects come in amber and blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The glass eyes we stock for craft projects come in amber and cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The glass eyes we stock for craft projects come in amber and teal"
+    ]
+  ],
+  "The store sells these sneakers, only available in {placeholder}": [
+    [
+      0,
+      "green",
+      "The store sells these sneakers, only available in green"
+    ],
+    [
+      1,
+      "lime",
+      "The store sells these sneakers, only available in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The store sells these sneakers, only available in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The store sells these sneakers, only available in orange"
+    ],
+    [
+      4,
+      "red",
+      "The store sells these sneakers, only available in red"
+    ],
+    [
+      5,
+      "magenta",
+      "The store sells these sneakers, only available in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The store sells these sneakers, only available in pink"
+    ],
+    [
+      7,
+      "purple",
+      "The store sells these sneakers, only available in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The store sells these sneakers, only available in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The store sells these sneakers, only available in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The store sells these sneakers, only available in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The store sells these sneakers, only available in teal"
+    ]
+  ],
+  "The signal building at the station was painted {placeholder}": [
+    [
+      0,
+      "green",
+      "The signal building at the station was painted green"
+    ],
+    [
+      1,
+      "lime",
+      "The signal building at the station was painted lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The signal building at the station was painted yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The signal building at the station was painted orange"
+    ],
+    [
+      4,
+      "red",
+      "The signal building at the station was painted red"
+    ],
+    [
+      5,
+      "magenta",
+      "The signal building at the station was painted magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The signal building at the station was painted pink"
+    ],
+    [
+      7,
+      "purple",
+      "The signal building at the station was painted purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The signal building at the station was painted darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The signal building at the station was painted blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The signal building at the station was painted cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The signal building at the station was painted teal"
+    ]
+  ],
+  "The prize wheel they're scrapping still has panels in {placeholder}": [
+    [
+      0,
+      "green",
+      "The prize wheel they're scrapping still has panels in green"
+    ],
+    [
+      1,
+      "lime",
+      "The prize wheel they're scrapping still has panels in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The prize wheel they're scrapping still has panels in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The prize wheel they're scrapping still has panels in orange"
+    ],
+    [
+      4,
+      "red",
+      "The prize wheel they're scrapping still has panels in red"
+    ],
+    [
+      5,
+      "magenta",
+      "The prize wheel they're scrapping still has panels in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The prize wheel they're scrapping still has panels in pink"
+    ],
+    [
+      7,
+      "purple",
+      "The prize wheel they're scrapping still has panels in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The prize wheel they're scrapping still has panels in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The prize wheel they're scrapping still has panels in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The prize wheel they're scrapping still has panels in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The prize wheel they're scrapping still has panels in teal"
+    ]
+  ],
+  "The poodle's bows were dyed {placeholder}": [
+    [
+      0,
+      "green",
+      "The poodle's bows were dyed green"
+    ],
+    [
+      1,
+      "lime",
+      "The poodle's bows were dyed lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The poodle's bows were dyed yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The poodle's bows were dyed orange"
+    ],
+    [
+      4,
+      "red",
+      "The poodle's bows were dyed red"
+    ],
+    [
+      5,
+      "magenta",
+      "The poodle's bows were dyed magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The poodle's bows were dyed pink"
+    ],
+    [
+      7,
+      "purple",
+      "The poodle's bows were dyed purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The poodle's bows were dyed darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The poodle's bows were dyed blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The poodle's bows were dyed cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The poodle's bows were dyed teal"
+    ]
+  ],
+  "As you tilt the object, the surface shifts toward {placeholder}": [
+    [
+      0,
+      "green",
+      "As you tilt the object, the surface shifts toward green"
+    ],
+    [
+      1,
+      "lime",
+      "As you tilt the object, the surface shifts toward lime"
+    ],
+    [
+      2,
+      "yellow",
+      "As you tilt the object, the surface shifts toward yellow"
+    ],
+    [
+      3,
+      "orange",
+      "As you tilt the object, the surface shifts toward orange"
+    ],
+    [
+      4,
+      "red",
+      "As you tilt the object, the surface shifts toward red"
+    ],
+    [
+      5,
+      "magenta",
+      "As you tilt the object, the surface shifts toward magenta"
+    ],
+    [
+      6,
+      "pink",
+      "As you tilt the object, the surface shifts toward pink"
+    ],
+    [
+      7,
+      "purple",
+      "As you tilt the object, the surface shifts toward purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "As you tilt the object, the surface shifts toward darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "As you tilt the object, the surface shifts toward blue"
+    ],
+    [
+      10,
+      "cyan",
+      "As you tilt the object, the surface shifts toward cyan"
+    ],
+    [
+      11,
+      "teal",
+      "As you tilt the object, the surface shifts toward teal"
+    ]
+  ],
+  "The experimental aircraft that landed near the airshow was painted {placeholder}": [
+    [
+      0,
+      "green",
+      "The experimental aircraft that landed near the airshow was painted green"
+    ],
+    [
+      1,
+      "lime",
+      "The experimental aircraft that landed near the airshow was painted lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The experimental aircraft that landed near the airshow was painted yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The experimental aircraft that landed near the airshow was painted orange"
+    ],
+    [
+      4,
+      "red",
+      "The experimental aircraft that landed near the airshow was painted red"
+    ],
+    [
+      5,
+      "magenta",
+      "The experimental aircraft that landed near the airshow was painted magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The experimental aircraft that landed near the airshow was painted pink"
+    ],
+    [
+      7,
+      "purple",
+      "The experimental aircraft that landed near the airshow was painted purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The experimental aircraft that landed near the airshow was painted darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The experimental aircraft that landed near the airshow was painted blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The experimental aircraft that landed near the airshow was painted cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The experimental aircraft that landed near the airshow was painted teal"
+    ]
+  ],
+  "The carved amulet from the archaeological site was made from stone that was {placeholder}": [
+    [
+      0,
+      "green",
+      "The carved amulet from the archaeological site was made from stone that was green"
+    ],
+    [
+      1,
+      "lime",
+      "The carved amulet from the archaeological site was made from stone that was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The carved amulet from the archaeological site was made from stone that was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The carved amulet from the archaeological site was made from stone that was orange"
+    ],
+    [
+      4,
+      "red",
+      "The carved amulet from the archaeological site was made from stone that was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The carved amulet from the archaeological site was made from stone that was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The carved amulet from the archaeological site was made from stone that was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The carved amulet from the archaeological site was made from stone that was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The carved amulet from the archaeological site was made from stone that was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The carved amulet from the archaeological site was made from stone that was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The carved amulet from the archaeological site was made from stone that was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The carved amulet from the archaeological site was made from stone that was teal"
+    ]
+  ],
+  "The decorations added to my fish tank turned {placeholder}": [
+    [
+      0,
+      "green",
+      "The decorations added to my fish tank turned green"
+    ],
+    [
+      1,
+      "lime",
+      "The decorations added to my fish tank turned lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The decorations added to my fish tank turned yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The decorations added to my fish tank turned orange"
+    ],
+    [
+      4,
+      "red",
+      "The decorations added to my fish tank turned red"
+    ],
+    [
+      5,
+      "magenta",
+      "The decorations added to my fish tank turned magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The decorations added to my fish tank turned pink"
+    ],
+    [
+      7,
+      "purple",
+      "The decorations added to my fish tank turned purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The decorations added to my fish tank turned darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The decorations added to my fish tank turned blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The decorations added to my fish tank turned cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The decorations added to my fish tank turned teal"
+    ]
+  ],
+  "The canteen bought from the shop had fabric covering that was {placeholder}": [
+    [
+      0,
+      "green",
+      "The canteen bought from the shop had fabric covering that was green"
+    ],
+    [
+      1,
+      "lime",
+      "The canteen bought from the shop had fabric covering that was lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The canteen bought from the shop had fabric covering that was yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The canteen bought from the shop had fabric covering that was orange"
+    ],
+    [
+      4,
+      "red",
+      "The canteen bought from the shop had fabric covering that was red"
+    ],
+    [
+      5,
+      "magenta",
+      "The canteen bought from the shop had fabric covering that was magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The canteen bought from the shop had fabric covering that was pink"
+    ],
+    [
+      7,
+      "purple",
+      "The canteen bought from the shop had fabric covering that was purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The canteen bought from the shop had fabric covering that was darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The canteen bought from the shop had fabric covering that was blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The canteen bought from the shop had fabric covering that was cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The canteen bought from the shop had fabric covering that was teal"
+    ]
+  ],
+  "The substance growing on this petri dish is unusually {placeholder}": [
+    [
+      0,
+      "green",
+      "The substance growing on this petri dish is unusually green"
+    ],
+    [
+      1,
+      "lime",
+      "The substance growing on this petri dish is unusually lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The substance growing on this petri dish is unusually yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The substance growing on this petri dish is unusually orange"
+    ],
+    [
+      4,
+      "red",
+      "The substance growing on this petri dish is unusually red"
+    ],
+    [
+      5,
+      "magenta",
+      "The substance growing on this petri dish is unusually magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The substance growing on this petri dish is unusually pink"
+    ],
+    [
+      7,
+      "purple",
+      "The substance growing on this petri dish is unusually purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The substance growing on this petri dish is unusually darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The substance growing on this petri dish is unusually blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The substance growing on this petri dish is unusually cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The substance growing on this petri dish is unusually teal"
+    ]
+  ],
+  "Her sleeve tattoo transitions into shading that fades to {placeholder}": [
+    [
+      0,
+      "green",
+      "Her sleeve tattoo transitions into shading that fades to green"
+    ],
+    [
+      1,
+      "lime",
+      "Her sleeve tattoo transitions into shading that fades to lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Her sleeve tattoo transitions into shading that fades to yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Her sleeve tattoo transitions into shading that fades to orange"
+    ],
+    [
+      4,
+      "red",
+      "Her sleeve tattoo transitions into shading that fades to red"
+    ],
+    [
+      5,
+      "magenta",
+      "Her sleeve tattoo transitions into shading that fades to magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Her sleeve tattoo transitions into shading that fades to pink"
+    ],
+    [
+      7,
+      "purple",
+      "Her sleeve tattoo transitions into shading that fades to purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Her sleeve tattoo transitions into shading that fades to darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Her sleeve tattoo transitions into shading that fades to blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Her sleeve tattoo transitions into shading that fades to cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Her sleeve tattoo transitions into shading that fades to teal"
+    ]
+  ],
+  "Still hunting for a radio with the cabinet in {placeholder}": [
+    [
+      0,
+      "green",
+      "Still hunting for a radio with the cabinet in green"
+    ],
+    [
+      1,
+      "lime",
+      "Still hunting for a radio with the cabinet in lime"
+    ],
+    [
+      2,
+      "yellow",
+      "Still hunting for a radio with the cabinet in yellow"
+    ],
+    [
+      3,
+      "orange",
+      "Still hunting for a radio with the cabinet in orange"
+    ],
+    [
+      4,
+      "red",
+      "Still hunting for a radio with the cabinet in red"
+    ],
+    [
+      5,
+      "magenta",
+      "Still hunting for a radio with the cabinet in magenta"
+    ],
+    [
+      6,
+      "pink",
+      "Still hunting for a radio with the cabinet in pink"
+    ],
+    [
+      7,
+      "purple",
+      "Still hunting for a radio with the cabinet in purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "Still hunting for a radio with the cabinet in darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "Still hunting for a radio with the cabinet in blue"
+    ],
+    [
+      10,
+      "cyan",
+      "Still hunting for a radio with the cabinet in cyan"
+    ],
+    [
+      11,
+      "teal",
+      "Still hunting for a radio with the cabinet in teal"
+    ]
+  ],
+  "The formations in the cave's lower room were {placeholder}": [
+    [
+      0,
+      "green",
+      "The formations in the cave's lower room were green"
+    ],
+    [
+      1,
+      "lime",
+      "The formations in the cave's lower room were lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The formations in the cave's lower room were yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The formations in the cave's lower room were orange"
+    ],
+    [
+      4,
+      "red",
+      "The formations in the cave's lower room were red"
+    ],
+    [
+      5,
+      "magenta",
+      "The formations in the cave's lower room were magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The formations in the cave's lower room were pink"
+    ],
+    [
+      7,
+      "purple",
+      "The formations in the cave's lower room were purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The formations in the cave's lower room were darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The formations in the cave's lower room were blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The formations in the cave's lower room were cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The formations in the cave's lower room were teal"
+    ]
+  ],
+  "The coating layer cured improperly and turned {placeholder}": [
+    [
+      0,
+      "green",
+      "The coating layer cured improperly and turned green"
+    ],
+    [
+      1,
+      "lime",
+      "The coating layer cured improperly and turned lime"
+    ],
+    [
+      2,
+      "yellow",
+      "The coating layer cured improperly and turned yellow"
+    ],
+    [
+      3,
+      "orange",
+      "The coating layer cured improperly and turned orange"
+    ],
+    [
+      4,
+      "red",
+      "The coating layer cured improperly and turned red"
+    ],
+    [
+      5,
+      "magenta",
+      "The coating layer cured improperly and turned magenta"
+    ],
+    [
+      6,
+      "pink",
+      "The coating layer cured improperly and turned pink"
+    ],
+    [
+      7,
+      "purple",
+      "The coating layer cured improperly and turned purple"
+    ],
+    [
+      8,
+      "darkblue",
+      "The coating layer cured improperly and turned darkblue"
+    ],
+    [
+      9,
+      "blue",
+      "The coating layer cured improperly and turned blue"
+    ],
+    [
+      10,
+      "cyan",
+      "The coating layer cured improperly and turned cyan"
+    ],
+    [
+      11,
+      "teal",
+      "The coating layer cured improperly and turned teal"
+    ]
+  ]
+}

@@ -48,22 +48,22 @@ def generate_dataset(
         output_order: Optional list specifying the order of categories in the output string
                      (e.g., ['adverb', 'weekday', 'time'] for "early Monday morning")
                      If None, uses the order from categories dict.
-        cfg: Optional Config object. If provided, paths and categories are derived from cfg.filter.regex_file
+        cfg: Optional Config object. If provided, paths and categories are derived from cfg.data.name
     """
     # If config is provided, derive paths and categories from it
     if cfg is not None:
-        regex_file = cfg.filter.regex_file
+        dataset_name = cfg.data.name
         root_dir = Path(__file__).parent.parent
 
-        # Construct paths based on regex_file
-        category_txt_path = root_dir / cfg.env.texts_dir / f"{regex_file}.txt"
-        template_txt_path = root_dir / cfg.env.texts_dir / f"{regex_file}_templates.txt"
-        output_json_path = root_dir / cfg.env.texts_dir / f"{regex_file}_trajectories.json"
+        # Construct paths based on dataset name
+        category_txt_path = root_dir / cfg.env.texts_dir / f"{dataset_name}.txt"
+        template_txt_path = root_dir / cfg.env.texts_dir / f"{dataset_name}_templates.txt"
+        output_json_path = root_dir / cfg.env.texts_dir / f"{dataset_name}_trajectories.json"
 
         # Load categories from the text file
         category_values = load_categories_from_txt(str(category_txt_path))
-        categories = {regex_file: category_values}
-        output_order = [regex_file]
+        categories = {dataset_name: category_values}
+        output_order = [dataset_name]
     # Read templates from text file
     templates = []
     with open(template_txt_path, "r", encoding="utf-8") as f:
@@ -137,7 +137,7 @@ def generate_dataset(
 
 
 if __name__ == "__main__":
-    # Load config and generate dataset using cfg.filter.regex_file
+    # Load config and generate dataset using cfg.data.name
     cfg = load_config()
     generate_dataset(cfg=cfg)
 
