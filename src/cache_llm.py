@@ -11,7 +11,7 @@ import einops
 
 from src.cache_sae import save_sae_cache
 from src.config import Config
-from src.loading import load_llm, load_tokenizer, load_texts, load_sae, load_trajectory_texts, load_elements
+from src.loading import load_llm, load_tokenizer, load_texts, load_sae, load_trajectory_texts, load_elements, get_embedding_module
 from src.tokenization import save_tokenized, get_tokenized_texts
 from transformers import AutoModelForCausalLM
 
@@ -118,6 +118,181 @@ def aggregate_activations(cfg: Config, act_BTD: th.Tensor, mask_BT: th.Tensor) -
             return masked_act.sum(dim=1)
         case _:
             raise ValueError("Unknown sequence_aggregation_method declared in the config.yaml!")
+
+
+def extract_embeddings(cfg: Config, token_ids: th.Tensor, llm) -> th.Tensor:
+    """Direct embedding lookup without forward pass.
+
+    Args:
+        cfg: Configuration object
+        token_ids: Token IDs of shape (B, T) or (N,)
+        llm: The loaded language model
+
+    Returns:
+        Embeddings tensor of same shape as input plus embedding dimension
+    """
+    embed_module = get_embedding_module(cfg, llm)
+    with th.inference_mode():
+        return embed_module(token_ids.to(cfg.env.device))
+
+
+def aggregate_token_embeddings(cfg: Config, embeddings_TD: th.Tensor) -> th.Tensor:
+    """Aggregate embeddings for multi-token concept into single vector.
+
+    Args:
+        cfg: Configuration object
+        embeddings_TD: Embeddings of shape (T, D) for a single concept's tokens
+
+    Returns:
+        Aggregated embedding of shape (D,)
+    """
+    match cfg.exp.sequence_aggregation_method:
+        case "max":
+            return embeddings_TD.max(dim=0).values
+        case "final":
+            return embeddings_TD[-1]
+        case "sum":
+            return embeddings_TD.sum(dim=0)
+        case _:
+            raise ValueError(f"Unknown sequence_aggregation_method: {cfg.exp.sequence_aggregation_method}")
+
+
+def load_embedding_acts(
+    cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
+) -> Dict:
+    """Load embeddings for concept elements only (no trajectory context).
+
+    Embeddings are context-free and only depend on token identity, so they
+    don't require a forward pass or trajectory context.
+
+    Args:
+        cfg: Configuration object
+        force_recompute: If True, recompute embeddings even if cached
+        compute_if_missing: If True, compute embeddings if not cached
+
+    Returns:
+        Dict with:
+        - elements_C: list of element strings
+        - embeddings_CD: aggregated embeddings (C, D)
+    """
+    from src.artifact_utils import (
+        get_embedding_artifact_path,
+        get_artifact_metadata,
+        save_artifact_metadata,
+        validate_artifact_metadata,
+    )
+
+    # Load elements
+    elements = load_elements(cfg)
+    C = len(elements)
+
+    # Check for cached embeddings
+    embed_path, embed_metadata_path = get_embedding_artifact_path(cfg)
+
+    if embed_path.exists() and not force_recompute:
+        # Validate metadata before loading
+        validate_artifact_metadata(cfg, "embeddings", embed_metadata_path, strict=True)
+        embed_dict = load_file(str(embed_path))
+        embeddings_CD = embed_dict["embeddings"].to(cfg.env.device)
+
+        if cfg.env.debug:
+            print(f"Loaded embeddings from {embed_path}")
+
+        return {
+            "elements_C": elements,
+            "embeddings_CD": embeddings_CD,
+        }
+
+    if not compute_if_missing:
+        raise FileNotFoundError(f"Embedding artifact not found: {embed_path}")
+
+    # Compute embeddings
+    if cfg.env.debug:
+        print("Computing embeddings...")
+
+    tokenizer = load_tokenizer(cfg)
+    llm = load_llm(cfg)
+
+    embeddings_list = []
+    for element in elements:
+        # Tokenize element (without special tokens)
+        token_ids = tokenizer.encode(element, add_special_tokens=False, return_tensors="pt")
+        token_ids = token_ids.squeeze(0)  # (T,)
+
+        # Get embeddings for all tokens
+        embeddings_T_D = extract_embeddings(cfg, token_ids, llm)  # (T, D)
+
+        # Aggregate multi-token embeddings
+        aggregated = aggregate_token_embeddings(cfg, embeddings_T_D)  # (D,)
+        embeddings_list.append(aggregated)
+
+    embeddings_CD = th.stack(embeddings_list, dim=0)  # (C, D)
+
+    # Save to cache
+    embed_path.parent.mkdir(parents=True, exist_ok=True)
+    save_file({"embeddings": embeddings_CD.cpu()}, str(embed_path))
+
+    # Save metadata
+    metadata = get_artifact_metadata(cfg, "embeddings")
+    metadata["embedding_shape"] = list(embeddings_CD.shape)
+    metadata["num_elements"] = C
+    save_artifact_metadata(metadata, embed_metadata_path)
+
+    if cfg.env.debug:
+        print(f"Saved embeddings to {embed_path}")
+
+    del llm
+    th.cuda.empty_cache()
+
+    return {
+        "elements_C": elements,
+        "embeddings_CD": embeddings_CD,
+    }
+
+
+def load_embedding_trajectory_acts(
+    cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
+) -> Dict:
+    """Load embeddings in trajectory-compatible format.
+
+    Wraps load_embedding_acts() output with B=1 pseudo-template dimension
+    for compatibility with existing analysis code.
+
+    Args:
+        cfg: Configuration object
+        force_recompute: If True, recompute embeddings even if cached
+        compute_if_missing: If True, compute embeddings if not cached
+
+    Returns:
+        Dict with trajectory-compatible keys:
+        - elements_C: list of element strings
+        - labels_B: list with single empty label
+        - texts_B: list with single empty text
+        - input_ids_BT: empty placeholder
+        - mask_BT: empty placeholder
+        - llm_BCTD: embeddings with B=1, T=1 dimensions (1, C, 1, D)
+        - llm_BCD: aggregated embeddings with B=1 (1, C, D)
+    """
+    embed_data = load_embedding_acts(cfg, force_recompute, compute_if_missing)
+
+    embeddings_CD = embed_data["embeddings_CD"]
+    C, D = embeddings_CD.shape
+
+    # Add pseudo-batch and pseudo-time dimensions for compatibility
+    # llm_BCTD: (B=1, C, T=1, D)
+    llm_BCTD = embeddings_CD.unsqueeze(0).unsqueeze(2)  # (1, C, 1, D)
+    # llm_BCD: (B=1, C, D)
+    llm_BCD = embeddings_CD.unsqueeze(0)  # (1, C, D)
+
+    return {
+        "elements_C": embed_data["elements_C"],
+        "labels_B": [""],  # Single pseudo-template
+        "texts_B": [""],
+        "input_ids_BT": th.empty(0),  # Placeholder
+        "mask_BT": th.empty(0),  # Placeholder
+        "llm_BCTD": llm_BCTD,
+        "llm_BCD": llm_BCD,
+    }
 
 
 def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=True):
@@ -270,6 +445,10 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
 def load_short_trajectory_acts(
     cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
 ) -> Dict:
+    # Check for embedding mode (layer_idx=-1)
+    if cfg.llm.layer_idx == -1:
+        return load_embedding_trajectory_acts(cfg, force_recompute, compute_if_missing)
+
     from src.artifact_utils import (
         get_token_artifact_path,
         get_llm_activation_artifact_path,

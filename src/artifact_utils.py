@@ -16,7 +16,7 @@ def get_config_hash(cfg: Config, artifact_type: str) -> str:
 
     Args:
         cfg: Configuration object
-        artifact_type: One of 'tokens', 'llm_activations', 'sae_activations'
+        artifact_type: One of 'tokens', 'llm_activations', 'sae_activations', 'embeddings'
 
     Returns:
         8-character hex hash string
@@ -169,6 +169,23 @@ def get_llm_activation_artifact_path(cfg: Config) -> tuple[Path, Path]:
     base_name = f"{cfg.data.name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_{config_hash}"
     artifact_path = activations_dir / f"{base_name}_llm.safetensors"
     metadata_path = activations_dir / f"{base_name}_llm.json"
+
+    return artifact_path, metadata_path
+
+
+def get_embedding_artifact_path(cfg: Config) -> tuple[Path, Path]:
+    """
+    Get paths for embedding artifact and its metadata.
+
+    Returns:
+        (artifact_path, metadata_path) tuple
+    """
+    config_hash = get_config_hash(cfg, "embeddings")
+    activations_dir = Path(cfg.env.activations_dir)
+
+    base_name = f"{cfg.data.name}_{cfg.llm.name}_embedding_{config_hash}"
+    artifact_path = activations_dir / f"{base_name}.safetensors"
+    metadata_path = activations_dir / f"{base_name}.json"
 
     return artifact_path, metadata_path
 

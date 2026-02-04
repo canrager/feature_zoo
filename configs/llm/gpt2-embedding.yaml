@@ -1,0 +1,5 @@
+name: gpt2-embedding
+hf_name: openai-community/gpt2
+layer_idx: -1
+batch_size: 1000
+quantization_bits:

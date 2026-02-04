@@ -1,4 +1,4 @@
-name: llama3.1-8b-base
+name: llama3.1-8b-base-layer15
 hf_name: meta-llama/LLama-3.1-8B
 layer_idx: 15
 batch_size: 200

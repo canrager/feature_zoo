@@ -1,0 +1,5 @@
+name: llama3.1-8b-base-embedding
+hf_name: meta-llama/LLama-3.1-8B
+layer_idx: -1
+batch_size: 1000
+quantization_bits:

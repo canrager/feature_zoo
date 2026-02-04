@@ -11,6 +11,25 @@ from typing import List, Tuple, Optional, Any, Dict
 import json
 
 from sae import SAEStandard, TemporalSAE
+import torch as th
+
+
+def get_embedding_module(cfg: Config, llm: AutoModelForCausalLM) -> th.nn.Embedding:
+    """Get the token embedding module for the model.
+
+    Args:
+        cfg: Configuration object
+        llm: The loaded language model
+
+    Returns:
+        The embedding module (nn.Embedding) for the model
+    """
+    if any([name in cfg.llm.hf_name.lower() for name in ["olmo", "llama"]]):
+        return llm.model.embed_tokens
+    elif "gpt2" in cfg.llm.hf_name.lower():
+        return llm.transformer.wte
+    else:
+        raise ValueError(f"Unknown model type: {cfg.llm.hf_name}")
 
 
 def load_tokenizer(cfg: Config) -> AutoTokenizer:

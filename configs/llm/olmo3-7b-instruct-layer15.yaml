@@ -1,4 +1,4 @@
-name: olmo3-7b-instruct
+name: olmo3-7b-instruct-layer15
 hf_name: allenai/Olmo-3-7B-Instruct
 layer_idx: 15
 batch_size: 100

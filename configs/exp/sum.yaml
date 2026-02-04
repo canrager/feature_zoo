@@ -1,0 +1,2 @@
+sequence_aggregation_method: sum # max, sum, final
+num_pca_components: 7

@@ -18,23 +18,25 @@
 from src.config import load_config
 
 overrides_list = [
-    # ["llm=gpt2", "data=colors101"],
-    # ["llm=gpt2", "data=integers100"],
-    # ["llm=gpt2", "data=integers1000"],
-    # ["llm=gpt2", "data=integers1000step5"],
-    ["llm=llama3.1-8b-base", "data=integers100"],
-    # ["llm=llama3.1-8b-base", "data=integers1000step5"],
-    # ["llm=llama3.1-8b-base", "data=years100"],
-    # ["llm=llama3.1-8b-base", "data=integers500"],
-    # ["llm=llama3.1-8b-base", "data=integers1000"],
-    # ["llm=llama3.1-8b-base", "data=days7"],
-    # ["llm=llama3.1-8b-base", "data=months12"],
-    # ["llm=llama3.1-8b-base", "data=colors101"],
-    # ["llm=olmo3-32b-base", "data=integers100"],
-    # ["llm=gpt2", "data=years100"],
-    # ["llm=gpt2", "data=colors6"],
-    # "llm=llama3.1-8b-base", # Uncomment to switch models or select multiple models.
-    # "llm=olmo3-32b-base",
+    # ["llm=gpt2-layer6", "data=colors101"],
+    # ["llm=gpt2-layer6", "data=integers100"],
+    # ["llm=gpt2-layer6", "data=integers1000"],
+    # ["llm=gpt2-layer6", "data=integers1000step5"],
+    # ["llm=llama3.1-8b-base-layer15", "data=integers100"],
+    # ["llm=llama3.1-8b-base-layer15", "data=integers1000step5"],
+    # ["llm=llama3.1-8b-base-layer15", "data=years100"],
+    # ["llm=llama3.1-8b-base-layer15", "data=integers500"],
+    # ["llm=llama3.1-8b-base-layer15", "data=integers1000"],
+    # ["llm=llama3.1-8b-base-layer15", "data=days7"],
+    # ["llm=llama3.1-8b-base-layer15", "data=months12"],
+    # ["llm=llama3.1-8b-base-layer15", "data=colors101"],
+    ["llm=llama3.1-8b-base-embedding", "data=integers100", "exp=sum"],  # Embedding mode
+    # ["llm=olmo3-32b-base-layer32", "data=integers100"],
+    # ["llm=gpt2-layer6", "data=years100"],
+    # ["llm=gpt2-layer6", "data=colors6"],
+    # ["llm=gpt2-embedding", "data=integers100"],  # Embedding mode
+    # "llm=llama3.1-8b-base-layer15", # Uncomment to switch models or select multiple models.
+    # "llm=olmo3-32b-base-layer32",
 ]
 
 # %%
@@ -124,7 +126,7 @@ def get_tick_positions_and_labels(labels, num_ticklabels):
     return indices, [labels[i] for i in indices]
 
 
-def compute_kernel_and_eigenvalues(llm_BCD):
+def compute_kernel_and_eigenvalues(llm_BCD, normalize_acts=False):
     """Compute kernel matrix and eigenvalues from activations.
 
     Args:
@@ -140,7 +142,8 @@ def compute_kernel_and_eigenvalues(llm_BCD):
 
     # Average over templates
     llm_CD = np.mean(llm_BCD, axis=0)
-    llm_CD = llm_CD / np.linalg.norm(llm_CD, axis=-1, keepdims=True) # TODO
+    if normalize_acts:
+        llm_CD = llm_CD / np.linalg.norm(llm_CD, axis=-1, keepdims=True) # TODO
 
     # Compute kernel matrix
     K_CC = llm_CD @ llm_CD.T
@@ -156,7 +159,107 @@ def compute_kernel_and_eigenvalues(llm_BCD):
     return K_CC, eigenvalues, eigenvectors
 
 # %%
-def plot_comparison(model_name, original_data, random_data, data_name, vmin=None, vmax=None, num_ticklabels=10, comp_max=15):
+def compute_relative_energy(eigenvalues: np.ndarray, square_evs=True) -> dict:
+    """Compute relative energy metrics from eigenvalues.
+
+    Args:
+        eigenvalues: Array of eigenvalues (sorted descending)
+
+    Returns:
+        dict with:
+        - rel_energy: relative energy per eigenvalue (eigenvalues^2 / sum)
+        - cumulative: cumulative relative energy
+        - decay_rate: decay rate (difference between consecutive cumulative values)
+    """
+    if square_evs:
+        rel_energy = eigenvalues**2 / np.sum(eigenvalues**2)
+    else:
+        rel_energy = eigenvalues / np.sum(eigenvalues)
+    cumulative = np.cumsum(rel_energy)
+    # Decay rate: how much energy is added at each step (same as rel_energy, but explicitly named)
+    decay_rate = rel_energy
+    return {
+        "rel_energy": rel_energy,
+        "cumulative": cumulative,
+        "decay_rate": decay_rate,
+    }
+
+#%%
+def plot_spectral_analysis(model_name, original_data, random_data, data_name, square_evs=False, comp_max=15):
+    """Plot spectral analysis: eigenspectrum, cumulative energy, and decay rate.
+
+    Args:
+        model_name: Name of the model
+        original_data: Dict with original dataset activations
+        random_data: Dict with random baseline activations
+        data_name: Name of the original dataset (e.g., 'colors6')
+        comp_max: Maximum number of components to display
+    """
+    # Compute kernels and eigenvalues
+    _, orig_eig, _ = compute_kernel_and_eigenvalues(original_data["llm_BCD"])
+    _, rand_eig, _ = compute_kernel_and_eigenvalues(random_data["llm_BCD"])
+
+    # Compute relative energy metrics
+    orig_metrics = compute_relative_energy(orig_eig, square_evs)
+    rand_metrics = compute_relative_energy(rand_eig, square_evs)
+
+    # Create figure with 3 subplots
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    fig.suptitle(f"{model_name} - {data_name}: Spectral Analysis", fontsize=14)
+
+    x = np.arange(min(comp_max, len(orig_eig)))
+
+    # Subplot 1: Eigenspectrum (relative energy per eigenvalue)
+    width = 0.35
+    axes[0].bar(x - width/2, orig_metrics["rel_energy"][:comp_max], width=width,
+                color='tab:blue', alpha=0.7, label=f'Original ({data_name})')
+    axes[0].bar(x + width/2, rand_metrics["rel_energy"][:comp_max], width=width,
+                color='tab:orange', alpha=0.7, label='Random')
+    axes[0].set_xlabel("Eigenvalue Index")
+    axes[0].set_ylabel("Relative Energy")
+    axes[0].set_title("Eigenspectrum")
+    axes[0].set_xticks(x)
+    axes[0].grid(True, alpha=0.3, axis='y')
+    axes[0].legend()
+
+    # Subplot 2: Cumulative relative energy
+    axes[1].scatter(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', marker='o', s=60, label=f'Original ({data_name})')
+    axes[1].plot(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', alpha=0.5)
+    axes[1].scatter(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', marker='s', s=60, label='Random')
+    axes[1].plot(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', alpha=0.5)
+    axes[1].set_xlabel("Eigenvalue Index")
+    axes[1].set_ylabel("Cumulative Relative Energy")
+    axes[1].set_title("Cumulative Relative Energy")
+    axes[1].set_xticks(x)
+    axes[1].set_ylim(0, 1.05)
+    axes[1].grid(True, alpha=0.3)
+    axes[1].legend()
+
+    # Subplot 3: Decay rate (log scale for better visualization)
+    axes[2].semilogy(x, orig_metrics["decay_rate"][:comp_max], 'o-', c='tab:blue', markersize=8, label=f'Original ({data_name})')
+    axes[2].semilogy(x, rand_metrics["decay_rate"][:comp_max], 's-', c='tab:orange', markersize=8, label='Random')
+    axes[2].set_xlabel("Eigenvalue Index")
+    axes[2].set_ylabel("Relative Energy (log scale)")
+    axes[2].set_title("Energy Decay Rate")
+    axes[2].set_xticks(x)
+    axes[2].grid(True, alpha=0.3)
+    axes[2].legend()
+
+    plt.tight_layout()
+    plt.show()
+
+for model_name, data in experiment_data.items():
+    plot_spectral_analysis(
+        model_name,
+        data["original"],
+        data["random"],
+        data["data_name"],
+        square_evs=True
+    )
+
+#%%
+
+def plot_comparison(model_name, original_data, random_data, data_name, vmin=None, vmax=None, num_ticklabels=10):
     """Plot side-by-side comparison of original and random baseline kernels.
 
     Args:
@@ -174,8 +277,8 @@ def plot_comparison(model_name, original_data, random_data, data_name, vmin=None
     orig_labels = original_data["elements_C"]
     rand_labels = random_data["elements_C"]
 
-    # Create figure with 3 subplots
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    # Create figure with 2 subplots (kernel matrices only)
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4))
     fig.suptitle(f"{model_name} - {data_name} vs Random Baseline", fontsize=14)
 
     # Original kernel matrix
@@ -197,25 +300,6 @@ def plot_comparison(model_name, original_data, random_data, data_name, vmin=None
     axes[1].set_xticklabels(rand_tick_labels, rotation=45, ha='right')
     axes[1].set_yticklabels(rand_tick_labels)
     plt.colorbar(im1, ax=axes[1])
-
-    # Relative energy comparison (cumulative)
-    orig_rel_energy = orig_eig**2 / np.sum(orig_eig**2)
-    rand_rel_energy = rand_eig**2 / np.sum(rand_eig**2)
-    orig_cumsum = np.cumsum(orig_rel_energy)
-    rand_cumsum = np.cumsum(rand_rel_energy)
-
-    x = np.arange(len(orig_eig))
-    axes[2].scatter(x[:comp_max], orig_cumsum[:comp_max], c='tab:blue', marker='o', s=60, label=f'Original ({data_name})')
-    axes[2].plot(x[:comp_max], orig_cumsum[:comp_max], c='tab:blue', alpha=0.5)
-    axes[2].scatter(x[:comp_max], rand_cumsum[:comp_max], c='tab:orange', marker='s', s=60, label='Random Baseline')
-    axes[2].plot(x[:comp_max], rand_cumsum[:comp_max], c='tab:orange', alpha=0.5)
-    axes[2].set_xlabel("Eigenvalue Index")
-    axes[2].set_ylabel("Cumulative Relative Energy")
-    axes[2].set_title("Cumulative Relative Energy")
-    axes[2].legend(loc='center left', bbox_to_anchor=(1.02, 0.5))
-    axes[2].set_xticks(x[:comp_max])
-    axes[2].set_ylim(0, 1.05)
-    axes[2].grid(True, alpha=0.3)
 
     plt.tight_layout()
     plt.show()
@@ -292,8 +376,8 @@ def plot_comparison_sorted(model_name, original_data, random_data, data_name, vm
     orig_labels_sorted = orig_labels[orig_order]
     rand_labels_sorted = rand_labels[rand_order]
 
-    # Create figure with 3 subplots
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    # Create figure with 2 subplots (kernel matrices only)
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4))
     fig.suptitle(f"{model_name} - {data_name} vs Random (Spectral Reordering)", fontsize=14)
 
     # Original kernel matrix (reordered)
@@ -315,25 +399,6 @@ def plot_comparison_sorted(model_name, original_data, random_data, data_name, vm
     axes[1].set_xticklabels(rand_tick_labels, rotation=45, ha='right')
     axes[1].set_yticklabels(rand_tick_labels)
     plt.colorbar(im1, ax=axes[1])
-
-    # Relative energy comparison (cumulative) - same as original
-    orig_rel_energy = orig_eig / np.sum(orig_eig)
-    rand_rel_energy = rand_eig / np.sum(rand_eig)
-    orig_cumsum = np.cumsum(orig_rel_energy)
-    rand_cumsum = np.cumsum(rand_rel_energy)
-
-    x = np.arange(len(orig_eig))
-    axes[2].scatter(x, orig_cumsum, c='tab:blue', marker='o', s=60, label=f'Original ({data_name})')
-    axes[2].plot(x, orig_cumsum, c='tab:blue', alpha=0.5)
-    axes[2].scatter(x, rand_cumsum, c='tab:orange', marker='s', s=60, label='Random Baseline')
-    axes[2].plot(x, rand_cumsum, c='tab:orange', alpha=0.5)
-    axes[2].set_xlabel("Eigenvalue Index")
-    axes[2].set_ylabel("Cumulative Relative Energy")
-    axes[2].set_title("Cumulative Relative Energy")
-    axes[2].legend(loc='center left', bbox_to_anchor=(1.02, 0.5))
-    axes[2].set_xticks(x)
-    axes[2].set_ylim(0, 1.05)
-    axes[2].grid(True, alpha=0.3)
 
     plt.tight_layout()
     plt.show()
