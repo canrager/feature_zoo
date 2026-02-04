@@ -30,6 +30,10 @@ def get_config_hash(cfg: Config, artifact_type: str) -> str:
         "llm_layer_idx": cfg.llm.layer_idx,
     }
 
+    # Add aggregation method for embeddings (they are saved post-aggregation)
+    if artifact_type == "embeddings":
+        hash_params["sequence_aggregation_method"] = cfg.exp.sequence_aggregation_method
+
     # Add SAE-specific params if this is an SAE artifact
     if artifact_type == "sae_activations" and cfg.sae is not None:
         hash_params.update({
@@ -76,6 +80,12 @@ def get_artifact_metadata(cfg: Config, artifact_type: str) -> Dict[str, Any]:
     # Add SAE config if relevant
     if cfg.sae is not None and artifact_type == "sae_activations":
         metadata["config_snapshot"]["sae"] = asdict(cfg.sae)
+
+    # Add experiment config for embeddings (aggregation method affects cached values)
+    if artifact_type == "embeddings":
+        metadata["config_snapshot"]["exp"] = {
+            "sequence_aggregation_method": cfg.exp.sequence_aggregation_method,
+        }
 
     return metadata
 
