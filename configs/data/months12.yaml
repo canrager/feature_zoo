@@ -1,5 +1,7 @@
 name: months12
 trajectories_filename: months12_trajectories.json
 elements_filename: months12.txt
-fixed_context_length: 
+template_filename: months_templates.txt
+fixed_context_length:
 num_elements: 12
+num_templates: 100

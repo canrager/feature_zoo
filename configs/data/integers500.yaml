@@ -1,0 +1,7 @@
+name: integers500
+trajectories_filename: integers500_trajectories.json
+elements_filename: integers500.txt
+template_filename: integers_templates.txt
+fixed_context_length:
+num_elements: 500
+num_templates: 20

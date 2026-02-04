@@ -55,15 +55,20 @@ def generate_dataset(
         dataset_name = cfg.data.name
         root_dir = Path(__file__).parent.parent
 
-        # Construct paths based on dataset name
-        category_txt_path = root_dir / cfg.env.texts_dir / f"{dataset_name}.txt"
-        template_txt_path = root_dir / cfg.env.texts_dir / f"{dataset_name}_templates.txt"
-        output_json_path = root_dir / cfg.env.texts_dir / f"{dataset_name}_trajectories.json"
+        # Construct paths based on config
+        category_txt_path = root_dir / cfg.env.texts_dir / cfg.data.elements_filename
+        template_txt_path = root_dir / cfg.env.texts_dir / cfg.data.template_filename
+        output_json_path = root_dir / cfg.env.texts_dir / cfg.data.trajectories_filename
 
         # Load categories from the text file
         category_values = load_categories_from_txt(str(category_txt_path))
         categories = {dataset_name: category_values}
         output_order = [dataset_name]
+    # Determine num_templates limit (None means use all)
+    num_templates = None
+    if cfg is not None and cfg.data.num_templates is not None:
+        num_templates = cfg.data.num_templates
+
     # Read templates from text file
     templates = []
     with open(template_txt_path, "r", encoding="utf-8") as f:
@@ -77,6 +82,9 @@ def generate_dataset(
             else:
                 template = line
             templates.append(template)
+            # Stop if we've reached the desired number of templates
+            if num_templates is not None and len(templates) >= num_templates:
+                break
 
     # Filter out None values from categories
     active_categories = {k: v for k, v in categories.items() if v is not None}

@@ -1,8 +1,7 @@
 defaults:
-  - data: days7
+  - data: integers1000step5
   - llm: gpt2
   - sae: gpt2_relu
-  - filter: colors6
   - exp: final
   - _self_
 

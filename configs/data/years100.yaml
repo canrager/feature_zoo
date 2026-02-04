@@ -1,0 +1,7 @@
+name: years100
+trajectories_filename: years100_trajectories.json
+elements_filename: years100.txt
+template_filename: years_templates.txt
+fixed_context_length:
+num_elements: 100
+num_templates: 100

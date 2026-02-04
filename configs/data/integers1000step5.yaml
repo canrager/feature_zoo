@@ -1,0 +1,7 @@
+name: integers1000step5
+trajectories_filename: integers1000step5_trajectories.json
+elements_filename: integers1000step5.txt
+template_filename: integers_templates.txt
+fixed_context_length:
+num_elements: 201
+num_templates: 20

@@ -38,8 +38,10 @@ class DataConfig:
     name: str
     num_elements: int
     elements_filename: str
+    template_filename: str
     trajectories_filename: str
     fixed_context_length: int | None
+    num_templates: int | None
 
 
 @dataclass
@@ -60,12 +62,14 @@ class SAEConfig:
     act_scaling_factor: float
 
 
-@dataclass
-class FilterConfig:
-    corpus: str
-    regex_file: str
-    num_occurences: int
-    min_char_count: int | None
+## Deprecated
+
+# @dataclass
+# class FilterConfig:
+#     corpus: str
+#     regex_file: str
+#     num_occurences: int
+#     min_char_count: int | None
 
 
 @dataclass
@@ -80,7 +84,7 @@ class Config:
     data: DataConfig
     llm: LLMConfig
     sae: SAEConfig | None
-    filter: FilterConfig
+    # filter: FilterConfig
     exp: ExperimentConfig
 
     def __repr__(self):

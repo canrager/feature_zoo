@@ -63,6 +63,8 @@ def derive_random_config(source_cfg: Config) -> Config:
     random_cfg.data.name = f"random{n}_from_{source_name}"
     random_cfg.data.elements_filename = f"random{n}_from_{source_name}.txt"
     random_cfg.data.trajectories_filename = f"random{n}_from_{source_name}_trajectories.json"
+    # Random baseline reuses the same templates as the source
+    random_cfg.data.template_filename = source_cfg.data.template_filename
 
     return random_cfg
 
@@ -117,7 +119,7 @@ def generate_random_trajectories(source_cfg: Config, output_dir: Path | str | No
         output_dir = Path(output_dir)
 
     # Load original templates (reuse from source dataset)
-    templates_path = output_dir / f"{source_name}_templates.txt"
+    templates_path = output_dir / source_cfg.data.template_filename
     with open(templates_path, "r") as f:
         templates = []
         for line in f:

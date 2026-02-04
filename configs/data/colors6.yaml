@@ -1,5 +1,7 @@
 name: colors6
 trajectories_filename: colors6_trajectories.json
 elements_filename: colors6.txt
-fixed_context_length: 
+template_filename: colors_templates.txt
+fixed_context_length:
 num_elements: 6
+num_templates: 88
