@@ -1,0 +1,7 @@
+name: colors101_lch
+trajectories_filename: colors101_lch_trajectories.json
+elements_filename: colors101_lch.txt
+template_filename: colors_templates.txt
+fixed_context_length:
+num_elements: 101
+num_templates: 88

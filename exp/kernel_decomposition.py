@@ -30,7 +30,10 @@ overrides_list = [
     # ["llm=llama3.1-8b-base-layer15", "data=days7"],
     # ["llm=llama3.1-8b-base-layer15", "data=months12"],
     # ["llm=llama3.1-8b-base-layer15", "data=colors101"],
-    ["llm=llama3.1-8b-base-embedding", "data=integers100", "exp=sum"],  # Embedding mode
+    # ["llm=llama3.1-8b-base-layer15", "data=colors101_lch"],
+    # ["llm=llama3.1-8b-base-layer15", "data=colors195_lch"],
+    ["llm=llama3.1-8b-base-layer15", "data=emotions200"],
+    # ["llm=llama3.1-8b-base-embedding", "data=integers100", "exp=sum"],  # Embedding mode
     # ["llm=olmo3-32b-base-layer32", "data=integers100"],
     # ["llm=gpt2-layer6", "data=years100"],
     # ["llm=gpt2-layer6", "data=colors6"],
@@ -45,6 +48,7 @@ from src.random_baseline import ensure_random_baseline_exists
 import torch as th
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 def to_numpy(t: th.Tensor) -> np.ndarray:
     return t.detach().cpu().float().numpy()
@@ -126,7 +130,7 @@ def get_tick_positions_and_labels(labels, num_ticklabels):
     return indices, [labels[i] for i in indices]
 
 
-def compute_kernel_and_eigenvalues(llm_BCD, normalize_acts=False):
+def compute_kernel_and_eigenvalues(llm_BCD, center_acts=True, normalize_acts=False):
     """Compute kernel matrix and eigenvalues from activations.
 
     Args:
@@ -142,8 +146,12 @@ def compute_kernel_and_eigenvalues(llm_BCD, normalize_acts=False):
 
     # Average over templates
     llm_CD = np.mean(llm_BCD, axis=0)
+
+    if center_acts:
+        llm_CD = llm_CD - np.mean(llm_CD, axis=-1, keepdims=True)
+
     if normalize_acts:
-        llm_CD = llm_CD / np.linalg.norm(llm_CD, axis=-1, keepdims=True) # TODO
+        llm_CD = llm_CD / np.linalg.norm(llm_CD, axis=-1, keepdims=True)
 
     # Compute kernel matrix
     K_CC = llm_CD @ llm_CD.T
@@ -158,7 +166,6 @@ def compute_kernel_and_eigenvalues(llm_BCD, normalize_acts=False):
 
     return K_CC, eigenvalues, eigenvectors
 
-# %%
 def compute_relative_energy(eigenvalues: np.ndarray, square_evs=True) -> dict:
     """Compute relative energy metrics from eigenvalues.
 
@@ -176,8 +183,8 @@ def compute_relative_energy(eigenvalues: np.ndarray, square_evs=True) -> dict:
     else:
         rel_energy = eigenvalues / np.sum(eigenvalues)
     cumulative = np.cumsum(rel_energy)
-    # Decay rate: how much energy is added at each step (same as rel_energy, but explicitly named)
-    decay_rate = rel_energy
+    next_rel_energy = np.hstack((rel_energy[1:], [0]))
+    decay_rate = rel_energy - next_rel_energy
     return {
         "rel_energy": rel_energy,
         "cumulative": cumulative,
@@ -185,7 +192,7 @@ def compute_relative_energy(eigenvalues: np.ndarray, square_evs=True) -> dict:
     }
 
 #%%
-def plot_spectral_analysis(model_name, original_data, random_data, data_name, square_evs=False, comp_max=15):
+def plot_spectral_analysis(model_name, original_data, random_data, data_name, square_evs=False, comp_max=15, max_xticks=10):
     """Plot spectral analysis: eigenspectrum, cumulative energy, and decay rate.
 
     Args:
@@ -203,47 +210,86 @@ def plot_spectral_analysis(model_name, original_data, random_data, data_name, sq
     orig_metrics = compute_relative_energy(orig_eig, square_evs)
     rand_metrics = compute_relative_energy(rand_eig, square_evs)
 
-    # Create figure with 3 subplots
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    # Create figure with 2x2 subplots
+    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
     fig.suptitle(f"{model_name} - {data_name}: Spectral Analysis", fontsize=14)
 
     x = np.arange(min(comp_max, len(orig_eig)))
 
+    # Compute thinned ticks for readability
+    if len(x) > max_xticks:
+        step = max(1, len(x) // max_xticks)
+        xtick_positions = x[::step]
+    else:
+        xtick_positions = x
+
     # Subplot 1: Eigenspectrum (relative energy per eigenvalue)
     width = 0.35
-    axes[0].bar(x - width/2, orig_metrics["rel_energy"][:comp_max], width=width,
+    axes[0, 0].bar(x - width/2, orig_metrics["rel_energy"][:comp_max], width=width,
                 color='tab:blue', alpha=0.7, label=f'Original ({data_name})')
-    axes[0].bar(x + width/2, rand_metrics["rel_energy"][:comp_max], width=width,
+    axes[0, 0].bar(x + width/2, rand_metrics["rel_energy"][:comp_max], width=width,
                 color='tab:orange', alpha=0.7, label='Random')
-    axes[0].set_xlabel("Eigenvalue Index")
-    axes[0].set_ylabel("Relative Energy")
-    axes[0].set_title("Eigenspectrum")
-    axes[0].set_xticks(x)
-    axes[0].grid(True, alpha=0.3, axis='y')
-    axes[0].legend()
+    axes[0, 0].set_xlabel("Eigenvalue Index")
+    axes[0, 0].set_ylabel("Relative Energy")
+    axes[0, 0].set_title("Eigenspectrum")
+    axes[0, 0].set_xticks(xtick_positions)
+    axes[0, 0].grid(True, alpha=0.3, axis='y')
+    axes[0, 0].legend()
 
     # Subplot 2: Cumulative relative energy
-    axes[1].scatter(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', marker='o', s=60, label=f'Original ({data_name})')
-    axes[1].plot(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', alpha=0.5)
-    axes[1].scatter(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', marker='s', s=60, label='Random')
-    axes[1].plot(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', alpha=0.5)
-    axes[1].set_xlabel("Eigenvalue Index")
-    axes[1].set_ylabel("Cumulative Relative Energy")
-    axes[1].set_title("Cumulative Relative Energy")
-    axes[1].set_xticks(x)
-    axes[1].set_ylim(0, 1.05)
-    axes[1].grid(True, alpha=0.3)
-    axes[1].legend()
+    axes[0, 1].scatter(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', marker='o', s=60, label=f'Original ({data_name})')
+    axes[0, 1].plot(x, orig_metrics["cumulative"][:comp_max], c='tab:blue', alpha=0.5)
+    axes[0, 1].scatter(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', marker='s', s=60, label='Random')
+    axes[0, 1].plot(x, rand_metrics["cumulative"][:comp_max], c='tab:orange', alpha=0.5)
+    axes[0, 1].set_xlabel("Eigenvalue Index")
+    axes[0, 1].set_ylabel("Cumulative Relative Energy")
+    axes[0, 1].set_title("Cumulative Relative Energy")
+    axes[0, 1].set_xticks(xtick_positions)
+    axes[0, 1].set_ylim(0, 1.05)
+    axes[0, 1].grid(True, alpha=0.3)
+    axes[0, 1].legend()
 
     # Subplot 3: Decay rate (log scale for better visualization)
-    axes[2].semilogy(x, orig_metrics["decay_rate"][:comp_max], 'o-', c='tab:blue', markersize=8, label=f'Original ({data_name})')
-    axes[2].semilogy(x, rand_metrics["decay_rate"][:comp_max], 's-', c='tab:orange', markersize=8, label='Random')
-    axes[2].set_xlabel("Eigenvalue Index")
-    axes[2].set_ylabel("Relative Energy (log scale)")
-    axes[2].set_title("Energy Decay Rate")
-    axes[2].set_xticks(x)
-    axes[2].grid(True, alpha=0.3)
-    axes[2].legend()
+    axes[1, 0].semilogy(x, orig_metrics["decay_rate"][:comp_max], 'o-', c='tab:blue', markersize=8, label=f'Original ({data_name})')
+    axes[1, 0].semilogy(x, rand_metrics["decay_rate"][:comp_max], 's-', c='tab:orange', markersize=8, label='Random')
+
+    # Fit power law to decay rates and overlay
+    def _power_law(k, A, alpha, C):
+        return A * (k + 1) ** (-alpha) + C
+
+    for decay_data, color, name in [
+        # (orig_metrics["decay_rate"], 'tab:blue', f'Orig'),
+        (rand_metrics["decay_rate"], 'tab:orange', 'Rand'),
+    ]:
+        try:
+            k_full = np.arange(len(decay_data))
+            popt, _ = curve_fit(_power_law, k_full, decay_data,
+                                p0=[0.5, 1.0, 0.0],
+                                bounds=([0, 0.1, -1], [5, 10, 1]),
+                                maxfev=5000)
+            fitted = _power_law(x, *popt)
+            axes[1, 0].semilogy(x, fitted, '--', c="k", lw=2,
+                                label=f'{name} fit (α={popt[1]:.2f})')
+        except RuntimeError:
+            pass
+
+    axes[1, 0].set_xlabel("Eigenvalue Index")
+    axes[1, 0].set_ylabel("Relative Energy (log scale)")
+    axes[1, 0].set_title("Energy Decay Rate")
+    axes[1, 0].set_xticks(xtick_positions)
+    axes[1, 0].grid(True, alpha=0.3)
+    axes[1, 0].legend()
+
+    # Subplot 4: Difference (original - random)
+    diff = orig_metrics["rel_energy"][:comp_max] - rand_metrics["rel_energy"][:comp_max]
+    axes[1, 1].plot(x, diff, 'o-', c='tab:green', markersize=8, label=f'Original - Random')
+    axes[1, 1].axhline(0, color='k', linestyle='--', alpha=0.5)
+    axes[1, 1].set_xlabel("Eigenvalue Index")
+    axes[1, 1].set_ylabel("Δ Relative Energy")
+    axes[1, 1].set_title("Eigenvalue Difference (Orig - Rand)")
+    axes[1, 1].set_xticks(xtick_positions)
+    axes[1, 1].grid(True, alpha=0.3)
+    axes[1, 1].legend()
 
     plt.tight_layout()
     plt.show()
@@ -254,8 +300,788 @@ for model_name, data in experiment_data.items():
         data["original"],
         data["random"],
         data["data_name"],
-        square_evs=True
+        square_evs=False,
+        comp_max=60
+
     )
+
+#%%
+
+import numpy as np
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+
+def fit_power_law(original_eigv: np.ndarray, random_eigv: np.ndarray, d_values: list = None) -> dict:
+    """
+    Fit power law models for different hypothesized manifold dimensions.
+    
+    Model: Δλ_k = A * (k + 1)^(-2/d) + C
+    
+    Parameters:
+        original_eigv: eigenvalues from semantic data
+        random_eigv: eigenvalues from random baseline
+        d_values: list of manifold dimensions to test (default: 1 to 10)
+        max_k: number of eigenvalues to use in fit (default: all)
+    
+    Returns:
+        dict mapping d -> fit results
+    """
+    if d_values is None:
+        d_values = list(range(1, 11))
+    
+    original_eigv = original_eigv / np.sum(original_eigv)
+    random_eigv = random_eigv / np.sum(random_eigv)
+    
+    delta_eigv = original_eigv - random_eigv
+    k = np.arange(len(delta_eigv))
+    
+    results = {}
+    
+    for d in d_values:
+        alpha = 2.0 / d  # positive, since decay is (k+1)^{-alpha}
+        
+        def fit_function(k, A, C):
+            return A * (k + 1) ** (-alpha) + C
+        
+        try:
+            popt, pcov = curve_fit(
+                fit_function, 
+                k, 
+                delta_eigv,
+                p0=[0.5, 0.0],
+                bounds=([0, -1], [5, 1])
+            )
+            
+            fitted = fit_function(k, *popt)
+            mse = np.mean((delta_eigv - fitted) ** 2)
+            ss_tot = np.sum((delta_eigv - np.mean(delta_eigv)) ** 2)
+            ss_res = np.sum((delta_eigv - fitted) ** 2)
+            r_squared = 1 - ss_res / ss_tot if ss_tot > 0 else 0
+            
+            results[d] = {
+                "d": d,
+                "alpha": alpha,
+                "A": popt[0],
+                "C": popt[1],
+                "MSE": mse,
+                "R2": r_squared,
+                "fitted": fitted
+            }
+        except RuntimeError:
+            results[d] = {"d": d, "alpha": alpha, "MSE": np.inf, "R2": -np.inf}
+    
+    return results, delta_eigv, k
+
+
+def plot_power_law_fits(results: dict, delta_eigv: np.ndarray, k: np.ndarray, max_k: int | None = None):
+    """
+    Plot difference spectrum with fitted curves for each hypothesized dimension.
+    
+    Left: All fits overlaid on data
+    Right: MSE vs hypothesized dimension d
+    """
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    if max_k is not None:
+        k = k[:max_k]
+        delta_eigv = delta_eigv[:max_k]
+    
+    # Left panel: data + fits
+    axes[0].bar(k, delta_eigv, alpha=0.4, color='gray', label='Δλ_k (data)')
+    
+    colors = plt.cm.viridis(np.linspace(0, 1, len(results)))
+    
+    for (d, res), color in zip(results.items(), colors):
+        if "fitted" in res:
+            label = f'd={d} (α={res["alpha"]:.2f}, R²={res["R2"]:.3f})'
+            axes[0].plot(k, res["fitted"][:max_k], '-', color=color, lw=2, label=label)
+    
+    axes[0].axhline(0, color='k', linestyle='--', alpha=0.5)
+    axes[0].set_xlabel("Eigenvalue Index k")
+    axes[0].set_ylabel("Δλ_k")
+    axes[0].set_title("Power Law Fits for Different Manifold Dimensions")
+    axes[0].legend(fontsize=8, loc='upper right')
+    
+    # Right panel: MSE vs d
+    d_vals = [res["d"] for res in results.values() if "MSE" in res]
+    mse_vals = [res["MSE"] for res in results.values() if "MSE" in res]
+    
+    axes[1].plot(d_vals, mse_vals, 'o-', markersize=8)
+    axes[1].set_xlabel("Hypothesized Manifold Dimension d")
+    axes[1].set_ylabel("Mean Squared Error")
+    axes[1].set_title("Model Selection: MSE vs Dimension")
+    
+    best_d = d_vals[np.argmin(mse_vals)]
+    axes[1].axvline(best_d, color='r', linestyle='--', alpha=0.7, label=f'Best d={best_d}')
+    axes[1].legend()
+    
+    plt.tight_layout()
+    return fig
+
+
+def fit_free_alpha(original_eigv: np.ndarray, random_eigv: np.ndarray, max_k: int = None) -> dict:
+    """
+    Fit power law with free alpha parameter (not constrained to 2/d).
+    
+    Model: Δλ_k = A * (k + 1)^(-α) + C
+    
+    Inferred dimension: d_eff = 2 / α
+    """
+    original_eigv = original_eigv / np.sum(original_eigv)
+    random_eigv = random_eigv / np.sum(random_eigv)
+
+
+    if max_k is None:
+        max_k = len(original_eigv)
+    
+    # delta_eigv = original_eigv[:max_k] - random_eigv[:max_k]
+    delta_eigv = original_eigv[:max_k]
+    k = np.arange(max_k)
+    
+    def fit_function(k, A, alpha, C):
+        return A * (k + 1) ** (-alpha) + C
+    
+    popt, pcov = curve_fit(
+        fit_function,
+        k,
+        delta_eigv,
+        p0=[0.5, 1.0, 0.0],
+        bounds=([0, 0.1, -1], [5, 10, 1])
+    )
+    
+    fitted = fit_function(k, *popt)
+    mse = np.mean((delta_eigv - fitted) ** 2)
+    
+    return {
+        "A": popt[0],
+        "alpha": popt[1],
+        "C": popt[2],
+        "d_effective": 2.0 / popt[1],
+        "MSE": mse,
+        "fitted": fitted,
+        "delta_eigv": delta_eigv,
+        "k": k
+    }
+
+
+def plot_eigenspectrum_powerlaw_fits(original_data, random_data):
+    _, orig_eig, _ = compute_kernel_and_eigenvalues(original_data["llm_BCD"])
+    _, rand_eig, _ = compute_kernel_and_eigenvalues(random_data["llm_BCD"])
+
+    # Discrete dimension hypothesis testing
+    # results, delta_eigv, k = fit_power_law(orig_eig, rand_eig, d_values=range(1, 11))
+    results, delta_eigv, k = fit_power_law(orig_eig, rand_eig, d_values=[1, 2, 3, 4, 5, 6])
+    fig = plot_power_law_fits(results, delta_eigv, k, max_k=30)
+
+    # Free alpha fit (continuous dimension estimate)
+    free_fit = fit_free_alpha(orig_eig, rand_eig)
+    print(f"Effective dimension: {free_fit['d_effective']:.2f}")
+
+plot_eigenspectrum_powerlaw_fits(
+    data["original"],
+    data["random"],
+)
+
+
+#%% Plot UMAP of signinficant data
+# 1. make SVD of original data and random data
+# 2. In the normalized singular value spectrum, find the inflection points where i_orig-1 > i_random-1 and i_orig < i_random. We interpret all components up until the inflection point as significant components. If random data has higher normalized singular value, then the original signal shouldn't be relevant.
+# 3. Truncate the data to its significant subspace in SVD basis: U_orig[:n_significant], also project random data into it's respective subspace U_rand[:n_significant]
+# 4. Make a 3D umap in plotly from this data, each for Original and random data.
+
+import umap
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+
+def preprocess_activations(llm_BCD):
+    """Subtract template mean, average over templates, and center across features."""
+    llm_BCD = llm_BCD - np.mean(llm_BCD, axis=1, keepdims=True)
+    llm_CD = np.mean(llm_BCD, axis=0)
+    llm_CD = llm_CD - np.mean(llm_CD, axis=-1, keepdims=True)
+    return llm_CD
+
+
+def find_significant_components(orig_CD, rand_CD):
+    """Find number of significant SVD components by comparing normalized singular values.
+
+    Returns:
+        n_significant: number of significant components
+        U_orig, S_orig, Vt_orig: SVD of original data
+        U_rand, S_rand, Vt_rand: SVD of random data
+        S_orig_norm, S_rand_norm: normalized singular values
+    """
+    U_orig, S_orig, Vt_orig = np.linalg.svd(orig_CD, full_matrices=False)
+    U_rand, S_rand, Vt_rand = np.linalg.svd(rand_CD, full_matrices=False)
+
+    S_orig_norm = S_orig**2 / (S_orig**2).sum()
+    S_rand_norm = S_rand**2 / (S_rand**2).sum()
+
+    # Find inflection point: first i where orig was above random at i-1 but drops below at i
+    n_significant = len(S_orig_norm)  # default: all components
+    for i in range(1, len(S_orig_norm)):
+        if S_orig_norm[i - 1] > S_rand_norm[i - 1] and S_orig_norm[i] < S_rand_norm[i]:
+            n_significant = i
+            break
+
+    return n_significant, U_orig, S_orig, Vt_orig, U_rand, S_rand, Vt_rand, S_orig_norm, S_rand_norm
+
+
+def _safe_normalize(v):
+    """Normalize vector, returning zeros if norm is negligible."""
+    n = np.linalg.norm(v)
+    return v / n if n > 1e-10 else np.zeros_like(v)
+
+
+def _path_length(points):
+    """Total Euclidean path length along consecutive points."""
+    diffs = np.diff(points, axis=0)
+    return np.sum(np.linalg.norm(diffs, axis=1))
+
+
+def tortuosity_dm(points):
+    """Distance Metric: ratio of path length to chord length."""
+    chord = np.linalg.norm(points[-1] - points[0])
+    if chord < 1e-10:
+        return float('inf')
+    return _path_length(points) / chord
+
+
+def tortuosity_icm(points):
+    """Inflection Count Metric: DM * (inflection_count + 1).
+
+    Inflection points are detected via Frenet normal flips:
+    the normal vector N flips ~180 deg at inflection loci,
+    detected as local maxima of ||Delta N||^2 > 1.0.
+    """
+    N = len(points)
+    if N < 3:
+        return tortuosity_dm(points)
+
+    # Compute unit tangents
+    tangents = []
+    for i in range(N - 1):
+        tangents.append(_safe_normalize(points[i + 1] - points[i]))
+
+    # Compute Frenet normals via consecutive tangent cross-products
+    normals = []
+    for i in range(len(tangents) - 1):
+        cross = np.cross(tangents[i], tangents[i + 1])
+        normals.append(_safe_normalize(cross))
+
+    # Detect inflection points: ||Delta N||^2 > 1.0 at local maxima
+    if len(normals) < 2:
+        return tortuosity_dm(points)
+
+    delta_n_sq = []
+    for i in range(len(normals) - 1):
+        delta_n_sq.append(np.sum((normals[i + 1] - normals[i]) ** 2))
+    delta_n_sq = np.array(delta_n_sq)
+
+    # Find local maxima above threshold 1.0
+    inflection_count = 0
+    for i in range(len(delta_n_sq)):
+        if delta_n_sq[i] <= 1.0:
+            continue
+        is_max = True
+        if i > 0 and delta_n_sq[i - 1] >= delta_n_sq[i]:
+            is_max = False
+        if i < len(delta_n_sq) - 1 and delta_n_sq[i + 1] >= delta_n_sq[i]:
+            is_max = False
+        if is_max:
+            inflection_count += 1
+
+    return tortuosity_dm(points) * (inflection_count + 1)
+
+
+def tortuosity_soam(points):
+    """Sum of Angles Metric: integrated (curvature + torsion) / path length.
+
+    Units: radians per unit length.
+    """
+    N = len(points)
+    if N < 4:
+        return 0.0
+
+    pl = _path_length(points)
+    if pl < 1e-10:
+        return 0.0
+
+    total_angle = 0.0
+    for k in range(1, N - 2):
+        t1 = _safe_normalize(points[k] - points[k - 1])
+        t2 = _safe_normalize(points[k + 1] - points[k])
+        t3 = _safe_normalize(points[k + 2] - points[k + 1])
+
+        # In-plane angle (curvature)
+        in_plane = np.arccos(np.clip(np.dot(t1, t2), -1.0, 1.0))
+
+        # Torsion angle between consecutive osculating planes
+        n1 = np.cross(t1, t2)
+        n2 = np.cross(t2, t3)
+        n1_norm = np.linalg.norm(n1)
+        n2_norm = np.linalg.norm(n2)
+        if n1_norm > 1e-10 and n2_norm > 1e-10:
+            n1 = n1 / n1_norm
+            n2 = n2 / n2_norm
+            torsion = np.arccos(np.clip(np.dot(n1, n2), -1.0, 1.0))
+        else:
+            torsion = 0.0
+
+        total_angle += np.sqrt(in_plane ** 2 + torsion ** 2)
+
+    return total_angle / pl
+
+
+def compute_tortuosity_metrics(coords_3d):
+    """Compute all three tortuosity metrics for a 3D point sequence."""
+    return {
+        "dm": tortuosity_dm(coords_3d),
+        "icm": tortuosity_icm(coords_3d),
+        "soam": tortuosity_soam(coords_3d),
+    }
+
+
+def compute_significant_umap(original_data, random_data, n_sig_override=None):
+    """Compute SVD, find significant components, truncate, and fit UMAP for both datasets."""
+    orig_CD = preprocess_activations(original_data["llm_BCD"])
+    rand_CD = preprocess_activations(random_data["llm_BCD"])
+
+    n_sig, U_orig, S_orig, _, U_rand, S_rand, _, _, _ = \
+        find_significant_components(orig_CD, rand_CD)
+
+    if n_sig_override is not None:
+        n_sig = n_sig_override
+        print(f"Manually truncate to top singular vectors: {n_sig}")
+    else:
+        print(f"Number of significant components: {n_sig}")
+
+    # Truncate to significant subspace (scores = U * S)
+    orig_truncated = U_orig[:, :n_sig] * S_orig[:n_sig]
+    rand_truncated = U_rand[:, :n_sig] * S_rand[:n_sig]
+
+    orig_labels = original_data["elements_C"]
+    rand_labels = random_data["elements_C"]
+
+    # UMAP to 3D
+    reducer_orig = umap.UMAP(n_components=3, n_neighbors=min(15, len(orig_labels) - 1), random_state=42)
+    orig_3d = reducer_orig.fit_transform(orig_truncated)
+
+    reducer_rand = umap.UMAP(n_components=3, n_neighbors=min(15, len(rand_labels) - 1), random_state=42)
+    rand_3d = reducer_rand.fit_transform(rand_truncated)
+
+    orig_tort = compute_tortuosity_metrics(orig_3d)
+    rand_tort = compute_tortuosity_metrics(rand_3d)
+
+    return {
+        "n_sig": n_sig,
+        "orig_3d": orig_3d, "orig_labels": orig_labels,
+        "rand_3d": rand_3d, "rand_labels": rand_labels,
+        "orig_tort": orig_tort,
+        "rand_tort": rand_tort,
+    }
+
+
+def plot_umap_3d(coords_3d, labels, title, colorscale="Viridis", mode="markers+text"):
+    """Plot a single 3D UMAP scatter in plotly."""
+    fig = go.Figure(
+        go.Scatter3d(
+            x=coords_3d[:, 0], y=coords_3d[:, 1], z=coords_3d[:, 2],
+            mode=mode,
+            text=labels,
+            textposition="top center",
+            marker=dict(size=5, color=np.arange(len(labels)), colorscale=colorscale, opacity=0.8),
+        )
+    )
+    fig.update_layout(title=title, height=600, width=800)
+    fig.show()
+
+
+n_sig_override = 50
+
+umap_results = {}
+for model_name, data in experiment_data.items():
+    umap_results[model_name] = compute_significant_umap(data["original"], data["random"], n_sig_override=n_sig_override)
+
+#%% Plot UMAP of original data
+for model_name, res in umap_results.items():
+    data_name = experiment_data[model_name]["data_name"]
+    plot_umap_3d(
+        res["orig_3d"], res["orig_labels"],
+        title=f"Original ({data_name}) — {res['n_sig']} sig. comp. — DM: {res['orig_tort']['dm']:.2f}, ICM: {res['orig_tort']['icm']:.2f}, SOAM: {res['orig_tort']['soam']:.2f}",
+        colorscale="Viridis",
+        # mode="markers"
+    )
+
+#%% Plot UMAP of random baseline
+for model_name, res in umap_results.items():
+    data_name = experiment_data[model_name]["data_name"]
+    plot_umap_3d(
+        res["rand_3d"], res["rand_labels"],
+        title=f"Random Baseline ({data_name}) — {res['n_sig']} sig. comp. — DM: {res['rand_tort']['dm']:.2f}, ICM: {res['rand_tort']['icm']:.2f}, SOAM: {res['rand_tort']['soam']:.2f}",
+        colorscale="Plasma",
+    )
+
+#%% ND-generalized tortuosity helpers
+
+def tortuosity_icm_nd(points):
+    """Inflection Count Metric generalized to arbitrary dimensions.
+
+    Uses projection-based curvature direction instead of cross-product normals.
+    """
+    N = len(points)
+    if N < 3:
+        return tortuosity_dm(points)
+
+    # Unit tangents
+    tangents = []
+    for i in range(N - 1):
+        tangents.append(_safe_normalize(points[i + 1] - points[i]))
+
+    # Curvature direction vectors: change in tangent with tangent component removed
+    normals = []
+    for i in range(len(tangents) - 1):
+        dt = tangents[i + 1] - tangents[i]
+        # Remove tangent component (project onto plane perpendicular to tangent)
+        t = tangents[i]
+        dt_perp = dt - np.dot(dt, t) * t
+        normals.append(_safe_normalize(dt_perp))
+
+    if len(normals) < 2:
+        return tortuosity_dm(points)
+
+    # Detect inflection points: ||Delta N||^2 > 1.0 at local maxima
+    delta_n_sq = []
+    for i in range(len(normals) - 1):
+        delta_n_sq.append(np.sum((normals[i + 1] - normals[i]) ** 2))
+    delta_n_sq = np.array(delta_n_sq)
+
+    inflection_count = 0
+    for i in range(len(delta_n_sq)):
+        if delta_n_sq[i] <= 1.0:
+            continue
+        is_max = True
+        if i > 0 and delta_n_sq[i - 1] >= delta_n_sq[i]:
+            is_max = False
+        if i < len(delta_n_sq) - 1 and delta_n_sq[i + 1] >= delta_n_sq[i]:
+            is_max = False
+        if is_max:
+            inflection_count += 1
+
+    return tortuosity_dm(points) * (inflection_count + 1)
+
+
+def tortuosity_soam_nd(points):
+    """Sum of Angles Metric generalized to arbitrary dimensions.
+
+    Uses projection-based torsion instead of cross-product osculating planes.
+    """
+    N = len(points)
+    if N < 4:
+        return 0.0
+
+    pl = _path_length(points)
+    if pl < 1e-10:
+        return 0.0
+
+    total_angle = 0.0
+    for k in range(1, N - 2):
+        t1 = _safe_normalize(points[k] - points[k - 1])
+        t2 = _safe_normalize(points[k + 1] - points[k])
+        t3 = _safe_normalize(points[k + 2] - points[k + 1])
+
+        # In-plane angle (curvature) — works in any dimension
+        in_plane = np.arccos(np.clip(np.dot(t1, t2), -1.0, 1.0))
+
+        # Principal normal at k: curvature direction from t1->t2
+        dt1 = t2 - t1
+        dt1_perp = dt1 - np.dot(dt1, t1) * t1
+        n1 = _safe_normalize(dt1_perp)
+
+        # Principal normal at k+1: curvature direction from t2->t3
+        dt2 = t3 - t2
+        dt2_perp = dt2 - np.dot(dt2, t2) * t2
+        n2 = _safe_normalize(dt2_perp)
+
+        # Torsion: angle between consecutive principal normals
+        n1_norm = np.linalg.norm(n1)
+        n2_norm = np.linalg.norm(n2)
+        if n1_norm > 1e-10 and n2_norm > 1e-10:
+            torsion = np.arccos(np.clip(np.dot(n1, n2), -1.0, 1.0))
+        else:
+            torsion = 0.0
+
+        total_angle += np.sqrt(in_plane ** 2 + torsion ** 2)
+
+    return total_angle / pl
+
+
+def compute_tortuosity_metrics_nd(points):
+    """Compute all three tortuosity metrics for an ND point sequence."""
+    return {
+        "dm": tortuosity_dm(points),
+        "icm": tortuosity_icm_nd(points),
+        "soam": tortuosity_soam_nd(points),
+    }
+
+
+#%% Cell A: Raw data tortuosity over truncation rank
+for model_name, data in experiment_data.items():
+    data_name = data["data_name"]
+    orig_CD = preprocess_activations(data["original"]["llm_BCD"])
+    rand_CD = preprocess_activations(data["random"]["llm_BCD"])
+
+    U_orig, S_orig, _ = np.linalg.svd(orig_CD, full_matrices=False)
+    U_rand, S_rand, _ = np.linalg.svd(rand_CD, full_matrices=False)
+
+    n_components = min(U_orig.shape[1], U_rand.shape[1])
+
+    orig_metrics = {"dm": [], "icm": [], "soam": []}
+    rand_metrics = {"dm": [], "icm": [], "soam": []}
+
+    for k in range(1, n_components + 1):
+        orig_truncated = U_orig[:, :k] * S_orig[:k]
+        rand_truncated = U_rand[:, :k] * S_rand[:k]
+
+        orig_tort = compute_tortuosity_metrics_nd(orig_truncated)
+        rand_tort = compute_tortuosity_metrics_nd(rand_truncated)
+
+        for metric in ("dm", "icm", "soam"):
+            orig_metrics[metric].append(orig_tort[metric])
+            rand_metrics[metric].append(rand_tort[metric])
+
+    ranks = np.arange(1, n_components + 1)
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    metric_names = ["DM", "ICM", "SOAM"]
+    metric_keys = ["dm", "icm", "soam"]
+
+    for ax, name, key in zip(axes, metric_names, metric_keys):
+        ax.plot(ranks, orig_metrics[key], label="Original", marker="o", markersize=2)
+        # ax.plot(ranks, rand_metrics[key], label="Random", marker="s", markersize=2)
+        ax.set_xlabel("Truncation rank")
+        ax.set_ylabel(name)
+        ax.set_title(name)
+        ax.legend()
+
+    fig.suptitle(f"Raw Data Tortuosity — {data_name}", fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+#%% Cell B: UMAP tortuosity over truncation rank
+for model_name, data in experiment_data.items():
+    data_name = data["data_name"]
+    orig_CD = preprocess_activations(data["original"]["llm_BCD"])
+    rand_CD = preprocess_activations(data["random"]["llm_BCD"])
+
+    U_orig, S_orig, _ = np.linalg.svd(orig_CD, full_matrices=False)
+    U_rand, S_rand, _ = np.linalg.svd(rand_CD, full_matrices=False)
+
+    n_components = min(U_orig.shape[1], U_rand.shape[1])
+    n_samples_orig = U_orig.shape[0]
+    n_samples_rand = U_rand.shape[0]
+
+    orig_metrics = {"dm": [], "icm": [], "soam": []}
+    rand_metrics = {"dm": [], "icm": [], "soam": []}
+
+    for k in range(1, n_components + 1):
+        orig_truncated = U_orig[:, :k] * S_orig[:k]
+        rand_truncated = U_rand[:, :k] * S_rand[:k]
+
+        reducer_orig = umap.UMAP(
+            n_components=3,
+            n_neighbors=min(15, n_samples_orig - 1),
+            random_state=42,
+        )
+        orig_3d = reducer_orig.fit_transform(orig_truncated)
+
+        reducer_rand = umap.UMAP(
+            n_components=3,
+            n_neighbors=min(15, n_samples_rand - 1),
+            random_state=42,
+        )
+        rand_3d = reducer_rand.fit_transform(rand_truncated)
+
+        orig_tort = compute_tortuosity_metrics(orig_3d)
+        rand_tort = compute_tortuosity_metrics(rand_3d)
+
+        for metric in ("dm", "icm", "soam"):
+            orig_metrics[metric].append(orig_tort[metric])
+            rand_metrics[metric].append(rand_tort[metric])
+
+    ranks = np.arange(1, n_components + 1)
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    metric_names = ["DM", "ICM", "SOAM"]
+    metric_keys = ["dm", "icm", "soam"]
+
+    for ax, name, key in zip(axes, metric_names, metric_keys):
+        ax.plot(ranks, orig_metrics[key], label="Original", marker="o", markersize=2)
+        # ax.plot(ranks, rand_metrics[key], label="Random", marker="s", markersize=2)
+        ax.set_xlabel("Truncation rank")
+        ax.set_ylabel(name)
+        ax.set_title(name)
+        ax.legend()
+
+    fig.suptitle(f"UMAP Tortuosity — {data_name}", fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+#%%
+# In this Cell, we'd like to implement the number of top components needed to explain the data by R^2 > thresh (default thresh 0.9). Two modes: polynomial decomposition ("taylor") and fourier decomposition ("fourier") one plot per mode.
+# the analysis is similar to the plot_fourier_approximation analysis.
+# The projections onto each eigenvector of the gram matrix should be decomposed separately.
+# The final output is a plot x: eigenvector idx, y: (two bars per x-value) number of top components needed for real data, 
+# One analysis parameter should be the number of top eigenvectors that should be decomposed and plotted.
+
+
+def compute_n_components_for_r2(
+    eigenvector: np.ndarray,
+    mode: str,
+    r2_thresh: float = 0.9,
+) -> int:
+    """Find the minimum number of components to achieve R² ≥ r2_thresh.
+
+    Args:
+        eigenvector: shape (C,) - the eigenvector to decompose
+        mode: "fourier" or "taylor"
+        r2_thresh: R² threshold (default 0.9)
+
+    Returns:
+        Minimum number of components (Fourier frequencies or polynomial degree)
+        needed to reach the threshold. Returns 0 for constant eigenvectors.
+    """
+    C = len(eigenvector)
+    ss_tot = np.sum((eigenvector - np.mean(eigenvector)) ** 2)
+
+    # Constant eigenvector — perfectly explained by 0 components
+    if ss_tot < 1e-12:
+        return 0
+
+    if mode == "fourier":
+        fft_coeffs = np.fft.fft(eigenvector)
+        magnitudes = np.abs(fft_coeffs)
+
+        # Sort frequency indices by magnitude (descending), skip DC (index 0)
+        sorted_indices = np.argsort(magnitudes)[::-1]
+
+        selected_mask = np.zeros(C, dtype=bool)
+        # Always include DC component (mean) as baseline
+        selected_mask[0] = True
+        n_components = 0
+
+        for idx in sorted_indices:
+            if selected_mask[idx]:
+                continue
+
+            # Select this frequency and its conjugate
+            selected_mask[idx] = True
+            conjugate_idx = (C - idx) % C
+            if conjugate_idx != idx:
+                selected_mask[conjugate_idx] = True
+
+            n_components += 1
+
+            # Reconstruct and compute R²
+            filtered_coeffs = np.zeros_like(fft_coeffs)
+            filtered_coeffs[selected_mask] = fft_coeffs[selected_mask]
+            approx = np.fft.ifft(filtered_coeffs).real
+
+            ss_res = np.sum((eigenvector - approx) ** 2)
+            r2 = 1 - ss_res / ss_tot
+
+            if r2 >= r2_thresh:
+                return n_components
+
+        return n_components  # max reached
+
+    elif mode == "taylor":
+        x = np.linspace(-1, 1, C)
+
+        for degree in range(1, C):
+            coeffs = np.polyfit(x, eigenvector, degree)
+            approx = np.polyval(coeffs, x)
+
+            ss_res = np.sum((eigenvector - approx) ** 2)
+            r2 = 1 - ss_res / ss_tot
+
+            if r2 >= r2_thresh:
+                return degree
+
+        return C - 1  # max reached
+
+    else:
+        raise ValueError(f"Unknown mode: {mode!r}. Use 'fourier' or 'taylor'.")
+
+
+def plot_n_components_for_r2(
+    experiment_data: dict,
+    mode: str = "fourier",
+    n_eigenvectors: int = 10,
+    r2_thresh: float = 0.9,
+    figsize: tuple | None = None,
+):
+    """Plot the number of components needed to achieve R² ≥ threshold for each eigenvector.
+
+    Produces a grouped bar chart comparing original vs random data.
+
+    Args:
+        experiment_data: dict with original/random data per model
+        mode: "fourier" or "taylor"
+        n_eigenvectors: number of leading eigenvectors to analyze
+        r2_thresh: R² threshold
+        figsize: optional figure size
+    """
+    # Take first model
+    model_name, data = next(iter(experiment_data.items()))
+    data_name = data["data_name"]
+
+    results = {}
+    for data_type, data_dict in [("original", data["original"]), ("random", data["random"])]:
+        llm_BCD = data_dict["llm_BCD"]
+        C = llm_BCD.shape[1]
+
+        llm_BCD_centered = llm_BCD - np.mean(llm_BCD, axis=1, keepdims=True)
+        llm_CD = np.mean(llm_BCD_centered, axis=0)
+        K_CC = llm_CD @ llm_CD.T
+
+        eigenvalues, eigenvectors = np.linalg.eigh(K_CC)
+        idx = np.argsort(eigenvalues)[::-1]
+        eigenvectors = eigenvectors[:, idx]
+
+        n_eig = min(n_eigenvectors, C)
+        n_components_list = []
+        for j in range(n_eig):
+            psi_j = eigenvectors[:, j]
+            n_comp = compute_n_components_for_r2(psi_j, mode=mode, r2_thresh=r2_thresh)
+            n_components_list.append(n_comp)
+
+        results[data_type] = n_components_list
+
+    # Plot grouped bar chart
+    n_eig = len(results["original"])
+    x = np.arange(n_eig)
+    bar_width = 0.35
+
+    if figsize is None:
+        figsize = (max(8, n_eig * 0.8), 5)
+
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.bar(x - bar_width / 2, results["original"], bar_width, label=f"Original ({data_name})", color="tab:blue")
+    ax.bar(x + bar_width / 2, results["random"], bar_width, label="Random", color="tab:orange")
+
+    ax.set_xlabel("Eigenvector index")
+    mode_label = "Fourier components" if mode == "fourier" else "Polynomial degree"
+    ax.set_ylabel(f"# {mode_label}")
+    ax.set_title(f"{model_name}: {mode_label} for R² ≥ {r2_thresh}")
+    ax.set_xticks(x)
+    ax.set_xticklabels([str(i) for i in range(n_eig)])
+    ax.legend()
+    plt.tight_layout()
+    plt.show()
+
+
+# %%
+plot_n_components_for_r2(experiment_data, mode="fourier", n_eigenvectors=10, r2_thresh=0.9)
+# plot_n_components_for_r2(experiment_data, mode="taylor", n_eigenvectors=10, r2_thresh=0.9)
 
 #%%
 
@@ -1380,3 +2206,4 @@ fit_fourier_embedding(experiment_data, n_harmonics=10)
 #
 # If BOTH show similar structure, then the structure might be due to **template artifacts**
 # (e.g., certain templates producing similar activations regardless of fill-in content).
+# %%

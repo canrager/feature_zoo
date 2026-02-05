@@ -100,6 +100,13 @@ def load_texts(cfg: Config, filename: str | None = None) -> Tuple[List[str], Opt
 
 def load_trajectory_texts(cfg: Config) -> Tuple:
     path = Path(cfg.env.texts_dir) / cfg.data.trajectories_filename
+
+    # Generate trajectories file if it doesn't exist
+    if not path.exists():
+        from src.generate_dataset import generate_dataset
+        print(f"Trajectories file not found at {path}, generating...")
+        generate_dataset(cfg=cfg)
+
     with open(path, "r") as f:
         traj_dict = json.load(f)
 

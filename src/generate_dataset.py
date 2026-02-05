@@ -1,7 +1,7 @@
 import json
 from itertools import product
 from pathlib import Path
-from config import load_config
+from src.config import load_config
 
 
 def load_categories_from_txt(txt_path: str) -> list[str]:

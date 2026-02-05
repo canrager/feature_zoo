@@ -1,0 +1,7 @@
+name: emotions200
+trajectories_filename: emotions200_trajectories.json
+elements_filename: emotions200_lch.txt
+template_filename: emotions_templates.txt
+fixed_context_length:
+num_elements: 200
+num_templates: 100
