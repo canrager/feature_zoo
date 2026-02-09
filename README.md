@@ -9,10 +9,15 @@ A collection of multidimensional features in the embedding space of language mod
 
 # Code Conventions
 
-We'll denote tensor shapes via suffixes:
-- B: Batch
-- T: Time / Sequence position / context length
-- D: Model embedding dimension
+We denote tensor shapes via suffixes (e.g. `llm_og_BCD`, `llm_og_bD`):
+
+| Symbol | Meaning |
+|--------|---------|
+| `B` | Batch |
+| `C` | Condition / Class |
+| `D` | Embedding dimension |
+| `T` | Time / Sequence position / context length |
+| `b` | Flattened batch (`B x C`) |
 
 
 ### Upload artifacts to HuggingFace
