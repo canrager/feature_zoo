@@ -5,3 +5,4 @@ template_filename: days_templates.txt
 fixed_context_length:
 num_elements: 7
 num_templates: 123
+gram: days7_circular.csv

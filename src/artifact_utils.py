@@ -230,3 +230,33 @@ def get_sae_activation_artifact_paths(cfg: Config) -> Dict[str, tuple[Path, Path
             paths[suffix] = (artifact_path, metadata_path)
 
     return paths
+
+
+def get_story_config_hash(cfg: Config) -> str:
+    """Generate hash for story activation artifacts."""
+    hash_params = {
+        "stories_filename": cfg.data.stories_filename,
+        "llm_hf_name": cfg.llm.hf_name,
+        "llm_layer_idx": cfg.llm.layer_idx,
+    }
+    hash_str = json.dumps(hash_params, sort_keys=True)
+    return hashlib.sha256(hash_str.encode()).hexdigest()[:8]
+
+
+def get_story_activation_artifact_path(cfg: Config) -> tuple[Path, Path]:
+    """
+    Get paths for story activation artifact and its metadata.
+
+    Returns:
+        (artifact_path, metadata_path) tuple
+    """
+    config_hash = get_story_config_hash(cfg)
+    activations_dir = Path(cfg.env.activations_dir)
+
+    # Use stories_filename without extension for naming
+    stories_name = Path(cfg.data.stories_filename).stem
+    base_name = f"{stories_name}_{cfg.llm.name}_layer{cfg.llm.layer_idx}_{config_hash}"
+    artifact_path = activations_dir / f"{base_name}_stories.safetensors"
+    metadata_path = activations_dir / f"{base_name}_stories.json"
+
+    return artifact_path, metadata_path

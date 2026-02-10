@@ -89,8 +89,8 @@ for override in overrides_list:
 
         return {
             "elements_C": return_dict["elements_C"],
-            "labels_B": return_dict["labels_B"],
-            "texts_B": return_dict["texts_B"],
+            "labels_b": return_dict["labels_b"],
+            "texts_b": return_dict["texts_b"],
             "input_ids_BT": input_ids_BT,
             "llm_BCD": llm_BCD,
         }

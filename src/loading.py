@@ -130,6 +130,30 @@ def load_corpus(cfg: Config) -> Dataset:
     return load_dataset(cfg.env.corpus, split="train", streaming=True)
 
 
+def load_stories(cfg: Config) -> List[Dict[str, Any]]:
+    """Load stories from JSONL file.
+
+    Each line in the JSONL file should have:
+    - sentences: list of sentence strings
+    - labels: list of emotion labels for each sentence
+
+    Returns:
+        List of story dicts, each with 'sentences' and 'labels' keys
+    """
+    path = Path(cfg.env.texts_dir) / cfg.data.stories_filename
+
+    if not path.exists():
+        raise FileNotFoundError(f"Stories file not found: {path}")
+
+    stories = []
+    with open(path, "r") as f:
+        for line in f:
+            story = json.loads(line.strip())
+            stories.append(story)
+
+    return stories
+
+
 if __name__ == "__main__":
     from src.config import load_config
 

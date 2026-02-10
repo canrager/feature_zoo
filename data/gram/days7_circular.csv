@@ -1,0 +1,8 @@
+,monday,tuesday,wednesday,thursday,friday,saturday,sunday
+monday,0,1,2,3,3,2,1
+tuesday,1,0,1,2,3,3,2
+wednesday,2,1,0,1,2,3,3
+thursday,3,2,1,0,1,2,3
+friday,3,3,2,1,0,1,2
+saturday,2,3,3,2,1,0,1
+sunday,1,2,3,3,2,1,0

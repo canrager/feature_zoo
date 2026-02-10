@@ -38,10 +38,13 @@ class DataConfig:
     name: str
     num_elements: int
     elements_filename: str
-    template_filename: str
-    trajectories_filename: str
-    fixed_context_length: int | None
-    num_templates: int | None
+    template_filename: str | None = None
+    trajectories_filename: str | None = None
+    fixed_context_length: int | None = None
+    num_templates: int | None = None
+    stories_filename: str | None = None
+    num_stories: int | None = None
+    gram: str | None = None
 
 
 @dataclass

@@ -1,0 +1,13 @@
+,january,february,march,april,may,june,july,august,september,october,november,december
+january,0,1,2,3,4,5,6,5,4,3,2,1
+february,1,0,1,2,3,4,5,6,5,4,3,2
+march,2,1,0,1,2,3,4,5,6,5,4,3
+april,3,2,1,0,1,2,3,4,5,6,5,4
+may,4,3,2,1,0,1,2,3,4,5,6,5
+june,5,4,3,2,1,0,1,2,3,4,5,6
+july,6,5,4,3,2,1,0,1,2,3,4,5
+august,5,6,5,4,3,2,1,0,1,2,3,4
+september,4,5,6,5,4,3,2,1,0,1,2,3
+october,3,4,5,6,5,4,3,2,1,0,1,2
+november,2,3,4,5,6,5,4,3,2,1,0,1
+december,1,2,3,4,5,6,5,4,3,2,1,0

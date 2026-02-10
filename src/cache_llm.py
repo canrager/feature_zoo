@@ -286,8 +286,8 @@ def load_embedding_trajectory_acts(
 
     return {
         "elements_C": embed_data["elements_C"],
-        "labels_B": [""],  # Single pseudo-template
-        "texts_B": [""],
+        "labels_b": [""],  # Single pseudo-template
+        "texts_b": [""],
         "input_ids_BT": th.empty(0),  # Placeholder
         "mask_BT": th.empty(0),  # Placeholder
         "llm_BCTD": llm_BCTD,
@@ -442,6 +442,174 @@ def load_labeled_acts(cfg: Config, force_recompute=False, compute_if_missing=Tru
     return return_dict
 
 
+def load_story_trajectory_acts(
+    cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
+) -> Dict:
+    """Load per-token activations for emotional stories.
+
+    Returns:
+        Dict with:
+        - story_acts_list: list of (T, D) tensors, one per story
+        - sentences_list: list of sentence lists per story
+        - labels_list: list of label lists per story
+        - token_to_sentence_list: list of (T,) arrays mapping token idx to sentence idx
+        - tokens_list: list of decoded token string lists
+        - full_texts: list of concatenated story strings
+    """
+    from src.artifact_utils import (
+        get_story_activation_artifact_path,
+        get_artifact_metadata,
+        save_artifact_metadata,
+    )
+    from src.loading import load_stories
+
+    # Load stories
+    stories = load_stories(cfg)
+
+    # Get tokenizer
+    tokenizer = load_tokenizer(cfg)
+
+    # Prepare story data
+    story_data = []
+    for story in stories:
+        sentences = story["sentences"]
+        labels = story["labels"]
+        full_text = " ".join(sentences)
+
+        # Tokenize each sentence to find boundaries
+        sentence_token_counts = []
+        for sent in sentences:
+            sent_tokens = tokenizer.encode(sent, add_special_tokens=False)
+            sentence_token_counts.append(len(sent_tokens))
+
+        story_data.append({
+            "sentences": sentences,
+            "labels": labels,
+            "full_text": full_text,
+            "sentence_token_counts": sentence_token_counts,
+        })
+
+    # Check cache
+    act_path, metadata_path = get_story_activation_artifact_path(cfg)
+
+    if act_path.exists() and not force_recompute:
+        # Load cached activations
+        activation_dict = load_file(str(act_path))
+
+        result = {
+            "story_acts_list": [],
+            "sentences_list": [],
+            "labels_list": [],
+            "token_to_sentence_list": [],
+            "tokens_list": [],
+            "full_texts": [],
+        }
+
+        for i, sd in enumerate(story_data):
+            acts_TD = activation_dict[f"story_{i}"].to(cfg.env.device)
+            result["story_acts_list"].append(acts_TD)
+            result["sentences_list"].append(sd["sentences"])
+            result["labels_list"].append(sd["labels"])
+            result["full_texts"].append(sd["full_text"])
+
+            # Reconstruct token_to_sentence mapping
+            token_to_sentence = []
+            for sent_idx, count in enumerate(sd["sentence_token_counts"]):
+                token_to_sentence.extend([sent_idx] * count)
+            result["token_to_sentence_list"].append(token_to_sentence)
+
+            # Decode tokens
+            encoded = tokenizer.encode(sd["full_text"], add_special_tokens=False, return_tensors="pt")
+            tokens = [tokenizer.decode([t]) for t in encoded[0]]
+            result["tokens_list"].append(tokens)
+
+        if cfg.env.debug:
+            print(f"Loaded story activations from {act_path}")
+
+        return result
+
+    if not compute_if_missing:
+        raise FileNotFoundError(f"Story activation artifact not found: {act_path}")
+
+    # Compute activations
+    if cfg.env.debug:
+        print("Computing story activations...")
+
+    llm = load_llm(cfg)
+    submodule = get_submodule(cfg, llm)
+
+    result = {
+        "story_acts_list": [],
+        "sentences_list": [],
+        "labels_list": [],
+        "token_to_sentence_list": [],
+        "tokens_list": [],
+        "full_texts": [],
+    }
+    activations_to_save = {}
+
+    for i, sd in enumerate(story_data):
+        # Tokenize full story
+        encoded = tokenizer.encode(sd["full_text"], add_special_tokens=False, return_tensors="pt")
+        input_ids = encoded.to(cfg.env.device)
+
+        # Hook to capture activations
+        acts_list = []
+
+        def output_hook(module, input, output):
+            if isinstance(output, tuple):
+                output = output[0]
+            acts_list.append(output.detach())
+
+        handle = submodule.register_forward_hook(output_hook)
+
+        with th.inference_mode():
+            llm(input_ids)
+
+        handle.remove()
+
+        acts_TD = acts_list[0].squeeze(0)  # (T, D)
+
+        # Build token_to_sentence mapping
+        token_to_sentence = []
+        for sent_idx, count in enumerate(sd["sentence_token_counts"]):
+            token_to_sentence.extend([sent_idx] * count)
+
+        # Decode tokens
+        tokens = [tokenizer.decode([t]) for t in encoded[0]]
+
+        result["story_acts_list"].append(acts_TD)
+        result["sentences_list"].append(sd["sentences"])
+        result["labels_list"].append(sd["labels"])
+        result["token_to_sentence_list"].append(token_to_sentence)
+        result["tokens_list"].append(tokens)
+        result["full_texts"].append(sd["full_text"])
+
+        activations_to_save[f"story_{i}"] = acts_TD.cpu()
+
+    # Save to cache
+    act_path.parent.mkdir(parents=True, exist_ok=True)
+    save_file(activations_to_save, str(act_path))
+
+    # Save metadata
+    metadata = {
+        "artifact_type": "story_activations",
+        "stories_filename": cfg.data.stories_filename,
+        "llm_name": cfg.llm.name,
+        "layer_idx": cfg.llm.layer_idx,
+        "num_stories": len(stories),
+    }
+    save_artifact_metadata(metadata, metadata_path)
+
+    if cfg.env.debug:
+        print(f"Saved story activations to {act_path}")
+
+    del llm
+    th.cuda.empty_cache()
+
+    return result
+
+
 def load_short_trajectory_acts(
     cfg: Config, force_recompute: bool = False, compute_if_missing: bool = True
 ) -> Dict:
@@ -524,8 +692,8 @@ def load_short_trajectory_acts(
 
     return {
         "elements_C": elements,
-        "labels_B": labels,
-        "texts_B": tokenized_texts,
+        "labels_b": labels,
+        "texts_b": tokenized_texts,
         "input_ids_BT": encoded["input_ids"],
         "mask_BT": encoded["attention_mask"],
         "llm_BCTD": acts_BCTD,

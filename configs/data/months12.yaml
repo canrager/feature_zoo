@@ -5,3 +5,4 @@ template_filename: months_templates.txt
 fixed_context_length:
 num_elements: 12
 num_templates: 100
+gram: months12_circular.csv

@@ -7,6 +7,20 @@ A collection of multidimensional features in the embedding space of language mod
 
 
 
+# Data
+
+Each dataset lives in `data/texts/` as a plain-text file of labels (one per line) and is configured via a YAML file in `configs/data/`.
+
+### Ground truth pairwise distances
+
+Pre-computed pairwise distance matrices are stored as labeled square CSVs in `data/gram/`. Each CSV has row and column headers matching the dataset labels, with entry `(i, j)` giving the ground truth distance between elements `i` and `j`. A dataset config can reference one via the `gram` field (filename relative to `data/gram/`).
+
+Generate all gram matrices:
+```bash
+python exp/generate_gram.py
+```
+
+
 # Code Conventions
 
 We denote tensor shapes via suffixes (e.g. `llm_og_BCD`, `llm_og_bD`):
@@ -17,7 +31,9 @@ We denote tensor shapes via suffixes (e.g. `llm_og_BCD`, `llm_og_bD`):
 | `C` | Condition / Class |
 | `D` | Embedding dimension |
 | `T` | Time / Sequence position / context length |
+| `R` | PCA truncation rank |
 | `b` | Flattened batch (`B x C`) |
+| `H` | Homology dimension |
 
 
 ### Upload artifacts to HuggingFace

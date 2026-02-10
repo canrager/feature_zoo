@@ -5,3 +5,4 @@ template_filename: years_templates.txt
 fixed_context_length:
 num_elements: 100
 num_templates: 100
+gram: years100_absolute.csv

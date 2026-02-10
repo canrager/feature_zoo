@@ -23,7 +23,9 @@ U_og_bD, S_og_D, Vh_og_DD = np.linalg.svd(llm_og_bD, full_matrices=False)
 | `C` | Condition / Class |
 | `D` | Embedding dimension |
 | `T` | Time / Sequence position / context length |
+| `R` | PCA truncation rank |
 | `b` | Flattened batch (`B x C`) |
+| `H` | Homology dimension |
 
 ### HuggingFace CLI Commands
 ```bash

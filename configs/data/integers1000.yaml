@@ -5,3 +5,4 @@ template_filename: integers_templates.txt
 fixed_context_length:
 num_elements: 1000
 num_templates: 100
+gram: integers1000_absolute.csv

@@ -5,3 +5,4 @@ template_filename: colors_templates.txt
 fixed_context_length:
 num_elements: 195
 num_templates: 88
+gram: colors195_lch_hue.csv

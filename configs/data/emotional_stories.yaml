@@ -1,0 +1,9 @@
+name: emotional_stories
+stories_filename: emotional_stories_1cycle.jsonl
+elements_filename: emotions200.txt
+template_filename:
+trajectories_filename:
+fixed_context_length:
+num_elements: 200
+num_templates:
+num_stories: 2
